@@ -1,0 +1,12 @@
+
+scripts/
+- scripts backup directory
+
+tools/
+- configure work environment, we need some tools. That's it.
+
+Documetation/
+- all of my docs which may contains
+	-- configure note
+	-- command note
+	-- knowledge base
