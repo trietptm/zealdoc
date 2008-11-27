@@ -3,3 +3,9 @@ set width
 :set tw=100  " textwidth
 :set fo+=mM  " formatoptions auto newline
 gggqG
+
+
+show hex
+--------
+:%!xxd		" show
+:%!xxd -r 	" return
