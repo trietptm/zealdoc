@@ -204,3 +204,6 @@ map <C-F12> :!ctags -R --c-kinds=+p --fields=+iaS --extra=+q .<CR>
 "add current directory tags and current fatherdirectory tags
 "set tags+=./tags
 "set tags+=../tags
+"
+" color scheme in /usr/share/vim/vim70/colors/
+colorscheme darkblue
