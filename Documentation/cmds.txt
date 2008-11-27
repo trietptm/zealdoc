@@ -1,7 +1,9 @@
-----
 cpio
 ----
+
 uncompress:
 (C) cpio -ivmd --no-absolute-filenames < $image.cpio
 compress:
 (C) find . | cpio -o -H newc > ../$image.cpio
+
+
