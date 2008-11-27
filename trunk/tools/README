@@ -5,3 +5,9 @@
 # 	e.g: tool name is cscope, then mkdir cscope.
 # 2. put the files you need in it.
 # 3. make a build.sh which will do all installation things.
+#
+# Here we dont care howto install them, just configure the env.
+# List of tools that I can think out:
+# - im : input method
+# - cscope : read code
+#
