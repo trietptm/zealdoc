@@ -1,0 +1,33 @@
+#
+# FAQ: http://www.denx.de/wiki/view/Know/MiniFOFAQ
+#
+1. what's mini_fo?
+==================
+
+mini_fo is a virtual kernel file system that can make read-only file systems
+writable.  This is done by redirecting modifying operations to a writeable
+location called "storage directory", and leaving the original data in the "base
+directory" untouched. When reading, the file system merges the modifed and
+original data so that only the newest versions will appear.  This occurs
+transparently to the user, who can access the data like on any other read-write
+file system.  Base and storage directories may be located on the same or on
+different partitions and may be of different file system types. While the
+storage directory obviously needs to be writable, the base may or may not be
+writable, what doesn't matter as it will not be modified anyway.  mini_fo was
+primarily developed for use in embedded systems and therefore was designed to be
+lightweight in terms of module size, memory usage and storage usage.
+Nevertheless it has proved useful for various other projects (see below). 
+
+2. What's it good for?
+======================
+
+The primary purpose of the mini_fo file system is to allow easy software updates
+to embedded systems, that often store their root filesystem in a read-only flash
+filesystem.
+
+3. How do I mount mini_fo(obseleted parameter)?
+===============================================
+
+The command is:
+(C) mount -t mini_fo -o base=<base directory>,\
+			sto=<storage directory> <base directory> <mount point>
