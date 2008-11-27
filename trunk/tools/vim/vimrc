@@ -1,0 +1,202 @@
+"Joseph's vim settings
+"fold settings
+set foldmethod=syntax
+set foldlevel=99
+
+"show manpages in vim use :Man command, only on unix
+"source $VIMRUNTIME/ftplugin/man.vim
+
+"nmap setting
+nmap Tn :tabnext<CR>
+nmap Tp :tabprevious<CR>
+nmap Tf :tabfirst<CR>
+nmap Tl :tablast<CR>
+
+"autocmd settings
+
+"set auto decoder
+set fenc=utf-8
+set fencs=utf-8,usc-bom,euc-jp,gb18030,gbk,gb2312,cp936
+
+"use vim's keyboard map, not vi's
+set nocompatible
+
+"show command input
+set showcmd
+
+"lines recorded in history
+set history=100
+
+"pump confirm when save nonsave or readonly file
+set confirm
+
+"use highlight when searching
+set hlsearch
+
+"probe file type
+filetype on
+
+"auto load plugin according to the file type
+filetype plugin on
+
+"load indentation rules according to the detected filetypes
+filetype indent on
+
+"don't wrap this style word with these characters
+set iskeyword+=_,$,@,%,#,-
+
+"status bar color
+highlight StatusLine guifg=SlateBlue guibg=Yellow
+highlight StatusLineNC guifg=Gray guibg=White
+
+"enable syntax highlighting
+syntax on
+
+"highlight current line
+set cursorline
+
+"do not generate backup files
+set nobackup
+
+"don't generate swap files and hidden it when buffer is closed
+setlocal noswapfile
+set bufhidden=hide
+
+"strengthen the command autocomplete
+set wildmenu
+
+"show cursor line number and column number on the status bar
+set ruler
+set rulerformat=%20(%2*%<%f%=\ %m%r\ %3l\ %c\ %p%%%)
+
+"set command line's height 2 lines
+set cmdheight=2
+
+"use mice
+set mouse=a
+
+"turn off the error bells and visualbells
+set noerrorbells
+set novisualbell
+
+"leave space between split windows
+set fillchars=vert:\ ,stl:\ ,stlnc:\
+
+"highlight the matching brackets, this function is too slow
+"the matching brackets highlight time (unit is 1/10 s)
+"set showmatch
+"set matchtime=5
+
+"ignore case when all small, case sensitive when some character capitalized
+set ignorecase smartcase
+
+"highlight the search characters one by one
+set incsearch
+
+"content displayed on the status bar
+set statusline=%F%m%r%h%w\ [FORMAT=%{&ff}]\ [TYPE=%Y]\ [POS=%l,%v][%p%%]\ %{strftime(\"%d/%m/%y\ -\ %H:%M\")}
+
+"show status bar always
+set laststatus=2
+
+"inherit the upper one line's indent style
+set autoindent
+
+"c indent auto
+set smartindent
+set cindent
+
+"use tab instead of spaces
+set noexpandtab
+
+"auto line break per 80 characters
+"set textwidth=80
+
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" Autocommands
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" show the line number in the file types as below
+
+"if has("autocmd")
+"   autocmd FileType xml,c,cs,java,perl,shell,bash,cpp,python,vim,php,ruby set number
+"   autocmd FileType xml,vmap <C-o> <ESC>'<i<!--<ESC>o<ESC>'>o-->
+"   autocmd FileType java,c,cpp,cs vmap <C-o> <ESC>'<o/*<ESC>'>o*/
+"   autocmd FileType text,php,vim,c,java,xml,bash,shell,perl,python setlocal textwidth=80
+"   autocmd Filetype xml,xsl source $VIMRUNTIME/plugin/closetag.vim
+"   autocmd BufReadPost *
+"      \ if line("'\"") > 0 && line("'\"") <= line("$") |
+"      \   exe "normal g`\"" |
+"      \ endif
+"endif " has("autocmd")
+
+" compile C/C++
+map <F5> :call CompileRunGcc()<CR>
+func! CompileRunGcc()
+exec "w"
+exec "!make"
+exec "! ./%<"
+endfunc
+
+" run shell script
+map <F6> :call CompileRunSH()<CR>
+func! CompileRunSH()
+exec "w"
+exec "!chmod a+x %"
+exec "!./%"
+endfunc
+
+"plugins setting below
+
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" CTags setting, needs Taglist plugin
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+"sort by name
+let Tlist_Sort_Type = "name"
+
+"compact type
+let Tlist_Compart_Format = 1
+
+"if only one buffer exists, kill buffer when close window
+let Tlist_Exist_OnlyWindow = 1
+
+"don't close other files tags
+let Tlist_File_Fold_Auto_Close = 0
+
+"don't show fold tree
+let Tlist_Enable_Fold_Column = 1
+
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" omnicppcompelte plugin settings, need omnicppcomplete plugin 
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+"see help completeopt, here use none preview window
+set completeopt=menu,menuone
+
+"turn off the access(+public -private #protected) hint
+let OmniCpp_ShowAccess = 0
+"auto complete for dot and arrow
+let OmniCpp_MayCompleteDot = 1
+let OmniCpp_MayCompleteArrow = 1
+let OmniCpp_MayCompleteScope = 0
+"don't select the first popup item
+let OmniCpp_SelectFirstItem = 0
+
+"automatic close the preview windows after complete
+"autocmd CursorMovedI * if pumvisible() == 0|pclose|endif
+"autocmd InsertLeave * if pumvisible() == 0|pclose|endif
+
+"map keys to generate ctags for current directory and the subdirectories
+map <C-F12> :!ctags -R --c-kinds=+p --fields=+iaS --extra=+q .<CR>
+
+"add common tags for system library
+"generate cmd: 
+"$ctags -R -f ~/.vim/systags --exclude="c++" \
+"	--exclude="compiz" --exclude="python" \
+"	--c-kinds=+p	\
+"	--fields=+iaS	\
+"	--extra=+q	\
+"	/usr/include/
+"add system tags
+set tags+=/home/joseph/.vim/systags
+"add current directory tags and current fatherdirectory tags
+set tags+=./tags
+set tags+=../tags
