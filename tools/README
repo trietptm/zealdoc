@@ -1,0 +1,6 @@
+# Build tools in your work environment.
+#
+# every new tool that be added in this dir need do following things:
+# 1. make a new directory with tools name.
+# 	e.g: tool name is cscope, then mkdir cscope.
+# 2. 
