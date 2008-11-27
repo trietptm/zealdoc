@@ -4,7 +4,6 @@
 CURRDIR=`pwd`
 TOOLNAME=`basename $CURRDIR`
 
-
 source ../../lib/lib.sh
 
 need_root;
