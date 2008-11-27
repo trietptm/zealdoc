@@ -1,4 +1,7 @@
 
+lib/
+- library for others
+
 scripts/
 - scripts backup directory
 
@@ -10,6 +13,5 @@ Documetation/
 	-- configure note
 	-- command note
 	-- knowledge base
+	Some large files we may use tex to generate PDF or else pretty format.
 
-lib/
-- library for others

@@ -8,4 +8,17 @@ option --no-absolute-filenames
 compress:
 (C) find . | cpio -o -H newc > ../$image.cpio
 
+tar
+---
 
+tar a directory:
+(C) tar -cf $DIR.tar $DIR
+
+tar and compress(gzip) a directory:
+(C) tar -zcf $DIR.tar.gz $DIR
+
+tar and compress(bz2) a directory:
+(C) tar -jcf $DIR.tar.bz2 $DIR
+
+exclue directory:
+(O) --exclude

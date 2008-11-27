@@ -1,5 +1,5 @@
 set width
 ---------
-:set tw=100         " textwidth
-:set fo+=mM         " formatoptions auto newline
+:set tw=100  " textwidth
+:set fo+=mM  " formatoptions auto newline
 gggqG
