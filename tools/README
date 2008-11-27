@@ -3,4 +3,5 @@
 # every new tool that be added in this dir need do following things:
 # 1. make a new directory with tools name.
 # 	e.g: tool name is cscope, then mkdir cscope.
-# 2. 
+# 2. put the files you need in it.
+# 3. make a build.sh which will do all installation things.

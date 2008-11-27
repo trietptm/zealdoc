@@ -12,6 +12,7 @@ if [ ! -e ~/.vim/plugin ]; then
 	mkdir -p ~/.vim/plugin
 fi
 
+# link to current user home directory
 if [ -e ~/.vim/plugin/cscope_maps.vim ]; then
 	echo "###"
 	echo "#	Have a older version in your system. We don't override it."
@@ -23,6 +24,7 @@ else
 	# TODO: if the file has a bad symbol, also will get here.
 	DIR=`pwd`
 	cd ~/.vim/plugin
+	# do not copy it, I want to use the same one everywhere.
 	ln -s $DIR/cscope_maps.vim cscope_maps.vim
 	exit 1
 fi
