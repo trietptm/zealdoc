@@ -9,3 +9,8 @@ show hex
 --------
 :%!xxd		" show
 :%!xxd -r 	" return
+
+jump
+----
+ma	" mark current place as `a'
+`a	" jump to mark a
