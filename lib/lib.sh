@@ -3,10 +3,12 @@
 # library for shell scripts
 #
 
+# return 1 means exist
 cmd_isexist()
 {
 	local cmd=$1
 
+	# only find command in system path
 	if [ `which $cmd`x = ""x ]; then
 		return 0
 	else
@@ -35,6 +37,7 @@ cmd_not_exist_exit()
 }
 
 # file and directory
+# return 1 means exist
 fd_isexist()
 {
 	local file=$1
@@ -54,6 +57,7 @@ file_exist_exit()
 		exit 1
 	fi
 }
+
 file_not_exist_create()
 {
 	fd_isexist $1; ret=$?
@@ -62,6 +66,7 @@ file_not_exist_create()
 		return 0;
 	fi
 }
+
 dir_not_exist_create()
 {
 	fd_isexist $1; ret=$?
