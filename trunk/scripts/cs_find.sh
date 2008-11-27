@@ -14,6 +14,7 @@ SRC_DIR=$1
 mkdir -p $SRC_DIR/cscope
 cd /
 find $1 	\
+	-name .svn -o -name .pc -o -name CVS -o -name .git -prune -o \
 	-path "$SRC_DIR/arch/*" ! -path  "$SRC_DIR/arch/i386*" -prune -o	\
 	-path "$SRC_DIR/include/asm-*" ! -path  "$SRC_DIR/include/asm-i386*" -prune -o \
 	-path "$SRC_DIR/tmp*"  -prune -o \
