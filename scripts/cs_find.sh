@@ -2,6 +2,8 @@
 # This script do the find function for 
 # cscope.files
 # As a input parameter is source directory.
+# 
+# only kernel need it
 
 if [ x"$1" = "x" ]; then
 	echo "Please input your source directory"
