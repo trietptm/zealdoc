@@ -85,6 +85,24 @@ file_not_exist_exit()
 	fi
 }
 
+is_root()
+{
+	if [ `whoami`x = "root"x ]; then
+		return 1
+	else
+		return 0
+	fi
+}
+
+need_root()
+{
+	is_root; ret=$?
+	if [ $ret = 0 ]; then
+		echo "Need privilege, try with <root>"
+		exit 1
+	fi
+}
+
 log_fail()
 {
 	local var=$1
