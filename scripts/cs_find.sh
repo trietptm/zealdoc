@@ -4,6 +4,7 @@
 # As a input parameter is source directory.
 # 
 # only kernel need it
+# other small project just use: cscope -R
 
 if [ x"$1" = "x" ]; then
 	echo "Please input your source directory"
