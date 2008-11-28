@@ -2,8 +2,6 @@
 # This script do the find function for 
 # cscope.files
 # As a input parameter is source directory.
-# 
-# only kernel need it
 
 if [ x"$1" = "x" ]; then
 	echo "Please input your source directory"
@@ -14,12 +12,8 @@ SRC_DIR=$1
 mkdir -p $SRC_DIR/cscope
 cd /
 find $1 	\
-	\( -name .svn -o -name .pc -o -name CVS -o -name .git \) -prune -o \
-	-path "$SRC_DIR/arch/*" ! -path  "$SRC_DIR/arch/i386*" -prune -o	\
-	-path "$SRC_DIR/include/asm-*" ! -path  "$SRC_DIR/include/asm-i386*" -prune -o \
-	-path "$SRC_DIR/tmp*"  -prune -o \
-	-path "$SRC_DIR/Document*"  -prune -o \
-	-path "$SRC_DIR/script*"  -prune -o \
+	\( -name .pc -o -name Doc* -o -name scripts -o -name .svn \) -prune -o \
+	! -path $1/arch/arm* -a -path $1/arch/ -prune -o \
 	-name "*.[chxsS]"  -print > $SRC_DIR/cscope/cscope.files \
 
 cd $SRC_DIR/cscope 
