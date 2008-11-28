@@ -15,3 +15,5 @@ Documetation/
 	-- knowledge base
 	Some large files we may use tex to generate PDF or else pretty format.
 
+tmp/
+- temporary files, needed tidy.
