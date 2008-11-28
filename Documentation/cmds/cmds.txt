@@ -22,3 +22,10 @@ tar and compress(bz2) a directory:
 
 exclue directory:
 (O) --exclude
+
+p7zip
+-----
+uncompress(not work well):
+(C) 7z e xxx.rar
+(C) 7z e xxx.zip
+
