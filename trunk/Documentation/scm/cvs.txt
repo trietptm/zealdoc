@@ -1,0 +1,2 @@
+checkout the project at that data
+(C) cvs co -D 2008-08-08 project
