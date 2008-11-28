@@ -71,7 +71,7 @@ dir_not_exist_create()
 {
 	fd_isexist $1; ret=$?
 	if [ $ret = 0 ]; then
-		mkdir $1;
+		mkdir -p $1;
 		return 0;
 	fi
 }
