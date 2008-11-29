@@ -1,0 +1,18 @@
+Special Macros
+--------------
+  $@ is the name of the file to be made.
+  $? is the names of the changed dependents.
+  $< the name of the related file that caused the action.
+  $* the prefix shared by target and dependent files.
+
+Example
+-------
+
+printenv: printenv.c
+        $(CC) $(CFLAGS) $? $(LDFLAGS) -o $@
+
+alternatively: 
+printenv: printenv.c
+        $(CC) $(CFLAGS) $@.c $(LDFLAGS) -o $@
+
+
