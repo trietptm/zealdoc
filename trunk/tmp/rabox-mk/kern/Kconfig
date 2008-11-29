@@ -1,0 +1,20 @@
+#
+# Netsvc Kernel
+#
+
+menu "Kernel Interfaces"
+source "kern/netlink/Kconfig"
+
+config SECRET_FILE
+	bool "Secret file source support"
+	default y
+	help
+	  Secret module use file as source.
+
+config SECRET_PLAIN
+	bool "Secret format - plain"
+	default y
+	help
+	  Secret plain format.
+endmenu
+

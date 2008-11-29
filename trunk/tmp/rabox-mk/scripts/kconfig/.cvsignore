@@ -1,0 +1,7 @@
+*.cmd
+lex.zconf.c
+zconf.tab.c
+zconf.hash.c
+conf
+mconf
+qconf

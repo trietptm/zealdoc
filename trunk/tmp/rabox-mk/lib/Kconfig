@@ -1,0 +1,12 @@
+#
+# Protocol Stacks
+#
+
+menu "Crypto Services"
+source "lib/smartcard/Kconfig"
+source "lib/libusb/Kconfig"
+source "lib/ifd_ct/Kconfig"
+source "lib/pcsclite/Kconfig"
+source "lib/ccid/Kconfig"
+endmenu
+
