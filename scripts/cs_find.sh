@@ -6,24 +6,38 @@
 # only kernel need it
 # other small project just use: cscope -R
 
-if [ x"$1" = "x" ]; then
-	echo "Please input your source directory"
-	exit 1
+usage()
+{
+	echo "We need 2 parameter:"
+	echo '$1 - kernel source direcotry.'
+	echo '$2 - kernel arch which you want to search.'
+	echo "Example: ./cs_find.sh /kernel/source/dir/ x86"
+}
+
+# we need know source and ARCH(dir name in srctree/arch/)
+if [ $# -ne 2 ]; then
+	usage
+	exit 1;
 fi
 
-SRC_DIR=$1
-mkdir -p $SRC_DIR/cscope
-cd /
-find $1 	\
-	\( -name .svn -o -name .pc -o -name CVS -o -name .git \) -prune -o \
-	-path "$SRC_DIR/arch/*" ! -path  "$SRC_DIR/arch/i386*" -prune -o	\
-	-path "$SRC_DIR/include/asm-*" ! -path  "$SRC_DIR/include/asm-i386*" -prune -o \
-	-path "$SRC_DIR/tmp*"  -prune -o \
-	-path "$SRC_DIR/Document*"  -prune -o \
-	-path "$SRC_DIR/script*"  -prune -o \
-	-name "*.[chxsS]"  -print > $SRC_DIR/cscope/cscope.files \
+LNX=$1
+ARCH=$2
 
-cd $SRC_DIR/cscope 
+mkdir -p $LNX/cscope
+
+cd / 	
+    find  $LNX                                                                \
+	-path "$LNX/arch/*" ! -path "$LNX/arch/$ARCH*" -prune -o                \
+	-path "$LNX/include/asm-*" ! -path "$LNX/include/asm-$ARCH*" -prune -o  \
+	-path "$LNX/tmp*" -prune -o                                           \
+	-path "$LNX/Documentation*" -prune -o                                 \
+	-path "$LNX/scripts*" -prune -o                                       \
+	-path "$LNX/drivers*" -prune -o                                       \
+	-path "$LNX/sound*" -prune -o                                         \
+	\( -name .svn -o -name .pc -o -name CVS -o -name .git \) -prune -o    \
+        -name "*.[chxsS]" -print > $LNX/cscope/cscope.files
+
+cd $LNX/cscope 
 echo "Finding files now, just wait & be patient"
 cscope -b -k -q
 echo "Cscope Find Finish..."
