@@ -1,0 +1,7 @@
+# partition table of /dev/hdc
+unit: sectors
+
+/dev/CF1 : start=       32, size=    39136, Id=83, bootable
+/dev/CF2 : start=    39168, size=   105472, Id=83
+/dev/CF3 : start=   144640, size=   105472, Id=83
+/dev/CF4 : start=        0, size=        0, Id= 0
