@@ -1,0 +1,21 @@
+# Copyright (C) 2008 by Lv Zheng <lv.zheng@soliton.com.cn>
+#
+# Licensed under the GPL v2, see the file LICENSE in this tarball.
+
+obj-y:=
+
+obj-y += strutl.o
+obj-y += sockutl.o
+
+obj-y += buffer.o
+obj-y += hash.o
+obj-y += rbtree.o
+obj-y += vector.o
+
+obj-$(CONFIG_PCSC) += pcsclite/
+obj-$(CONFIG_CCID) += ccid/
+
+# TODO:
+obj-$(CONFIG_SC) += smartcard/
+obj-$(CONFIG_LIBUSB) += libusb/
+obj-$(CONFIG_CT) += ifd_ct/

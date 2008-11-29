@@ -1,0 +1,25 @@
+# Copyright (C) 2008 by Lv Zheng <lv.zheng@soliton.com.cn>
+#
+# Licensed under the GPL v2, see the file LICENSE in this tarball.
+
+obj-y:=
+
+obj-y += pcap/
+obj-y += netlink/
+
+obj-y += eloop.o
+obj-y += dfastm.o
+obj-y += notify.o
+obj-y += service.o
+obj-y += module.o
+obj-y += system.o
+
+obj-y += panic.o
+obj-y += packet.o
+obj-y += termcap.o
+obj-y += waiter.o
+obj-y += secret.o
+
+obj-$(CONFIG_SECRET_FILE) += secret_file.o
+obj-$(CONFIG_SECRET_PLAIN) += secret_plain.o
+
