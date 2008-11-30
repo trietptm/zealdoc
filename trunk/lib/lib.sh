@@ -49,6 +49,29 @@ fd_isexist()
 	fi
 }
 
+sym_isexist()
+{
+	local file=$1
+
+	# -h file
+	# True if file exist and is a symbolic link.
+	if [ -h $file ]; then
+		return 1
+	else
+		return 0
+	fi
+
+}
+
+sym_file_exist_exit()
+{
+	sym_isexist $1; ret=$?
+	if [ $ret = 1 ]; then
+		echo "sym_file_exist_exit <$1>"
+		exit 1
+	fi
+}
+
 file_exist_exit()
 {
 	fd_isexist $1; ret=$?
