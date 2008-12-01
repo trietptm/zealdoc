@@ -4,7 +4,7 @@
 #
 
 # return 1 means exist
-cmd_isexist()
+function cmd_isexist()
 {
 	local cmd=$1
 
@@ -16,7 +16,7 @@ cmd_isexist()
 	fi
 }
 
-cmd_exist_exit()
+function cmd_exist_exit()
 {
 	local cmd=$1
 	cmd_isexist $cmd; ret=$?
@@ -26,7 +26,7 @@ cmd_exist_exit()
 	fi
 }
 
-cmd_not_exist_exit()
+function cmd_not_exist_exit()
 {
 	local cmd=$1
 	cmd_isexist $cmd; ret=$?
@@ -38,7 +38,7 @@ cmd_not_exist_exit()
 
 # file and directory
 # return 1 means exist
-fd_isexist()
+function fd_isexist()
 {
 	local file=$1
 
@@ -49,7 +49,7 @@ fd_isexist()
 	fi
 }
 
-sym_isexist()
+function sym_isexist()
 {
 	local file=$1
 
@@ -63,7 +63,7 @@ sym_isexist()
 
 }
 
-sym_file_exist_exit()
+function sym_file_exist_exit()
 {
 	sym_isexist $1; ret=$?
 	if [ $ret = 1 ]; then
@@ -72,7 +72,7 @@ sym_file_exist_exit()
 	fi
 }
 
-file_exist_exit()
+function file_exist_exit()
 {
 	fd_isexist $1; ret=$?
 	if [ $ret = 1 ]; then
@@ -81,7 +81,7 @@ file_exist_exit()
 	fi
 }
 
-file_not_exist_create()
+function file_not_exist_create()
 {
 	fd_isexist $1; ret=$?
 	if [ $ret = 0 ]; then
@@ -90,7 +90,7 @@ file_not_exist_create()
 	fi
 }
 
-dir_not_exist_create()
+function dir_not_exist_create()
 {
 	fd_isexist $1; ret=$?
 	if [ $ret = 0 ]; then
@@ -99,7 +99,7 @@ dir_not_exist_create()
 	fi
 }
 
-file_not_exist_exit()
+function file_not_exist_exit()
 {
 	fd_isexist $1; ret=$?
 	if [ $ret = 0 ]; then
@@ -108,7 +108,7 @@ file_not_exist_exit()
 	fi
 }
 
-is_root()
+function is_root()
 {
 	if [ `whoami`x = "root"x ]; then
 		return 1
@@ -117,7 +117,7 @@ is_root()
 	fi
 }
 
-need_root()
+function need_root()
 {
 	is_root; ret=$?
 	if [ $ret = 0 ]; then
@@ -126,7 +126,7 @@ need_root()
 	fi
 }
 
-log_fail()
+function log_fail()
 {
 	local var=$1
 	local name=$2
