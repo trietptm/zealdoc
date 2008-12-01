@@ -13,4 +13,4 @@ add user to vbox group
 run it
 ------
 (C) insmod vboxdrv
-(C) Virtualbox
+(C) VirtualBox
