@@ -1,0 +1,6 @@
+source in debian-base
+---------------------
+## Need sun_vbox.asc first.
+## get http://download.virtualbox.org/virtualbox/debian/sun_vbox.asc
+## sudo apt-key add sun_vbox.asc
+# deb http://download.virtualbox.org/virtualbox/debian etch non-free
