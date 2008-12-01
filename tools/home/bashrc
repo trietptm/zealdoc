@@ -76,3 +76,5 @@ fi
 
 # close hate beep sound
 setterm -bfreq 20
+export CVSROOT=:pserver:zengjie@192.168.100.1:/home/cvsroot
+export PATH=$PATH:/opt/star/tools/arm-linux-3.3.6/bin
