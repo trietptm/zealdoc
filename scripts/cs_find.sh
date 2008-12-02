@@ -27,13 +27,15 @@ mkdir -p $LNX/cscope
 
 cd / 	
     find  $LNX                                                                \
-	-path "$LNX/arch/*" ! -path "$LNX/arch/$ARCH*" -prune -o                \
-	-path "$LNX/include/asm-*" ! -path "$LNX/include/asm-$ARCH*" -prune -o  \
+	-path "$LNX/arch/*" ! -path "$LNX/arch/$ARCH*" -prune -o              \
+	-path "$LNX/include/asm-*" \
+		! \( -path "$LNX/include/asm-$ARCH*" -o -path "$LNX/include/asm-generic*" \) \
+		-prune -o  	      					      \
 	-path "$LNX/tmp*" -prune -o                                           \
 	-path "$LNX/Documentation*" -prune -o                                 \
 	-path "$LNX/scripts*" -prune -o                                       \
-	-path "$LNX/drivers*" -prune -o                                       \
 	-path "$LNX/sound*" -prune -o                                         \
+	-path "$LNX/patches*" -prune -o                                       \
 	\( -name .svn -o -name .pc -o -name CVS -o -name .git \) -prune -o    \
         -name "*.[chxsS]" -print > $LNX/cscope/cscope.files
 
