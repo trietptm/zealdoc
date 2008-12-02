@@ -26,11 +26,10 @@ DASMFLAGS	= -u -o $(ENTRYPOINT) -e $(ENTRYOFFSET)
 TOPDIR		= .
 OUTPUT 	= $(TOPDIR)/bin
 
-# This Program
 BOOTDIR		= $(TOPDIR)/boot
-TINIXBOOT	= $(BOOTDIR)/boot.bin $(BOOTDIR)/loader.bin
-
 KERNELDIR	= $(TOPDIR)/kernel
+# All binary
+TINIXBOOT	= $(BOOTDIR)/boot.bin $(BOOTDIR)/loader.bin
 TINIXKERNEL	= $(KERNELDIR)/kernel.bin
 
 LIBDIR		= $(TOPDIR)/lib
