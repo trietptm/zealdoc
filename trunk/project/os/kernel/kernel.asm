@@ -147,7 +147,6 @@ csinit:		; “这个跳转指令强制使用刚刚初始化的结构”——<<OS:D&I 2nd>> P90.
 
 	hlt
 
-
 ; interrupt and exception -- hw interrupt
 ; ---------------------------------
 %macro	hwint_master	1
@@ -156,7 +155,6 @@ csinit:		; “这个跳转指令强制使用刚刚初始化的结构”——<<OS:D&I 2nd>> P90.
 	add	esp, 4
 	hlt
 %endmacro
-
 
 ALIGN	16
 hwint00:		; Interrupt routine for irq 0 (the clock).
@@ -297,7 +295,4 @@ exception:
 	call	exception_handler
 	add	esp, 4*2	; 让栈顶指向 EIP，堆栈中从顶向下依次是：EIP、CS、EFLAGS
 	hlt
-
-
-
 
