@@ -1,12 +1,6 @@
 #ifndef __GLOBAL_INCLUDE_H__
 #define __GLOBAL_INCLUDE_H__
 
-/* EXTERN is defined as extern except in global.c */
-#ifdef	GLOBAL_VARIABLES_HERE
-#undef	EXTERN
-#define	EXTERN
-#endif
-
 EXTERN	int		disp_pos;
 EXTERN	t_8		gdt_ptr[6];	/* 0~15:Limit  16~47:Base */
 EXTERN	t_8		idt_ptr[6];	/* 0~15:Limit  16~47:Base */
