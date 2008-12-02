@@ -10,36 +10,36 @@
 
 
 /* 存储段描述符/系统段描述符 */
-typedef struct s_descriptor		/* 共 8 个字节 */
-{
+typedef struct s_descriptor {
 	t_16	limit_low;		/* Limit */
 	t_16	base_low;		/* Base */
 	t_8	base_mid;		/* Base */
 	t_8	attr1;			/* P(1) DPL(2) DT(1) TYPE(4) */
 	t_8	limit_high_attr2;	/* G(1) D(1) 0(1) AVL(1) LimitHigh(4) */
 	t_8	base_high;		/* Base */
-}DESCRIPTOR;
+} DESCRIPTOR;
 
 /* 门描述符 */
-typedef struct s_gate
-{
+typedef struct s_gate {
 	t_16	offset_low;	/* Offset Low */
 	t_16	selector;	/* Selector */
 	t_8	dcount;		/* 该字段只在调用门描述符中有效。
-				如果在利用调用门调用子程序时引起特权级的转换和堆栈的改变，需要将外层堆栈中的参数复制到内层堆栈。
-				该双字计数字段就是用于说明这种情况发生时，要复制的双字参数的数量。 */
+				 * 如果在利用调用门调用子程序时引起特权级的转换和堆栈的改变，
+				 * 需要将外层堆栈中的参数复制到内层堆栈。 
+				 * 该双字计数字段就是用于说明这种情况发生时，要复制的双字参数的数量。
+				 * */
 	t_8	attr;		/* P(1) DPL(2) DT(1) TYPE(4) */
 	t_16	offset_high;	/* Offset High */
-}GATE;
+} GATE;
 
 
 /* GDT */
-/* 描述符索引 */
+/* descriptor index  */
 #define	INDEX_DUMMY		0	// ┓
 #define	INDEX_FLAT_C		1	// ┣ LOADER 里面已经确定了的.
 #define	INDEX_FLAT_RW		2	// ┃
 #define	INDEX_VIDEO		3	// ┛
-/* 选择子 */
+/* selector */
 #define	SELECTOR_DUMMY		   0		// ┓
 #define	SELECTOR_FLAT_C		0x08		// ┣ LOADER 里面已经确定了的.
 #define	SELECTOR_FLAT_RW	0x10		// ┃
@@ -47,7 +47,6 @@ typedef struct s_gate
 
 #define	SELECTOR_KERNEL_CS	SELECTOR_FLAT_C
 #define	SELECTOR_KERNEL_DS	SELECTOR_FLAT_RW
-
 
 /* 描述符类型值说明 */
 #define	DA_32			0x4000	/* 32 位段				*/
@@ -93,7 +92,5 @@ typedef struct s_gate
 /* 中断向量 */
 #define	INT_VECTOR_IRQ0			0x20
 #define	INT_VECTOR_IRQ8			0x28
-
-
 
 #endif /* _TINIX_PROTECT_H_ */

@@ -8,7 +8,6 @@
 #ifndef	_TINIX_CONST_H_
 #define	_TINIX_CONST_H_
 
-
 /* EXTERN */
 #define	EXTERN	extern	/* EXTERN is defined as extern except in global.c */
 
@@ -24,7 +23,7 @@
 #define	GDT_SIZE	128
 #define	IDT_SIZE	256
 
-/* х╗оч */
+/* privilege level */
 #define	PRIVILEGE_KRNL	0
 #define	PRIVILEGE_TASK	1
 #define	PRIVILEGE_USER	3
