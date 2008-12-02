@@ -19,6 +19,7 @@ LD		= ld
 ASMBFLAGS	= -I include/boot/ 
 # for kernel and lib
 ASMKFLAGS	= -I include -f elf
+# -fno-builtin since we use the same name with built-in function
 CFLAGS		= -I include -c -fno-builtin
 LDFLAGS		= -s -Ttext $(ENTRYPOINT)
 DASMFLAGS	= -u -o $(ENTRYPOINT) -e $(ENTRYOFFSET)
