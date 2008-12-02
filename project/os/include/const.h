@@ -27,5 +27,4 @@
 #define	INT_S_CTL	0xA0	/* I/O port for second interrupt controller  <Slave>  */
 #define	INT_S_CTLMASK	0xA1	/* setting bits in this port disables ints   <Slave>  */
 
-
 #endif /* _TINIX_CONST_H_ */
