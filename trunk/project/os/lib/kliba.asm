@@ -6,13 +6,13 @@
 ; ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 
 
-; 导入全局变量
+; import
 extern	disp_pos
 
 
 [SECTION .text]
 
-; 导出函数
+; export function
 global	disp_str
 global	disp_color_str
 global	out_byte
