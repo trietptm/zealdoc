@@ -74,11 +74,11 @@ _start:
 	;    00100000h ┣━━━━━━━━━━━━━━━━━━┫
 	;              ┃Hardware  Reserved┃ B8000h ← gs
 	;       9FC00h ┣━━━━━━━━━━━━━━━━━━┫
-	;              ┃	LOADER.BIN┃ somewhere in LOADER ← esp
+	;              ┃    LOADER.BIN    ┃ somewhere in LOADER ← esp
 	;       90000h ┣━━━━━━━━━━━━━━━━━━┫
-	;              ┃	KERNEL.BIN┃
+	;              ┃    KERNEL.BIN    ┃
 	;       80000h ┣━━━━━━━━━━━━━━━━━━┫
-	;              ┃	KERNEL    ┃ 30400h ← KERNEL 入口 (KernelEntryPointPhyAddr)
+	;              ┃      KERNEL      ┃ 30400h ← KERNEL 入口 (KernelEntryPointPhyAddr)
 	;       30000h ┣━━━━━━━━━━━━━━━━━━┫
 	;              | ...              | 
 	;              | ...              |
@@ -109,9 +109,29 @@ _start:
 
 	mov	dword [disp_pos], 0
 
-	sgdt	[gdt_ptr]	; cstart() 中将会用到 gdt_ptr
-	call	cstart		; 在此函数中改变了gdt_ptr，让它指向新的GDT
-	lgdt	[gdt_ptr]	; 使用新的GDT
+	; sidt: store 48-bit BASE/LIMIT IDTR to m
+	; sgdt: store 48-bit BASE/LIMIT GDTR to m, here is gdt_ptr
+	sgdt	[gdt_ptr]	; cstart() will use gdt_ptr
+	call	cstart		; this func make gdt_ptr point to the new GDT
+	
+	; lgdt: load m into GDTR
+	; lidt: load m into IDTR
+	;
+	; http://pdos.csail.mit.edu/6.828/2005/readings/i386/LGDT.htm
+	;	IF instruction = LIDT
+	;	THEN
+   	;		IF OperandSize = 16
+   	;		THEN IDTR.Limit:Base := m16:24 (* 24 bits of base loaded *)
+   	;		ELSE IDTR.Limit:Base := m16:32
+   	;		FI;
+	;	ELSE (* instruction = LGDT *)
+   	;		IF OperandSize = 16
+   	;		THEN GDTR.Limit:Base := m16:24 (* 24 bits of base loaded *)
+   	;		ELSE GDTR.Limit:Base := m16:32;
+   	;		FI;
+	;	FI;
+	;
+	lgdt	[gdt_ptr]	; load new GDT
 
 	lidt	[idt_ptr]
 
@@ -126,7 +146,7 @@ csinit:		; “这个跳转指令强制使用刚刚初始化的结构”——<<OS:D&I 2nd>> P90.
 	hlt
 
 
-; 中断和异常 -- 硬件中断
+; interrupt and exception -- hw interrupt
 ; ---------------------------------
 %macro	hwint_master	1
 	push	%1
