@@ -4,4 +4,5 @@ http://blog.sina.com.cn/s/blog_4bd62ac40100arhy.html
 IRR
 IMR
 ISR
+NMI
 
