@@ -48,7 +48,7 @@ void	hwint15();
 /*======================================================================*
                             init_prot
  *----------------------------------------------------------------------*
- 初始化 IDT
+ initialize IDT
  *======================================================================*/
 PUBLIC void init_prot()
 {
@@ -89,23 +89,23 @@ PUBLIC void init_prot()
 	init_idt_desc(INT_VECTOR_IRQ8 + 7,	DA_386IGate, hwint15,			PRIVILEGE_KRNL);
 }
 
-
 /*======================================================================*
                              init_idt_desc
  *----------------------------------------------------------------------*
  初始化 386 中断门
  *======================================================================*/
-PUBLIC void init_idt_desc(unsigned char vector, t_8 desc_type, t_pf_int_handler handler, unsigned char privilege)
+PUBLIC void init_idt_desc(t_8 vector, t_8 desc_type, 
+			  t_pf_int_handler handler, t_8 privilege)
 {
-	GATE *	p_gate	= &idt[vector];
-	t_32	base	= (t_32)handler;
+	GATE *p_gate	= &idt[vector];
+	t_32 base	= (t_32)handler;
+
 	p_gate->offset_low	= base & 0xFFFF;
 	p_gate->selector	= SELECTOR_KERNEL_CS;
 	p_gate->dcount		= 0;
 	p_gate->attr		= desc_type | (privilege << 5);
 	p_gate->offset_high	= (base >> 16) & 0xFFFF;
 }
-
 
 /*======================================================================*
                             exception_handler
@@ -135,7 +135,8 @@ PUBLIC void exception_handler(int vec_no, int err_code, int eip, int cs, int efl
 					"#MF x87 FPU Floating-Point Error (Math Fault)",
 					"#AC Alignment Check",
 					"#MC Machine Check",
-					"#XF SIMD Floating-Point Exception"
+					"#XF SIMD Floating-Point Exception",
+					"",
 				};
 
 	/* print 5 blank lines for clearing screen and clear disp_pos  */

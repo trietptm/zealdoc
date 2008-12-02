@@ -19,7 +19,7 @@ typedef struct s_descriptor {
 	t_8	base_high;		/* Base */
 } DESCRIPTOR;
 
-/* ÃÅÃèÊö·û */
+/* gate descriptor */
 typedef struct s_gate {
 	t_16	offset_low;	/* Offset Low */
 	t_16	selector;	/* Selector */
