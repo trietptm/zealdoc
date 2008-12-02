@@ -112,7 +112,9 @@ _start:
 	; sidt: store 48-bit BASE/LIMIT IDTR to m
 	; sgdt: store 48-bit BASE/LIMIT GDTR to m, here is gdt_ptr
 	sgdt	[gdt_ptr]	; cstart() will use gdt_ptr
-	call	cstart		; this func make gdt_ptr point to the new GDT
+
+	call	cstart		; this func make gdt_ptr point to the new GDT,
+				; then call init_prot
 	
 	; lgdt: load m into GDTR
 	; lidt: load m into IDTR
