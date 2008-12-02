@@ -1,0 +1,21 @@
+Add a IP-alias
+--------------
+(C) ifconfig eth0 add @ipv4-addr@ netmask @ipv4-addr@
+
+This may create a `device` with named eth0:0.  But it's not a real device and 
+even not a device.  In kernel, it's just a additional set of attributes of
+that real device(e.g eth0) which called IP-alias.  And this new `device` is 
+added into ifa_list(struct in_ifaddr) with ifa_label(e.g eth0:0). So one device
+can have many address(or other) at same time and they are differentiated by 
+label.
+
+Delete a IP-alias
+-----------------
+(C) ifconfig eth0:0 down
+
+alias up/down procedure
+--------------------
+up -> SIOCSIFFLAGS(IFF_UP | IFF_RUNNING) -> inet_ioctl -> 
+	devinet_ioctl -> dev_change_flags.
+
+donw -> SIOCSIFFLAGS(~IFF_UP) -> inet_ioctl -> devinet_ioctl -> inet_del_ifa.
