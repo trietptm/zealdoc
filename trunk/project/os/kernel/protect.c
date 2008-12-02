@@ -1,6 +1,6 @@
 #include "kernel.h"
 
-PRIVATE void init_idt_desc(t_8 vector, t_8 desc_type, 
+static void init_idt_desc(t_8 vector, t_8 desc_type, 
 			   t_pf_int_handler handler, t_8 privilege);
 
 /* interrupt handler */
@@ -41,7 +41,7 @@ void	hwint15();
 /*======================================================================*
  	initialize IDT
  *======================================================================*/
-PUBLIC void init_prot()
+void init_prot()
 {
 	init_8259A();
 
@@ -85,7 +85,7 @@ PUBLIC void init_prot()
  *----------------------------------------------------------------------*
  初始化 386 中断门
  *======================================================================*/
-PUBLIC void init_idt_desc(t_8 vector, t_8 desc_type, 
+void init_idt_desc(t_8 vector, t_8 desc_type, 
 			  t_pf_int_handler handler, t_8 privilege)
 {
 	GATE *p_gate	= &idt[vector];
@@ -103,7 +103,7 @@ PUBLIC void init_idt_desc(t_8 vector, t_8 desc_type,
  *----------------------------------------------------------------------*
  异常处理
  *======================================================================*/
-PUBLIC void exception_handler(int vec_no, int err_code, int eip, int cs, int eflags)
+void exception_handler(int vec_no, int err_code, int eip, int cs, int eflags)
 {
 	int i;
 	int text_color = 0x74; /* 灰底红字 */

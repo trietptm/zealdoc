@@ -5,7 +5,7 @@
 #include "global.h"
 
 /* 数字前面的 0 不被显示出来, 比如 0000B800 被显示成 B800 */
-PUBLIC char * itoa(char * str, int num)
+char * itoa(char * str, int num)
 {
 	char *	p = str;
 	char	ch;
@@ -37,7 +37,7 @@ PUBLIC char * itoa(char * str, int num)
 	return str;
 }
 
-PUBLIC void disp_int(int input)
+void disp_int(int input)
 {
 	char output[16];
 	itoa(output, input);

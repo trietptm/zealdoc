@@ -1,6 +1,6 @@
 #include "kernel.h"
 
-PUBLIC void init_8259A()
+void init_8259A()
 {
 	/* ^^^80x86 mode standard init_8259A procedure^^^ */
 
@@ -28,14 +28,14 @@ PUBLIC void init_8259A()
 	out_byte(INT_S_CTLMASK,	0xFF);		/* Slave  8259, OCW1. */
 }
 
-PUBLIC void spurious_irq(int irq)
+void spurious_irq(int irq)
 {
 	disp_str("spurious_irq: ");
 	disp_int(irq);
 	disp_str("\n");
 }
 
-PUBLIC void test_str(void)
+void test_str(void)
 {
 	disp_str("TEST_STR: haha");
 	disp_str("\n");

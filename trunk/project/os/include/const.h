@@ -4,10 +4,6 @@
 /* EXTERN */
 #define	EXTERN	extern	/* EXTERN is defined as extern except in global.c */
 
-/* ∫Ø ˝¿‡–Õ */
-#define	PUBLIC		/* PUBLIC is the opposite of PRIVATE */
-#define	PRIVATE	static	/* PRIVATE x limits the scope of x */
-
 /* Boolean */
 #define	TRUE	1
 #define	FALSE	0
