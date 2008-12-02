@@ -8,12 +8,12 @@
 
 SELECTOR_KERNEL_CS	equ	8
 
-; import function list
+; import function
 extern	cstart
 extern	exception_handler
 extern	spurious_irq
 
-; import global var 
+; import
 extern	gdt_ptr
 extern	idt_ptr
 extern	disp_pos
@@ -26,7 +26,7 @@ StackTop:		; stack top
 
 [section .text]	; code section
 
-; export function list
+; export function
 global _start
 
 global	divide_error
