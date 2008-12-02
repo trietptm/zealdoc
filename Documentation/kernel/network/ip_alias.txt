@@ -19,3 +19,9 @@ up -> SIOCSIFFLAGS(IFF_UP | IFF_RUNNING) -> inet_ioctl ->
 	devinet_ioctl -> dev_change_flags.
 
 donw -> SIOCSIFFLAGS(~IFF_UP) -> inet_ioctl -> devinet_ioctl -> inet_del_ifa.
+
+See also: Documentation/networking/alias.txt
+--------------------------------------------
+Aliases are not real devices, but programs should be able to configure and 
+refer to them as usual(ifconfig, route, etc).
+
