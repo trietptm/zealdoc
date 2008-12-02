@@ -65,7 +65,7 @@ disp_color_str:
 
 	mov	esi, [ebp + 8]	; pszInfo
 	mov	edi, [disp_pos]
-	mov	ah, [ebp + 12]	; color
+	mov	ah,  [ebp + 12]	; color
 .1:
 	lodsb
 	test	al, al
