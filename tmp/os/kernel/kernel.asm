@@ -3,17 +3,17 @@
 ;                               kernel.asm
 ; ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 ;                                                     Forrest Yu, 2005
+;	zealcook modify, 2008
 ; ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
-
 
 SELECTOR_KERNEL_CS	equ	8
 
-; 导入函数
+; import function list
 extern	cstart
 extern	exception_handler
 extern	spurious_irq
 
-; 导入全局变量
+; import global var 
 extern	gdt_ptr
 extern	idt_ptr
 extern	disp_pos
@@ -22,11 +22,12 @@ bits 32
 
 [SECTION .bss]
 StackSpace		resb	2 * 1024
-StackTop:		; 栈顶
+StackTop:		; stack top
 
-[section .text]	; 代码在此
+[section .text]	; code section
 
-global _start	; 导出 _start
+; export function list
+global _start
 
 global	divide_error
 global	single_step_exception
@@ -60,7 +61,6 @@ global	hwint12
 global	hwint13
 global	hwint14
 global	hwint15
-
 
 _start:
 	; 此时内存看上去是这样的（更详细的内存情况在 LOADER.ASM 中有说明）：
