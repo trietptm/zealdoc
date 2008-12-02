@@ -23,6 +23,7 @@ PUBLIC void init_8259A()
 	/* ===80x86 mode standard init_8259A procedure=== */
 
 	/* mask interrupt */
+	/* 11111101b - keyboard interrupt enable */
 	out_byte(INT_M_CTLMASK,	0xFD);		/* Master 8259, OCW1. */
 	out_byte(INT_S_CTLMASK,	0xFF);		/* Slave  8259, OCW1. */
 }
