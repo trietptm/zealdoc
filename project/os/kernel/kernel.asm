@@ -145,9 +145,9 @@ csinit:		; “这个跳转指令强制使用刚刚初始化的结构”——<<OS:D&I 2nd>> P90.
 	;jmp 0x40:0
 	;ud2
 
-	sti
 HALT:
 	call	test_str
+	sti
 	hlt
 	jmp	HALT	
 ; interrupt and exception -- hw interrupt
