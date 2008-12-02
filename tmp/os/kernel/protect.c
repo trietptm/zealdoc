@@ -5,10 +5,7 @@
                                                     Forrest Yu, 2005
 ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++*/
 
-#include "type.h"
-#include "const.h"
-#include "protect.h"
-#include "global.h"
+#include "kernel.h"
 
 PRIVATE void init_idt_desc(t_8 vector, t_8 desc_type, 
 			   t_pf_int_handler handler, t_8 privilege);
