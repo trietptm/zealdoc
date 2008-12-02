@@ -38,3 +38,9 @@ PUBLIC void spurious_irq(int irq)
 	disp_int(irq);
 	disp_str("\n");
 }
+
+PUBLIC void test_str(void)
+{
+	disp_str("TEST_STR: haha");
+	disp_str("\n");
+}
