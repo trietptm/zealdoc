@@ -171,7 +171,7 @@ LABEL_FILE_LOADED:
 ; 加载 GDTR
 	lgdt	[GdtPtr]
 
-; 关中断
+; close interrupt
 	cli
 
 ; 打开地址线A20
@@ -186,7 +186,6 @@ LABEL_FILE_LOADED:
 
 ; 真正进入保护模式
 	jmp	dword SelectorFlatC:(BaseOfLoaderPhyAddr+LABEL_PM_START)
-
 
 ;============================================================================
 ;变量
