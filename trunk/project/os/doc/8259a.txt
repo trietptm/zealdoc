@@ -2,7 +2,11 @@ http://blog.sina.com.cn/s/blog_4bd62ac40100arhy.html
 ----------------------------------------------------
 
 IRR
-IMR
+
+IMR - Interrupt Mask Register
+-----------------------------
+OCW1 -> IMR
+
 ISR
 NMI
 

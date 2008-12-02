@@ -156,8 +156,11 @@ HALT:
 	push	%1
 	call	spurious_irq
 	add	esp, 4
+	; EOI 
+	mov al, 20h
+	out 20h, al
 ;	hlt	; do not die
-	ret
+	iretd
 %endmacro
 
 ALIGN	16
