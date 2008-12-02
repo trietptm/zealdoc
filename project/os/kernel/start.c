@@ -1,6 +1,6 @@
 #include "kernel.h"
 
-PUBLIC void cstart()
+void cstart()
 {
 	disp_str("\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n-----\"cstart\" begins-----\n");
 
