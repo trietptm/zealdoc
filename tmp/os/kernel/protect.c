@@ -10,12 +10,10 @@
 #include "protect.h"
 #include "global.h"
 
+PRIVATE void init_idt_desc(t_8 vector, t_8 desc_type, 
+			   t_pf_int_handler handler, t_8 privilege);
 
-/* 本文件内函数声明 */
-PRIVATE void init_idt_desc(unsigned char vector, t_8 desc_type, t_pf_int_handler handler, unsigned char privilege);
-
-
-/* 中断处理函数 */
+/* interrupt handler */
 void	divide_error();
 void	single_step_exception();
 void	nmi();
