@@ -60,6 +60,11 @@ $(TINIXKERNEL) : $(objs)
 output:
 	mkdir -p $(OUTPUT);
 	mv $(TINIXBOOT) $(TINIXKERNEL) $(OUTPUT);
+image:
+	sudo mount -o loop TINIX.img /mnt
+	cp bin/kernel.bin /mnt
+	cp bin/loader.bin /mnt
+	sudo umount /mnt
 
 clean:
 	rm -rf $(objs) $(OUTPUT)
