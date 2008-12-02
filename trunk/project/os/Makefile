@@ -39,10 +39,10 @@ include $(KERNELDIR)/Makefile
 include $(LIBDIR)/Makefile
 
 # All Phony Targets
-.PHONY : all clean
+.PHONY : all clean image
 
 # Default starting position
-all : $(TINIXKERNEL) $(TINIXBOOT) output
+all : $(TINIXKERNEL) $(TINIXBOOT) output 
 
 %.bin : %.asm
 	$(ASM) $(ASMBFLAGS) -o $@ $<
@@ -61,9 +61,9 @@ output:
 	mkdir -p $(OUTPUT);
 	mv $(TINIXBOOT) $(TINIXKERNEL) $(OUTPUT);
 image:
-	sudo mount -o loop TINIX.img /mnt
-	cp bin/kernel.bin /mnt
-	cp bin/loader.bin /mnt
+	sudo mount -o loop TINIX.IMG /mnt
+	sudo cp bin/kernel.bin /mnt
+	sudo cp bin/loader.bin /mnt
 	sudo umount /mnt
 
 clean:

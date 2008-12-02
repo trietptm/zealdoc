@@ -12,6 +12,8 @@ SELECTOR_KERNEL_CS	equ	8
 extern	cstart
 extern	exception_handler
 extern	spurious_irq
+; no param
+extern  test_str
 
 ; import
 extern	gdt_ptr
@@ -143,17 +145,18 @@ csinit:		; “这个跳转指令强制使用刚刚初始化的结构”——<<OS:D&I 2nd>> P90.
 	;jmp 0x40:0
 	;ud2
 
+	call	test_str
 	sti
-
 	hlt
-
+	call	test_str
 ; interrupt and exception -- hw interrupt
 ; ---------------------------------
 %macro	hwint_master	1
 	push	%1
 	call	spurious_irq
 	add	esp, 4
-	hlt
+;	hlt	; do not die
+	ret
 %endmacro
 
 ALIGN	16
