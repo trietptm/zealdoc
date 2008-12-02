@@ -1,4 +1,13 @@
 #!/bin/sh
+#
+# quilt cmd:
+# 	import
+# 	push -a
+# 	add 
+# 	diff -z
+#	files -val
+#	refress [patch.name]
+#
 
 # $1 is files dir which you want to add to quilt.
 if [ $1x = x ]; then
