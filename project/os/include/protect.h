@@ -71,7 +71,7 @@ typedef struct s_gate {
 #define	DA_386IGate		0x8E	/* 386 中断门类型值			*/
 #define	DA_386TGate		0x8F	/* 386 陷阱门类型值			*/
 
-/* 中断向量 */
+/* interrupt vector */
 #define	INT_VECTOR_DIVIDE		0x0
 #define	INT_VECTOR_DEBUG		0x1
 #define	INT_VECTOR_NMI			0x2
@@ -89,7 +89,7 @@ typedef struct s_gate {
 #define	INT_VECTOR_PAGE_FAULT		0xE
 #define	INT_VECTOR_COPROC_ERR		0x10
 
-/* 中断向量 */
+/* interrupt vector */
 #define	INT_VECTOR_IRQ0			0x20
 #define	INT_VECTOR_IRQ8			0x28
 
