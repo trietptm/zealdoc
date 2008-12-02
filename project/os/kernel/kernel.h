@@ -4,7 +4,6 @@
 #include "type.h"
 #include "const.h"
 #include "protect.h"
-#include "proto.h"
 #include "global.h"
 
 #endif /* __KERNEL_PRIV_H__ */
