@@ -118,23 +118,23 @@ _start:
 	call	cstart		; this func make gdt_ptr point to the new GDT,
 				; then call init_prot
 	
-	; lgdt: load m into GDTR
-	; lidt: load m into IDTR
-	;
-	; http://pdos.csail.mit.edu/6.828/2005/readings/i386/LGDT.htm
-	;	IF instruction = LIDT
-	;	THEN
-   	;		IF OperandSize = 16
-   	;		THEN IDTR.Limit:Base := m16:24 (* 24 bits of base loaded *)
-   	;		ELSE IDTR.Limit:Base := m16:32
-   	;		FI;
-	;	ELSE (* instruction = LGDT *)
-   	;		IF OperandSize = 16
-   	;		THEN GDTR.Limit:Base := m16:24 (* 24 bits of base loaded *)
-   	;		ELSE GDTR.Limit:Base := m16:32;
-   	;		FI;
-	;	FI;
-	;
+; lgdt: load m into GDTR
+; lidt: load m into IDTR
+;
+; http://pdos.csail.mit.edu/6.828/2005/readings/i386/LGDT.htm
+;	IF instruction = LIDT
+;	THEN
+;		IF OperandSize = 16
+;		THEN IDTR.Limit:Base := m16:24 (* 24 bits of base loaded *)
+;		ELSE IDTR.Limit:Base := m16:32
+;		FI;
+;	ELSE (* instruction = LGDT *)
+;		IF OperandSize = 16
+;		THEN GDTR.Limit:Base := m16:24 (* 24 bits of base loaded *)
+;		ELSE GDTR.Limit:Base := m16:32;
+;		FI;
+;	FI;
+;
 	lgdt	[gdt_ptr]	; load new GDT
 
 	lidt	[idt_ptr]
@@ -148,7 +148,7 @@ csinit:		; “这个跳转指令强制使用刚刚初始化的结构”——<<OS:D&I 2nd>> P90.
 	call	test_str
 	sti
 	hlt
-	call	test_str
+	jmp	SELECTOR_KERNEL_CS:csinit
 ; interrupt and exception -- hw interrupt
 ; ---------------------------------
 %macro	hwint_master	1
