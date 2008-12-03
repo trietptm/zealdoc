@@ -1,5 +1,8 @@
 struct net_device
------------------
+=================
+
+Identifiers
+-----------
 ifindex - is a second identifier for a network device, in addition to the name.
 	  When a new network device is created, dev_get_index() assigns a new 
 	  unused index to this device. This index allows you to quickly find a
@@ -10,3 +13,20 @@ iflink - specifies the index of the network device used to send a packet. This
 	 is normally the index ifindex, but, for tunneling network devices, 
 	 such as ipip, iflink includes the index of the network device that is 
 	 eventually used to send the enveloped packet.
+	 Briefly, for virtual_device to find real_device.
+
+Device State
+------------
+state - Queuing Discipline State which contains information about the network 
+	device and network adapter, see enum netdev_state_t.
+
+flags - interface flags(IFF_*).
+
+reg_state - register/unregister state machine. Ee, its fine.
+
+difference of them
+------------------
+NETDEV_UP			- Its notification chain with no comparability.
+__LINK_STATE_START / IFF_UP	- ULNI said that the state and flag's domain 
+				  are different although they have some overlap
+				  variables. But yet cofuse me.

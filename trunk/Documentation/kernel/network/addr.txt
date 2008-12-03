@@ -1,5 +1,5 @@
 structure LAYER
------
+---------------
 net_device - L2
   -- in_device(IPv4) - L3
   -- inet6_dev(IPv6) - L3
