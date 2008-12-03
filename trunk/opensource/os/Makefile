@@ -32,6 +32,7 @@ KERNELDIR	= $(TOPDIR)/kernel
 # All binary
 TINIXBOOT	= $(BOOTDIR)/boot.bin $(BOOTDIR)/loader.bin
 TINIXKERNEL	= $(KERNELDIR)/kernel.bin
+DASMOUTPUT	= kernel.bin.asm
 
 LIBDIR		= $(TOPDIR)/lib
 
@@ -40,7 +41,7 @@ include $(KERNELDIR)/Makefile
 include $(LIBDIR)/Makefile
 
 # All Phony Targets
-.PHONY : all clean image
+.PHONY : all clean image disasm
 
 # Default starting position
 all : $(TINIXKERNEL) $(TINIXBOOT) output 
@@ -66,6 +67,9 @@ image:
 	sudo cp bin/kernel.bin /mnt
 	sudo cp bin/loader.bin /mnt
 	sudo umount /mnt
+
+disasm:
+	$(DASM) $(DASMFLAGS) bin/kernel.bin > $(DASMOUTPUT)
 
 clean:
 	rm -rf $(objs) $(OUTPUT)

@@ -149,6 +149,9 @@ HALT:
 	call	test_str
 	sti
 	hlt
+	; 
+	mov al, 11111101b
+	out 21h, al
 	jmp	HALT	
 ; interrupt and exception -- hw interrupt
 ; ---------------------------------
