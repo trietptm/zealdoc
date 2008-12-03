@@ -1,7 +1,8 @@
-LAYER
+structure LAYER
 -----
 net_device - L2
   -- in_device(IPv4) - L3
+  -- inet6_dev(IPv6) - L3
 
 get address
 -----------
@@ -15,3 +16,12 @@ hw	- SIOCSIFHWADDR
 ipv4	- SIOCSIFADDR
 ipv6	- SIOCSIFADDR
 
+add address
+-----------
+ipv4	- SIOCSIFADDR 
+ipv6	- SIOCSIFADDR
+
+del address
+-----------
+ipv4	- SIOCSIFFLAGS(~IFF_UP)
+ipv6	- SIOCDIFADDR
