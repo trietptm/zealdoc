@@ -1,0 +1,17 @@
+LAYER
+-----
+net_device - L2
+  -- in_device(IPv4) - L3
+
+get address
+-----------
+hw 	- SIOCGIFHWADDR
+ipv4 	- SIOCGIFADDR
+ipv6	- /proc/net/if_inet6
+
+set address
+-----------
+hw	- SIOCSIFHWADDR
+ipv4	- SIOCSIFADDR
+ipv6	- SIOCSIFADDR
+
