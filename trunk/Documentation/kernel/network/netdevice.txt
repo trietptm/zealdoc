@@ -26,7 +26,12 @@ reg_state - register/unregister state machine. Ee, its fine.
 
 difference of them
 ------------------
-NETDEV_UP			- Its notification chain with no comparability.
-__LINK_STATE_START / IFF_UP	- ULNI said that the state and flag's domain 
-				  are different although they have some overlap
-				  variables. But yet cofuse me.
+NETDEV_UP
+	- Its notification chain with no comparability.
+
+__LINK_STATE_START and IFF_UP
+	- ULNI said that the state and flag's domain are different although 
+	  they have some overlap variables. But yet cofuse me.
+	  As I think, state is more lower than flags. So ingress / egress
+	  queue may use state. But I cant persuade myself.
+
