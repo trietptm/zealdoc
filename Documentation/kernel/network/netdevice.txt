@@ -1,0 +1,12 @@
+struct net_device
+-----------------
+ifindex - is a second identifier for a network device, in addition to the name.
+	  When a new network device is created, dev_get_index() assigns a new 
+	  unused index to this device. This index allows you to quickly find a
+	  network device from the list of all devices, which is much faster, 
+	  compared to search by name.
+
+iflink - specifies the index of the network device used to send a packet. This 
+	 is normally the index ifindex, but, for tunneling network devices, 
+	 such as ipip, iflink includes the index of the network device that is 
+	 eventually used to send the enveloped packet.
