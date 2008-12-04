@@ -1,19 +1,23 @@
 
-lib/
-- library for others
-
-scripts/
-- scripts backup directory
-
-tools/
-- configure work environment, we need some tools. That's it.
-
 Documetation/
 - all of my docs which may contains
 	-- configure note
 	-- command note
 	-- knowledge base
 	Some large files we may use tex to generate PDF or else pretty format.
+
+
+lib/
+- library for others
+
+opensource/
+- free project
+
+scripts/
+- scripts backup directory
+
+tools/
+- configure work environment, we need some tools. That's it.
 
 tmp/
 - temporary files, needed tidy.
