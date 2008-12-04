@@ -148,11 +148,11 @@ csinit:		; “这个跳转指令强制使用刚刚初始化的结构”——<<OS:D&I 2nd>> P90.
 HALT:
 	call	test_str
 	sti
-	hlt
+;	hlt
 	; 
-	mov al, 11111101b
-	out 21h, al
-	jmp	HALT	
+;	mov al, 11111101b
+;	out 21h, al
+	jmp	$
 ; interrupt and exception -- hw interrupt
 ; ---------------------------------
 %macro	hwint_master	1
