@@ -10,3 +10,7 @@ OCW1 -> IMR
 ISR
 NMI
 
+keyboard interrupt
+------------------
+If we want get next kb interrupt, we should read kb buffer.
+But not sure very mush. Its only work now.
