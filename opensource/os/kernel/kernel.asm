@@ -147,7 +147,6 @@ csinit:		; “这个跳转指令强制使用刚刚初始化的结构”——<<OS:D&I 2nd>> P90.
 	;ud2
 
 HALT:
-	call	test_str
 	sti
 ;	hlt
 	jmp	$
@@ -165,13 +164,24 @@ HALT:
 	iretd
 %endmacro
 
+%macro	hwint_master_kb	0
+	call	test_str
+	; EOI 
+	mov al, 20h
+	out 20h, al
+	; read kb buf
+	in al, 60h
+	iretd
+%endmacro
+
+
 ALIGN	16
 hwint00:		; Interrupt routine for irq 0 (the clock).
 	hwint_master	0
 
 ALIGN	16
 hwint01:		; Interrupt routine for irq 1 (keyboard)
-	hwint_master	1
+	hwint_master_kb
 
 ALIGN	16
 hwint02:		; Interrupt routine for irq 2 (cascade!)
