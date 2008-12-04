@@ -12,6 +12,6 @@ t_8	in_byte(t_port port);
 void	out_byte(t_port port, t_8 value);
 void	disp_str(char * info);
 void	disp_color_str(char * info, int color);
-void	init_prot();
+void	init_prot(void);
 
 #endif /* __GLOBAL_INCLUDE_H__ */

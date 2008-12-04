@@ -1,9 +1,6 @@
 #ifndef	_TINIX_CONST_H_
 #define	_TINIX_CONST_H_
 
-/* EXTERN */
-#define	EXTERN	extern	/* EXTERN is defined as extern except in global.c */
-
 /* Boolean */
 #define	TRUE	1
 #define	FALSE	0
