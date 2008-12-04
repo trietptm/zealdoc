@@ -1,7 +1,7 @@
 
 [SECTION .text]
 
-; µ¼³öº¯Êý
+; export function 
 global	memcpy
 global	memset
 
