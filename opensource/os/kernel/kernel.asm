@@ -14,6 +14,7 @@ extern	exception_handler
 extern	spurious_irq
 ; no param
 extern  test_str
+extern	delay
 
 ; import
 extern	gdt_ptr
@@ -149,9 +150,6 @@ HALT:
 	call	test_str
 	sti
 ;	hlt
-	; 
-;	mov al, 11111101b
-;	out 21h, al
 	jmp	$
 ; interrupt and exception -- hw interrupt
 ; ---------------------------------
@@ -162,6 +160,7 @@ HALT:
 	; EOI 
 	mov al, 20h
 	out 20h, al
+;	call	delay ; loop 
 ;	hlt	; do not die
 	iretd
 %endmacro

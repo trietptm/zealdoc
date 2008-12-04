@@ -35,6 +35,14 @@ void spurious_irq(int irq)
 	disp_str("\n");
 }
 
+void delay(void)
+{
+	int i, j;
+	for (i = 0; i < 10000; i++)
+		for (j = 0; j < 10000; j++)
+			;
+}
+
 void test_str(void)
 {
 	disp_str("TEST_STR: haha");
