@@ -1,11 +1,4 @@
 
-; ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
-;                               boot.asm
-; ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
-;                                                     Forrest Yu, 2005
-; ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
-
-
 ;%define _BOOT_DEBUG_
 
 %ifdef	_BOOT_DEBUG_
@@ -14,8 +7,8 @@
 	org  07c00h			; BIOS will loader boot sector to 0:7C00 and then run it
 %endif
 
-;================================================================================================
 ; stack bottom, grows towards lower memory
+; ========================================
 %ifdef	_BOOT_DEBUG_
 BaseOfStack		equ	0100h
 %else
@@ -23,12 +16,12 @@ BaseOfStack		equ	07c00h
 %endif
 
 %include	"load.inc"
-;================================================================================================
 
 	jmp short LABEL_START		; Start to boot.
 	nop				; do not omit this
 
 ; FAT12 disk header, the following code will use it.
+; ==================================================
 %include	"fat12hdr.inc"
 
 LABEL_START:	
@@ -157,16 +150,14 @@ LABEL_FILE_LOADED:
 
 
 
-;============================================================================
 ;变量
-;----------------------------------------------------------------------------
+;====
 wRootDirSizeForLoop	dw	RootDirSectors	; Root Directory 占用的扇区数, 在循环中会递减至零.
 wSectorNo		dw	0		; 要读取的扇区号
 bOdd			db	0		; 奇数还是偶数
 
-;============================================================================
 ;字符串
-;----------------------------------------------------------------------------
+;======
 LoaderFileName		db	"LOADER  BIN", 0	; LOADER.BIN 之文件名
 ; 为简化代码, 下面每个字符串的长度均为 MessageLength
 MessageLength		equ	9
