@@ -11,23 +11,24 @@
 %ifdef	_BOOT_DEBUG_
 	org  0100h
 %else
-	org  07c00h			; Boot 状态, Bios 将把 Boot Sector 加载到 0:7C00 处并开始执行
+	org  07c00h			; BIOS will loader boot sector to 0:7C00 and then run it
 %endif
 
 ;================================================================================================
+; stack bottom, grows towards lower memory
 %ifdef	_BOOT_DEBUG_
-BaseOfStack		equ	0100h	; 调试状态下堆栈基地址(栈底, 从这个位置向低地址生长)
+BaseOfStack		equ	0100h
 %else
-BaseOfStack		equ	07c00h	; Boot状态下堆栈基地址(栈底, 从这个位置向低地址生长)
+BaseOfStack		equ	07c00h
 %endif
 
 %include	"load.inc"
 ;================================================================================================
 
 	jmp short LABEL_START		; Start to boot.
-	nop				; 这个 nop 不可少
+	nop				; do not omit this
 
-; 下面是 FAT12 磁盘的头, 之所以包含它是因为下面用到了磁盘的一些信息
+; FAT12 disk header, the following code will use it.
 %include	"fat12hdr.inc"
 
 LABEL_START:	
@@ -37,21 +38,21 @@ LABEL_START:
 	mov	ss, ax
 	mov	sp, BaseOfStack
 
-	; 清屏
+	; flush screen
 	mov	ax, 0600h		; AH = 6,  AL = 0h
-	mov	bx, 0700h		; 黑底白字(BL = 07h)
-	mov	cx, 0			; 左上角: (0, 0)
-	mov	dx, 0184fh		; 右下角: (80, 50)
+	mov	bx, 0700h		; black background / write font (BL = 07h)
+	mov	cx, 0			; top left corner - (0, 0)
+	mov	dx, 0184fh		; bottom right corner - (80, 50)
 	int	10h			; int 10h
 
 	mov	dh, 0			; "Booting  "
-	call	DispStr			; 显示字符串
+	call	DispStr	
 	
 	xor	ah, ah	; ┓
-	xor	dl, dl	; ┣ 软驱复位
+	xor	dl, dl	; ┣ reset floppy
 	int	13h	; ┛
 	
-; 下面在 A 盘的根目录寻找 LOADER.BIN
+; find LOADER.BIN in disk `A`
 	mov	word [wSectorNo], SectorNoOfRootDirectory
 LABEL_SEARCH_IN_ROOT_DIR_BEGIN:
 	cmp	word [wRootDirSizeForLoop], 0	; ┓
@@ -60,7 +61,7 @@ LABEL_SEARCH_IN_ROOT_DIR_BEGIN:
 	mov	ax, BaseOfLoader
 	mov	es, ax			; es <- BaseOfLoader
 	mov	bx, OffsetOfLoader	; bx <- OffsetOfLoader	于是, es:bx = BaseOfLoader:OffsetOfLoader
-	mov	ax, [wSectorNo]	; ax <- Root Directory 中的某 Sector 号
+	mov	ax, [wSectorNo]		; ax <- Root Directory 中的某 Sector 号
 	mov	cl, 1
 	call	ReadSector
 
@@ -98,7 +99,7 @@ LABEL_GOTO_NEXT_SECTOR_IN_ROOT_DIR:
 
 LABEL_NO_LOADERBIN:
 	mov	dh, 2			; "No LOADER."
-	call	DispStr			; 显示字符串
+	call	DispStr	
 %ifdef	_BOOT_DEBUG_
 	mov	ax, 4c00h		; ┓
 	int	21h			; ┛没有找到 LOADER.BIN, 回到 DOS
@@ -116,8 +117,10 @@ LABEL_FILENAME_FOUND:			; 找到 LOADER.BIN 后便来到这里继续
 	add	cx, DeltaSectorNo	; 这句完成时 cl 里面变成 LOADER.BIN 的起始扇区号 (从 0 开始数的序号)
 	mov	ax, BaseOfLoader
 	mov	es, ax			; es <- BaseOfLoader
-	mov	bx, OffsetOfLoader	; bx <- OffsetOfLoader	于是, es:bx = BaseOfLoader:OffsetOfLoader = BaseOfLoader * 10h + OffsetOfLoader
-	mov	ax, cx			; ax <- Sector 号
+	mov	bx, OffsetOfLoader	; bx <- OffsetOfLoader	
+					; 于是, es:bx = BaseOfLoader:OffsetOfLoader = 
+					; BaseOfLoader * 10h + OffsetOfLoader
+	mov	ax, cx			; ax <- Sector number
 
 LABEL_GOON_LOADING_FILE:
 	push	ax			; ┓
@@ -144,7 +147,7 @@ LABEL_GOON_LOADING_FILE:
 LABEL_FILE_LOADED:
 
 	mov	dh, 1			; "Ready."
-	call	DispStr			; 显示字符串
+	call	DispStr
 
 ; *****************************************************************************************************
 	jmp	BaseOfLoader:OffsetOfLoader	; 这一句正式跳转到已加载到内存中的 LOADER.BIN 的开始处
@@ -174,10 +177,9 @@ Message2		db	"No LOADER"; 9字节, 不够则用空格补齐. 序号 2
 
 
 ;----------------------------------------------------------------------------
-; 函数名: DispStr
+; function: DispStr
+;	display a string, index store in `dh'(0-based)
 ;----------------------------------------------------------------------------
-; 作用:
-;	显示一个字符串, 函数开始时 dh 中应该是字符串序号(0-based)
 DispStr:
 	mov	ax, MessageLength
 	mul	dh
@@ -194,16 +196,15 @@ DispStr:
 
 
 ;----------------------------------------------------------------------------
-; 函数名: ReadSector
-;----------------------------------------------------------------------------
-; 作用:
+; function: ReadSector
 ;	从第 ax 个 Sector 开始, 将 cl 个 Sector 读入 es:bx 中
+;----------------------------------------------------------------------------
 ReadSector:
 	; -----------------------------------------------------------------------
 	; 怎样由扇区号求扇区在磁盘中的位置 (扇区号 -> 柱面号, 起始扇区, 磁头号)
 	; -----------------------------------------------------------------------
 	; 设扇区号为 x
-	;                           ┌ 柱面号 = y >> 1
+	;                          ┌ 柱面号 = y >> 1
 	;       x           ┌ 商 y ┤
 	; -------------- => ┤      └ 磁头号 = y & 1
 	;  每磁道扇区数     │
