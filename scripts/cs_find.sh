@@ -20,7 +20,10 @@ if [ $# -ne 2 ]; then
 	exit 1;
 fi
 
-LNX=$1
+DIR=`dirname $1`
+BASE=`basename $1`
+
+LNX=$DIR/$BASE
 ARCH=$2
 
 mkdir -p $LNX/cscope
