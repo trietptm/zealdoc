@@ -709,8 +709,6 @@ SetupPaging:
 	ret
 ; ·ÖÒ³»úÖÆÆô¶¯Íê±Ï ----------------------------------------------------------
 
-
-
 ; InitKernel ---------------------------------------------------------------------------------
 ; ½« KERNEL.BIN µÄÄÚÈÝ¾­¹ýÕûÀí¶ÔÆëºó·Åµ½ÐÂµÄÎ»ÖÃ
 ; --------------------------------------------------------------------------------------------
@@ -740,20 +738,19 @@ InitKernel:	; ±éÀúÃ¿Ò»¸ö Program Header£¬¸ù¾Ý Program Header ÖÐµÄÐÅÏ¢À´È·¶¨°ÑÊ²Ã
 ; InitKernel ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 
-; SECTION .data1 Ö®¿ªÊ¼ ---------------------------------------------------------------------------------------------
 [SECTION .data1]
 
 ALIGN	32
 
 LABEL_DATA:
-; ÊµÄ£Ê½ÏÂÊ¹ÓÃÕâÐ©·ûºÅ
-; ×Ö·û´®
+; real mode use these
+; string
 _szMemChkTitle:			db	"BaseAddrL BaseAddrH LengthLow LengthHigh   Type", 0Ah, 0
 _szRAMSize:			db	"RAM size:", 0
 _szReturn:			db	0Ah, 0
-;; ±äÁ¿
+; var
 _dwMCRNumber:			dd	0	; Memory Check Result
-_dwDispPos:			dd	(80 * 6 + 0) * 2	; ÆÁÄ»µÚ 6 ÐÐ, µÚ 0 ÁÐ¡£
+_dwDispPos:			dd	(80 * 6 + 0) * 2	; row 6, column 0
 _dwMemSize:			dd	0
 _ARDStruct:			; Address Range Descriptor Structure
 	_dwBaseAddrLow:		dd	0
@@ -763,7 +760,7 @@ _ARDStruct:			; Address Range Descriptor Structure
 	_dwType:		dd	0
 _MemChkBuf:	times	256	db	0
 ;
-;; ±£»¤Ä£Ê½ÏÂÊ¹ÓÃÕâÐ©·ûºÅ
+; protect mode use these
 szMemChkTitle		equ	BaseOfLoaderPhyAddr + _szMemChkTitle
 szRAMSize		equ	BaseOfLoaderPhyAddr + _szRAMSize
 szReturn		equ	BaseOfLoaderPhyAddr + _szReturn
@@ -781,6 +778,5 @@ MemChkBuf		equ	BaseOfLoaderPhyAddr + _MemChkBuf
 
 ; ¶ÑÕ»¾ÍÔÚÊý¾Ý¶ÎµÄÄ©Î²
 StackSpace:	times	1000h	db	0
-TopOfStack	equ	BaseOfLoaderPhyAddr + $	; Õ»¶¥
-; SECTION .data1 Ö®½áÊø ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+TopOfStack	equ	BaseOfLoaderPhyAddr + $	; stack top
 
