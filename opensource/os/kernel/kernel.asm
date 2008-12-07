@@ -1,22 +1,12 @@
 
-; ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
-;                               kernel.asm
-; ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
-;                                                     Forrest Yu, 2005
-;	zealcook modify, 2008
-; ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
-
 SELECTOR_KERNEL_CS	equ	8
 
 ; import function
 extern	cstart
 extern	exception_handler
 extern	spurious_irq
-; no param
 extern  test_str
 extern	delay
-
-; import
 extern	gdt_ptr
 extern	idt_ptr
 extern	disp_pos
@@ -143,13 +133,9 @@ _start:
 	jmp	SELECTOR_KERNEL_CS:csinit
 csinit:		; “这个跳转指令强制使用刚刚初始化的结构”——<<OS:D&I 2nd>> P90.
 
-	;jmp 0x40:0
-	;ud2
-
-HALT:
 	sti
-;	hlt
 	jmp	$
+;
 ; interrupt and exception -- hw interrupt
 ; ---------------------------------
 %macro	hwint_master	1
@@ -159,8 +145,6 @@ HALT:
 	; EOI 
 	mov al, 20h
 	out 20h, al
-;	call	delay ; loop 
-;	hlt	; do not die
 	iretd
 %endmacro
 
@@ -248,9 +232,8 @@ ALIGN	16
 hwint15:		; Interrupt routine for irq 15
 	hwint_slave	15
 
-
-
-; 中断和异常 -- 异常
+;
+; interrupt and exception -- exception
 divide_error:
 	push	0xFFFFFFFF	; no err code
 	push	0		; vector_no	= 0
@@ -312,6 +295,7 @@ copr_error:
 
 exception:
 	call	exception_handler
-	add	esp, 4*2	; 让栈顶指向 EIP，堆栈中从顶向下依次是：EIP、CS、EFLAGS
+	; 4 * param_count
+	add	esp, 4*2	; Make stack top point to EIP. The sequence is EIP->CS->EFLAGS
 	hlt
 
