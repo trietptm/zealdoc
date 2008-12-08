@@ -14,22 +14,22 @@ function fxg()
 	return 0
 }
 
-###
-###
+#####################
 function do_install()
 {
 	local cmd=$1
 
 	cd $SYS_PATH;
-	set -e
-	sudo ln -s $BOXDIR/zealbox.sh $1
+	sudo rm -f $1
+	sudo ln -s $BOXDIR/$BOXNAME $1
 }
 
 cmd=`basename $0`
 SYS_PATH=/usr/bin
 BOXDIR=`pwd`
+BOXNAME="zealbox.sh"
 
-if [ $cmd = "zealbox.sh" ]; then
+if [ $cmd = $BOXNAME ]; then
 	if [ $# -lt 1 ]; then
 		echo "which command(s) you want to install?"
 		exit 1
