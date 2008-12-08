@@ -14,13 +14,12 @@ function fxg()
 	return 0
 }
 
+###
+###
 function do_install()
 {
 	local cmd=$1
-	if [ "$1"x = ""x ]; then
-		echo "no grep param"
-		exit 1;
-	fi
+
 	cd $SYS_PATH;
 	set -e
 	sudo ln -s $BOXDIR/zealbox.sh $1
