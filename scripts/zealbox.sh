@@ -14,16 +14,34 @@ function fxg()
 	return 0
 }
 
-function check_argc()
+function do_install()
 {
+	local cmd=$1
 	if [ "$1"x = ""x ]; then
 		echo "no grep param"
 		exit 1;
 	fi
+	cd $SYS_PATH;
+	set -e
+	sudo ln -s $BOXDIR/zealbox.sh $1
 }
 
 cmd=`basename $0`
-$cmd $* 2>/dev/null
+SYS_PATH=/usr/bin
+BOXDIR=`pwd`
+
+if [ $cmd = "zealbox.sh" ]; then
+	if [ $# -lt 1 ]; then
+		echo "which command(s) you want to install?"
+		exit 1
+	fi
+	echo "Install $1 now."
+	# TODO: detect if cmd is valid and handle cmd_list
+	do_install $1;
+	exit 0;
+else
+	$cmd $* 2>/dev/null
+fi
 
 # command return 0 when finished.
 if [ $? -ne 0 ]; then
