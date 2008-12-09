@@ -1,5 +1,7 @@
 - how to align
 http://blog.csdn.net/littlehedgehog/archive/2008/04/09/2271212.aspx
 
-- cpu.c
+- cpu.c recv
+- pcap build packet
+- cpu.c send 
 
