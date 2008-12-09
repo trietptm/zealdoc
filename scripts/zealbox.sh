@@ -1,13 +1,26 @@
 #!/bin/sh
 
+SYS_PATH=/usr/bin
+BOXDIR=`pwd`
+BOXNAME="zealbox.sh"
+
+function usage()
+{
+	echo "zealbox usage:"
+	echo "./$BOXNAME \$cmd_list"
+	echo "\$cmd_list - which command(s) you want to install"
+}
+
 #
 # fxg - find, xargs and grep
-# find at current directory
+# Usage:
+# $1 - word you want to lookup
 #
 function fxg()
 {
 	if [ $# -ne 1 ]; then
-		echo 'Usage: fxg $word_you_find'
+		echo 'Usage:'
+		echo 'fxg $word_you_lookup'
 		exit 1
 	fi
 	find . -name .svn -prune -o -name .pc -prune -o -name CVS -prune -o -print | xargs grep $1
@@ -25,13 +38,9 @@ function do_install()
 }
 
 cmd=`basename $0`
-SYS_PATH=/usr/bin
-BOXDIR=`pwd`
-BOXNAME="zealbox.sh"
-
 if [ $cmd = $BOXNAME ]; then
 	if [ $# -lt 1 ]; then
-		echo "which command(s) you want to install?"
+		usage
 		exit 1
 	fi
 	echo "Install $1 now."
