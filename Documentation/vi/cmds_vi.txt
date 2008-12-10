@@ -18,3 +18,5 @@ ma	" mark current place as `a'
 delete (ctrl+v and ctrl+m)
 ---------
 :%s/$//g
+:%s/\r//g
+package: tofrodos dos2unix unix2dos flip
