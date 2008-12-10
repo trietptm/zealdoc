@@ -14,3 +14,7 @@ jump
 ----
 ma	" mark current place as `a'
 `a	" jump to mark a
+
+delete (ctrl+v and ctrl+m)
+---------
+:%s/$//g
