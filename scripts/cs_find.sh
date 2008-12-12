@@ -5,6 +5,12 @@
 # 
 # only kernel need it
 # other small project just use: cscope -R
+#
+# cscope -Rbkq
+# -R recursion all (sub)directorys
+# -b do not run interface
+# -k do not search system path(e.g. /usr/include)
+# -q generate cscope.in.out cscope.po.out for searching speed up
 
 usage()
 {
