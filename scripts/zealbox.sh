@@ -27,6 +27,16 @@ function fxg()
 	return 0
 }
 
+# cscope -Rb
+function csrb()
+{
+	echo "cscoping..."
+	cscope -Rb
+	mkdir -p cscope
+	mv cscope.out cscope/
+	echo "finish"
+}
+
 #####################
 function do_install()
 {
