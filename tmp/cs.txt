@@ -1,0 +1,6 @@
+cscope -Rbkq
+-R 
+-b do not run interface
+-k do not search system path(e.g. /usr/include)
+-q generate cscope.in.out cscope.po.out for searching speed up
+
