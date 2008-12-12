@@ -1,8 +1,0 @@
-#
-# Network Appliances
-#
-
-menu "Network Appliances"
-source "appls/vtss/Kconfig"
-endmenu
-
