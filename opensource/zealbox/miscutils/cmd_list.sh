@@ -1,0 +1,2 @@
+MISC_CMDS= $MISC_CMDS fxg
+
