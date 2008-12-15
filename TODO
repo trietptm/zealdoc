@@ -8,3 +8,6 @@ http://blog.csdn.net/littlehedgehog/archive/2008/04/09/2271212.aspx
 
 - test hbridge
 lrint
+
+
+The algorithm used by bridges to find the best loop-free topology is the Spanning Tree Protocol defined by the 802.1D-1998 IEEE standard, which was extended with the new Rapid Spanning Tree Protocol (RSTP) and became 802.1D-2004. RSTP is sometimes also referred to as 802.1w. 
