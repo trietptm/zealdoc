@@ -13,4 +13,6 @@ The algorithm used by bridges to find the best loop-free topology is the Spannin
 
 - block port will send notify to lower hardward?
 
+- bridge relay?
 
+- port state rfc1493
