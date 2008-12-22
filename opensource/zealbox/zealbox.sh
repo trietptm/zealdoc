@@ -6,9 +6,8 @@ BOXNAME="zealbox.sh"
 
 function usage()
 {
-	echo "zealbox usage:"
-	echo "./$BOXNAME \$cmd_list"
-	echo "\$cmd_list - which command(s) you want to install"
+	echo "usage: ./$BOXNAME \$command"
+	echo "\$command - which one you want to install"
 }
 
 #
