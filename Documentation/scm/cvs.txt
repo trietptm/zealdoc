@@ -1,2 +1,4 @@
 checkout the project before that data
 (C) cvs co -D 2008-08-08 project
+
+(C) cvs -z9 up -C
