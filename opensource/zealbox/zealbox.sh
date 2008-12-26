@@ -34,7 +34,7 @@ function fxg()
 		echo 'fxg $word_you_lookup'
 		exit 1
 	fi
-	find . -name .svn -prune -o -name .pc -prune -o -name CVS -prune -o -print | xargs grep $1
+	find . -name cscope -prune -o -name .svn -prune -o -name .pc -prune -o -name CVS -prune -o -print | xargs grep $1
 	return 0
 }
 
