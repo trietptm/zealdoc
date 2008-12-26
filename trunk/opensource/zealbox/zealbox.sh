@@ -3,11 +3,23 @@
 SYS_PATH=/usr/bin
 BOXDIR=`pwd`
 BOXNAME="zealbox.sh"
+CMD_LIST="fxg k9 csrb"
 
 function usage()
 {
 	echo "usage: ./$BOXNAME \$command"
-	echo "\$command - which one you want to install"
+	echo "\$command in {$CMD_LIST}"
+}
+#
+# kill task quickly
+# kill -9 PID
+#
+function k9()
+{
+	local task=$1
+	PID=`ps -a | grep $task | awk {'print $1'}`
+	echo "closing $task($PID) now"
+	sudo kill -9 $PID
 }
 
 #
