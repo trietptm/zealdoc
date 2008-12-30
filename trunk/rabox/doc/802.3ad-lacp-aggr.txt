@@ -16,3 +16,8 @@ Use LACP with linux bonding:
 
 Requirementsi (use 802.3ad):
   Both sides should support 802.3ad(PDU).
+
+Link aggregation provides the following benefits:
+• Logical aggregation of bandwidth
+• Load balancing
+• Fault tolerance
