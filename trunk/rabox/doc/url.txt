@@ -2,3 +2,4 @@
 http://www.geego.com.tw/tech/05.html
 http://phorum.study-area.org/index.php/topic,43051.0.html
 http://www.linuxfoundation.org/en/Net:Bonding
+http://www.cyberciti.biz/howto/question/static/linux-ethernet-bonding-driver-howto.php

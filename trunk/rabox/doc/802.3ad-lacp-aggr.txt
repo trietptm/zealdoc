@@ -9,9 +9,10 @@ Linux bonding mode(select by module parameter):
 All of these mode can provide hot standby(fault-tolerance) or load balance services.
 Note that 802.3ad can implement link aggregation function.
 
-
-
 Use LACP with linux bonding:
 (C) modprobe -v bonding mode=802.3ad miimon=50
 (C) ifconfig bond0 $(IP) $(NETMASK)
 (C) ifenslave -v bond0 eth0 eth1 ...
+
+Requirementsi (use 802.3ad):
+  Both sides should support 802.3ad(PDU).
