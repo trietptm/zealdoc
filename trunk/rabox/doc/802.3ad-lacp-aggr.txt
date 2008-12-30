@@ -1,0 +1,13 @@
+Linux bonding mode(select by module parameter):
+  1.ROUNDROBIN 		– load balancing
+  2.ACTIVEBACKUP 	– fault-tolerance
+  3.XOR 		– load balancing
+  4.BROADCAST 		- fault-tolerance
+  5.8023AD 		– IEEE 802.3ad
+  6.TLB 		– transmit load balancing
+  7.ALB 		– adaptive load balancing
+
+Use LACP with linux bonding:
+(C) modprobe -v bonding mode=802.3ad miimon=50
+(C) ifconfig bond0 $(IP) $(NETMASK)
+(C) ifenslave -v bond0 eth0 eth1 ...
