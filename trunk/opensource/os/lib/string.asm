@@ -30,10 +30,10 @@ memcpy:
 	mov	byte [es:edi], al	; ┃
 	inc	edi			; ┛
 
-	dec	ecx		; 计数器减一
-	jmp	.1		; 循环
+	dec	ecx		; dec loop count
+	jmp	.1		; loop
 .2:
-	mov	eax, [ebp + 8]	; 返回值
+	mov	eax, [ebp + 8]	; return value
 
 	pop	ecx
 	pop	edi
@@ -41,8 +41,8 @@ memcpy:
 	mov	esp, ebp
 	pop	ebp
 
-	ret			; 函数结束，返回
-; memcpy 结束-------------------------------------------------------------
+	ret			; return
+; memcpy end-------------------------------------------------------------
 
 ; ------------------------------------------------------------------------
 ; void memset(void* p_dst, char ch, int size);
@@ -75,7 +75,7 @@ memset:
 	mov	esp, ebp
 	pop	ebp
 
-	ret			; 函数结束，返回
-; memset 结束-------------------------------------------------------------
+	ret			; return
+; memset end-------------------------------------------------------------
 
 
