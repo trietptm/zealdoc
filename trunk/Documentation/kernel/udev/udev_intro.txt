@@ -24,3 +24,8 @@ Advantage(may) of udev(from greg k-h):
        so.
     3) udev is small and is entirely in userspace, which
        is swapable, and doesn't have to be running at all times.
+
+trigger
+-------
+Rrite action(any word now) to uevent(store_uevent() in linux) file in /sys/xxx.
+So udev will get NETLINK message from kernel and then do add action in /dev/xxx.
