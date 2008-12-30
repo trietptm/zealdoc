@@ -1,0 +1,26 @@
+Advantage(may) of udev(from greg k-h):
+--------------------------------------
+  Problems:
+    1) using udev, the /dev tree only is populated for the devices that
+       are currently present in the system.
+    2) udev does not care about the major/minor number schemes.  If the
+       kernel tomorrow switches to randomly assign major and minor numbers
+       to different devices, it would work just fine (this is exactly
+       what I am proposing to do in 2.7...)
+    3) This is the main reason udev is around.  It provides the ability
+       to name devices in a persistent manner.  More on that below.
+    4) udev emits D-BUS messages so that any other userspace program
+       (like HAL) can listen to see what devices are created or removed.
+       It also allows userspace programs to query its database to see
+       what devices are present and what they are currently named as
+       (providing a pointer into the sysfs tree for that specific device
+       node.)
+  Constraints:
+    1) udev moves _all_ naming policies out of the kernel and into
+       userspace.
+    2) udev defaults to using the LSB device naming standard.  If users
+       want to deviate away from this standard (for example when naming
+       some devices in a persistent manner), it is easily possible to do
+       so.
+    3) udev is small and is entirely in userspace, which
+       is swapable, and doesn't have to be running at all times.
