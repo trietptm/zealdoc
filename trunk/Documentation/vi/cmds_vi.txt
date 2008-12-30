@@ -20,3 +20,7 @@ delete (ctrl+v and ctrl+m)
 :%s/$//g
 :%s/\r//g
 package: tofrodos dos2unix unix2dos flip
+
+delete the first column
+-----------------------
+ctrl+v(visual block mode) then select
