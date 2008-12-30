@@ -6,6 +6,10 @@ Linux bonding mode(select by module parameter):
   5.8023AD 		– IEEE 802.3ad
   6.TLB 		– transmit load balancing
   7.ALB 		– adaptive load balancing
+All of these mode can provide hot standby(fault-tolerance) or load balance services.
+Note that 802.3ad can implement link aggregation function.
+
+
 
 Use LACP with linux bonding:
 (C) modprobe -v bonding mode=802.3ad miimon=50
