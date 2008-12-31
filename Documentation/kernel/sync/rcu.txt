@@ -1,0 +1,146 @@
+CONTENT
+-------
+
+RCU is made up of three fundamental mechanisms
+==============================================
+o the first being used for insertion;
+o the second being used for deletion;
+o the third being used to allow readers to tolerate concurrent insertions and 
+  deletions. 
+These mechanisms are described in the following sections, which focus on 
+applying RCU to linked lists:
+   1. Publish-Subscribe Mechanism (for insertion)
+   2. Wait For Pre-Existing RCU Readers to Complete (for deletion)
+   3. Maintain Multiple Versions of Recently Updated Objects (for readers) 
+
+Publish-Subscribe Mechanism
+===========================
+One key attribute of RCU is the ability to `safely scan data', even though that 
+data is being modified concurrently. To provide this ability for concurrent 
+insertion, RCU uses what can be thought of as a publish-subscribe mechanism.
+
+case 1
+------------------------------------------------------------------------
+  1 struct foo {
+  2   int a;
+  3   int b;
+  4   int c;
+  5 };
+  6 struct foo *gp = NULL;	/* gloabl */
+  7 
+  8 /* . . . */
+  9 
+ 10 p = kmalloc(sizeof(*p), GFP_KERNEL);
+ 11 p->a = 1;
+ 12 p->b = 2;
+ 13 p->c = 3;
+ 14 gp = p;
+-----------------------------------------------------------------------
+Since compiler and CPU cannot assure 11~14 are sequence executed. So...
+the reader can see the uninitialized values.
+  1 if (gp)
+  2     xxx = gp->a;
+
+How to resolve that case
+------------------------
+change 11~14 to:
+  1 p->a = 1;
+  2 p->b = 2;
+  3 p->c = 3;
+  4 rcu_assign_pointer(gp, p);
+That is the [rcu_assign_pointer] would `publish' the new structure, force 
+compiler and cpu to execute the assignment to gp `after' the assignment
+to the fields referenced by p.
+
+case 2
+------------------------------------------------------------------------
+  1 p = gp;
+  2 if (p != NULL) {
+  3   do_something_with(p->a, p->b, p->c);
+  4 }
+------------------------------------------------------------------------
+Problem: some compiler may guess p->a, p->b, p->c before detect p!. Then
+fetch the actual p in order to check itself guess whether correct or not.
+== But, I'm not sure why its a problem?? ==
+
+How to resolve that case
+------------------------------------------------------------------------
+  1 rcu_read_lock();
+  2 p = rcu_dereference(gp);
+  3 if (p != NULL) {
+  4   do_something_with(p->a, p->b, p->c);
+  5 }
+  6 rcu_read_unlock();
+------------------------------------------------------------------------
+o The rcu_dereference() primitive can thus be thought of as `subscribing' to a
+given value of the specified pointer, guaranteeing that subsequent dereference
+operations will see any initialization that occurred before the corresponding
+publish (rcu_assign_pointer()) operation. 
+o The rcu_read_lock() and rcu_read_unlock() calls are absolutely required: 
+they define the extent of the RCU read-side critical section.
+They never spin or block, nor do they prevent the list_add_rcu() from executing
+concurrently. In fact, in non-CONFIG_PREEMPT kernels, they generate absolutely no code.
+
+
+list operations with Publish-Subscribe Mechanism
+------------------------------------------------
+The rcu_assign_pointer() and rcu_dereference() primitives have been embedded in 
+special RCU variants of Linux's list-manipulation API:
+
+case 1
+-----------------------------------------------------------------------------
+Adapting the pointer-publish example for the linked list gives the following:
+  1 struct foo {
+  2   struct list_head list;
+  3   int a;
+  4   int b;
+  5   int c;
+  6 };
+  7 LIST_HEAD(head);
+  8 
+  9 /* . . . */
+ 10 
+ 11 p = kmalloc(sizeof(*p), GFP_KERNEL);
+ 12 p->a = 1;
+ 13 p->b = 2;
+ 14 p->c = 3;
+ 15 list_add_rcu(&p->list, &head);
+
+case 2
+-----------------------------------------------------------------------------
+Subscribing to an RCU-protected list is straightforward:
+
+  1 rcu_read_lock();
+  2 list_for_each_entry_rcu(p, head, list) {
+  3   do_something_with(p->a, p->b, p->c);
+  4 }
+  5 rcu_read_unlock();
+
+The list_add_rcu() primitive publishes an entry into the specified list, 
+guaranteeing that the corresponding list_for_each_entry_rcu() invocation will
+properly subscribe to this same entry.
+
+Category  	Publish  		Retract  			Subscribe
+-------------------------------------------------------------------------------------------------
+Pointers 	rcu_assign_pointer() 	rcu_assign_pointer(..., NULL) 	rcu_dereference()
+Lists 		list_add_rcu()		list_del_rcu() 			list_for_each_entry_rcu()
+
+		list_add_tail_rcu()
+		list_replace_rcu() 				
+Hlists 		hlist_add_after_rcu()	hlist_del_rcu() 		hlist_for_each_entry_rcu()
+		hlist_add_before_rcu()
+		hlist_add_head_rcu()
+		hlist_replace_rcu() 				
+
+
+
+Wait For Pre-Existing RCU Readers to Complete
+=============================================
+
+what is RCU
+-----------
+Read-Copy Update.
+
+URL
+---
+[starting RCU]http://www.rdrop.com/users/paulmck/RCU/
