@@ -19,23 +19,64 @@ o setsockopt(); -> ip_tables.c
 That's all the words talk with kernel.
 
 
+*Q* ipv4 / ipv6 / arp relationship
+*A* in 2.6.23.9 kernel has 3 types of netfilter tables(bigger one):
 
-TABLE - kernel-iptables(struct ipt_table/xt_table in 2.6.23.9)
+    - l1 name -
+	-- l2 name -- 
+	    --- hookops ---
+	    === target(may belong to someone) ===
+	    -0- match(may belong to someone) -0-
+
+    - iptable
+	    === IPT_ERROR_TARGET
+	    === IPT_STANDARD_TARGET
+	    -0- icmp
+	    -0- conntrack
+	    -0- portscan
+	-- filter
+	    --- NF_IP_LOCAL_IN
+	    --- NF_IP_FORWARD
+	    --- NF_IP_LOCAL_OUT
+	-- mangle
+	    --- NF_IP_PRE_ROUTING
+	    --- NF_IP_LOCAL_IN
+	    --- NF_IP_FORWARD
+	    --- NF_IP_LOCAL_OUT
+	    --- NF_IP_POST_ROUTING
+	-- raw
+	    --- NF_IP_PRE_ROUTING
+	    --- NF_IP_LOCAL_OUT
+	-- nat
+	    ==== snat
+	    ==== dnat
+    - arptable
+	    === ARPT_ERROR_TARGET
+	    === ARPT_STANDARD_TARGET
+	-- filter
+	    --- NF_ARP_IN
+	    --- NF_ARP_OUT
+	    --- NF_ARP_FORWARD
+    - ipv6table
+	-- filter
+	-- mangle
+	-- raw
+
+
+----Only talk about ip tables below----
+
+TABLE - kernel-iptables(struct ipt_table in 2.6.23.9)
 ----------------------------------------------------
-o filter(v4/v6)
-o mangle(v4/v6)
-o raw(v4/v6)
-o nat
 Reg: ipt_(un)register_table(&table);
-*Q* ipv4 / ipv6 / arp diff
+
 
 RULE - (struct ipt_entry in 2.6.23.9)
-------------------------------------
+-------------------------------------
 Its a dynamic structure. It may contain matches(0~N) and target(1).
 Note that: this entry always has a ip header. So may not do l2 filter with it.
 
 TABLE->private --> RULE --> ipt_entry_match / ipt_entry_target
-		
+
 
 match - (struct ipt_match in 2.6.23.9)
 --------------------------------------
