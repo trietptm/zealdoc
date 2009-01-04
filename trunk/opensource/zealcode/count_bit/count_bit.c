@@ -1,6 +1,10 @@
 #include <stdio.h>
 #define DEBUG
 /*
+ * man lrint for help
+ * 		2009.01.04
+ * */
+/*
  * This lib collect the method that can return how many 1 bit in N.
  *
  * But may refer to kernel bitmap or else
