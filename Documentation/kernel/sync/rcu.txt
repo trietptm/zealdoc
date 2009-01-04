@@ -11,12 +11,12 @@ These mechanisms are described in the following sections, which focus on
 applying RCU to linked lists:
    1. Publish-Subscribe Mechanism (for insertion)
    2. Wait For Pre-Existing RCU Readers to Complete (for deletion)
-   3. Maintain Multiple Versions of Recently Updated Objects (for readers) 
+   3. Maintain Multiple Versions of Recently Updated Objects (for readers)
 
 Publish-Subscribe Mechanism
 ===========================
-One key attribute of RCU is the ability to `safely scan data', even though that 
-data is being modified concurrently. To provide this ability for concurrent 
+One key attribute of RCU is the ability to `safely scan data', even though that
+data is being modified concurrently. To provide this ability for concurrent
 insertion, RCU uses what can be thought of as a publish-subscribe mechanism.
 
 case 1
