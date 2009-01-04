@@ -10,6 +10,11 @@ function usage()
 	echo "usage: ./$BOXNAME \$command"
 	echo "\$command in {$CMD_LIST}"
 }
+
+function cmds_usage()
+{
+	
+}
 #
 # kill task quickly
 # kill -9 PID
