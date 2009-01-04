@@ -145,3 +145,4 @@ URL
 ---
 [starting RCU]http://www.rdrop.com/users/paulmck/RCU/
 http://www.ibm.com/developerworks/cn/linux/l-rcu/
+http://en.wikipedia.org/wiki/Read-copy-update
