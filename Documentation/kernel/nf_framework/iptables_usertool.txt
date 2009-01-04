@@ -1,0 +1,61 @@
+CONTENT
+-------
+o note for userland tool
+o kernel iptables
+
+
+what is `iptables'
+------------------
+This is userland management tool(not the iptables which are the real table in
+kernel).
+Long ago there are ipchains and ipfwadm tools also. All of there act as FIREWALL.
+
+management
+----------
+Use raw socket to do it.
+o socket(AF_INET/AF_INET6, SOCK_RAW, IPPROTO_RAW);
+o getsockopt(); -> ip_tables.c
+o setsockopt(); -> ip_tables.c
+That's all the words talk with kernel.
+
+
+
+TABLE - kernel-iptables(struct ipt_table/xt_table in 2.6.23.9)
+----------------------------------------------------
+o filter(v4/v6)
+o mangle(v4/v6)
+o raw(v4/v6)
+o nat
+Reg: ipt_(un)register_table(&table);
+*Q* ipv4 / ipv6 / arp diff
+
+RULE - (struct ipt_entry in 2.6.23.9)
+------------------------------------
+Its a dynamic structure. It may contain matches(0~N) and target(1).
+Note that: this entry always has a ip header. So may not do l2 filter with it.
+
+TABLE->private --> RULE --> ipt_entry_match / ipt_entry_target
+		
+
+match - (struct ipt_match in 2.6.23.9)
+--------------------------------------
+
+
+target
+------
+
+Netfilter-iptables Extensions
+-----------------------------
+o table
+o match/target
+o 
+
+
+Used to hbr
+-----------
+-m mac --mac-source XX:XX..
+
+url
+---
+http://www.netfilter.org/documentation/HOWTO//netfilter-hacking-HOWTO-4.html
+http://www.ibm.com/developerworks/cn/linux/l-ntflt/index.html
