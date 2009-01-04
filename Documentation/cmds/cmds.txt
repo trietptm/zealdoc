@@ -23,6 +23,9 @@ tar and compress(bz2) a directory:
 exclue directory:
 (O) --exclude
 
+append a file:
+(C) tar -rf $xx.tar $file
+
 p7zip
 -----
 uncompress(not work well):
