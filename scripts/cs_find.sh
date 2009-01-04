@@ -14,7 +14,8 @@
 
 usage()
 {
-	echo "We need 2 parameter:"
+	echo "usage:"
+	echo "2 parameters needed:"
 	echo '$1 - kernel source direcotry(need absolute path).'
 	echo '$2 - kernel arch which you want to search.'
 	echo "Example: ./cs_find.sh /kernel/source/dir/ x86"
