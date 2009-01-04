@@ -13,7 +13,7 @@ function usage()
 
 function cmds_usage()
 {
-	
+	echo ":/"	
 }
 #
 # kill task quickly
