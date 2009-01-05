@@ -20,4 +20,6 @@ http://blog.csdn.net/littlehedgehog/archive/2008/04/09/2271212.aspx
 
   -- vlan
   -- bond
-pls read bridge / vlan / bond src. check ieee 802.3 support in kernel.
+pls read bridge / vlan / bond src.
+pls check ieee 802.3 support in kernel.
+pls read ieee802.3 standard.
