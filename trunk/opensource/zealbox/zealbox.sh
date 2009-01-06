@@ -22,8 +22,13 @@ function cmds_usage()
 function k9()
 {
 	local task=$1
+
+	if [ $# -eq 0 ]; then
+		echo "ERROR: no task to kill."
+		exit 1;
+	fi
 	PID=`ps -a | grep $task | awk {'print $1'}`
-	echo "closing $task($PID) now"
+	echo "closing $task($PID), say 88 "
 	sudo kill -9 $PID
 }
 
