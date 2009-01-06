@@ -1,0 +1,13 @@
+capture screen
+--------------
+
+capture window
+$scrot -s
+
+capture window with broad
+$scrot -bs
+
+capture full screen
+$scrot
+
+$man scrot 
