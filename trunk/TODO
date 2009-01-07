@@ -27,3 +27,5 @@ pls read ieee802.3 standard.
 - chap / mschap / mschapv2 nac stm
 
 - vlan tcpdump bug?
+
+- no NIC_UP msg
