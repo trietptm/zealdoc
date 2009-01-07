@@ -3,12 +3,22 @@
 SYS_PATH=/usr/bin
 BOXDIR=`pwd`
 BOXNAME="zealbox.sh"
+
 CMD_LIST="fxg k9 csrb"
+
+FXG_HELP='fxg $1- find ./ | xargs grep $1'
+K9_HELP='k9 $task - kill pid'
+CSRB_HELP='cscope -Rb and mkdir cscope directory'
+CMD_HELPS="$FXG_HELP $K9_HELP $CSRB_HELP"
 
 function usage()
 {
 	echo "usage: ./$BOXNAME \$command"
 	echo "\$command in {$CMD_LIST}"
+#	echo "$CMD_HELPS"
+	echo "$FXG_HELP"
+	echo "$K9_HELP"
+	echo "$CSRB_HELP"
 }
 
 function cmds_usage()
@@ -40,8 +50,7 @@ function k9()
 function fxg()
 {
 	if [ $# -ne 1 ]; then
-		echo 'Usage:'
-		echo 'fxg $word_you_lookup'
+		echo 'Usage: fxg $word_you_lookup'
 		exit 1
 	fi
 	find . -name cscope -prune -o -name .svn -prune -o -name .pc -prune -o -name CVS -prune -o -print | xargs grep $1
