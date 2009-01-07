@@ -1,0 +1,2 @@
+# start pppoe client.
+$pppd pty '/usr/sbin/pppoe' user $NAME &
