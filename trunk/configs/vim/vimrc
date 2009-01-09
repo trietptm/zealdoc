@@ -207,3 +207,6 @@ map <C-F12> :!ctags -R --c-kinds=+p --fields=+iaS --extra=+q .<CR>
 "
 " color scheme in /usr/share/vim/vim70/colors/
 " colorscheme darkblue
+"
+" textwidth
+set tw=78
