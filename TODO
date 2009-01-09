@@ -29,3 +29,5 @@ pls read ieee802.3 standard.
 - vlan tcpdump bug?
 
 - sum: fs / rcu
+
+- initrd / recompile kernel
