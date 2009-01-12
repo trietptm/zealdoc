@@ -31,3 +31,5 @@ pls read ieee802.3 standard.
 - sum: fs / rcu
 
 - initrd / recompile kernel
+
+- NAPI
