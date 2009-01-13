@@ -19,40 +19,40 @@ double *samples = NULL;
 /* Start new sampling process */
 static void init_sampler(int k, int maxsamples)
 {
-  if (values)
-    free(values);
-  values = calloc(k, sizeof(double));
+	if (values)
+		free(values);
+	values = calloc(k, sizeof(double));
 #if KEEP_SAMPLES
-  if (samples)
-    free(samples);
-  /* Allocate extra for wraparound analysis */
-  samples = calloc(maxsamples+k, sizeof(double));
+	if (samples)
+		free(samples);
+	/* Allocate extra for wraparound analysis */
+	samples = calloc(maxsamples+k, sizeof(double));
 #endif
-  samplecount = 0;
+	samplecount = 0;
 }
 
 /* Add new sample.  */
 void add_sample(double val, int k)
 {
-  int pos = 0;
-  if (samplecount < k) {
-    pos = samplecount;
-    values[pos] = val;
-  } else if (val < values[k-1]) {
-    pos = k-1;
-    values[pos] = val;
-  }
+	int pos = 0;
+	if (samplecount < k) {
+		pos = samplecount;
+		values[pos] = val;
+	} else if (val < values[k-1]) {
+		pos = k-1;
+		values[pos] = val;
+	}
 #if KEEP_SAMPLES
-  samples[samplecount] = val;
+	samples[samplecount] = val;
 #endif
-  samplecount++;
-  /* Insertion sort */
-  while (pos > 0 && values[pos-1] > values[pos]) {
-    double temp = values[pos-1];
-    values[pos-1] = values[pos];
-    values[pos] = temp;
-    pos--;
-  }
+	samplecount++;
+	/* Insertion sort */
+	while (pos > 0 && values[pos-1] > values[pos]) {
+		double temp = values[pos-1];
+		values[pos-1] = values[pos];
+		values[pos] = temp;
+		pos--;
+	}
 }
 
 /* Get current minimum */
@@ -64,9 +64,9 @@ double get_min()
 /* What is relative error for kth smallest sample */
 double err(int k)
 {
-  if (samplecount < k)
-    return 1000.0;
-  return (values[k-1] - values[0])/values[0];
+	if (samplecount < k)
+		return 1000.0;
+	return (values[k-1] - values[0])/values[0];
 }
 
 /* Have k minimum measurements converged within epsilon? */
