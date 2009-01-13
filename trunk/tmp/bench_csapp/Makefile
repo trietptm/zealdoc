@@ -6,5 +6,3 @@ mountain: mountain.c fcyc2.c clock.c
 
 clean:
 	rm -f mountain *.o *~
-
-
