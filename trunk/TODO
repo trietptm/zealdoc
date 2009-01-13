@@ -35,3 +35,11 @@ pls read ieee802.3 standard.
 - NAPI
 
 - driver - timer or k thread
+
+- cache = 16K 32K
+
+- read / write L1 CACHE
+- read / write memory speed
+- read switch cpu queue
+- AES L1 cache 
+  == align / 16k.32k.64k / 
