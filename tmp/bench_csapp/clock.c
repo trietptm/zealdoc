@@ -58,37 +58,37 @@ static unsigned int (*counter)(void)= (void *)counterRoutine;
 
 void start_counter()
 {
-  /* Get cycle counter */
-  cyc_hi = 0;
-  cyc_lo = counter();
+	/* Get cycle counter */
+	cyc_hi = 0;
+	cyc_lo = counter();
 }
 
 double get_counter()
 {
-  unsigned ncyc_hi, ncyc_lo;
-  unsigned hi, lo, borrow;
-  double result;
-  ncyc_lo = counter();
-  ncyc_hi = 0;
-  lo = ncyc_lo - cyc_lo;
-  borrow = lo > ncyc_lo;
-  hi = ncyc_hi - cyc_hi - borrow;
-  result = (double) hi * (1 << 30) * 4 + lo;
-  if (result < 0) {
-    fprintf(stderr, "Error: Cycle counter returning negative value: %.0f\n", result);
-  }
-  return result;
+	unsigned ncyc_hi, ncyc_lo;
+	unsigned hi, lo, borrow;
+	double result;
+	ncyc_lo = counter();
+	ncyc_hi = 0;
+	lo = ncyc_lo - cyc_lo;
+	borrow = lo > ncyc_lo;
+	hi = ncyc_hi - cyc_hi - borrow;
+	result = (double) hi * (1 << 30) * 4 + lo;
+	if (result < 0) {
+		fprintf(stderr, "Error: Cycle counter returning negative value: %.0f\n", result);
+	}
+	return result;
 }
 #endif /* Alpha */
 
 #if IS_x86
 void access_counter(unsigned *hi, unsigned *lo)
 {
-  /* Get cycle counter */
-  asm("rdtsc; movl %%edx,%0; movl %%eax,%1" 
-      : "=r" (*hi), "=r" (*lo)
-      : /* No input */ 
-      : "%edx", "%eax");
+	/* Get cycle counter */
+	asm("rdtsc; movl %%edx,%0; movl %%eax,%1" 
+			: "=r" (*hi), "=r" (*lo)
+			: /* No input */ 
+			: "%edx", "%eax");
 }
 
 void start_counter()
@@ -98,20 +98,20 @@ void start_counter()
 
 double get_counter()
 {
-  unsigned ncyc_hi, ncyc_lo;
-  unsigned hi, lo, borrow;
-  double result;
-  /* Get cycle counter */
-  access_counter(&ncyc_hi, &ncyc_lo);
-  /* Do double precision subtraction */
-  lo = ncyc_lo - cyc_lo;
-  borrow = lo > ncyc_lo;
-  hi = ncyc_hi - cyc_hi - borrow;
-  result = (double) hi * (1 << 30) * 4 + lo;
-  if (result < 0) {
-    fprintf(stderr, "Error: Cycle counter returning negative value: %.0f\n", result);
-  }
-  return result;
+	unsigned ncyc_hi, ncyc_lo;
+	unsigned hi, lo, borrow;
+	double result;
+	/* Get cycle counter */
+	access_counter(&ncyc_hi, &ncyc_lo);
+	/* Do double precision subtraction */
+	lo = ncyc_lo - cyc_lo;
+	borrow = lo > ncyc_lo;
+	hi = ncyc_hi - cyc_hi - borrow;
+	result = (double) hi * (1 << 30) * 4 + lo;
+	if (result < 0) {
+		fprintf(stderr, "Error: Cycle counter returning negative value: %.0f\n", result);
+	}
+	return result;
 }
 #endif /* x86 */
 
@@ -131,19 +131,19 @@ double ovhd()
    elapsed while sleeping for sleeptime seconds */
 double mhz_full(int verbose, int sleeptime)
 {
-  double rate;
-  start_counter();
-  sleep(sleeptime);
-  rate = get_counter()/(1e6*sleeptime);
-  if (verbose) 
-    printf("Processor Clock Rate ~= %.1f MHz\n", rate);
-  return rate;
+	double rate;
+	start_counter();
+	sleep(sleeptime);
+	rate = get_counter()/(1e6*sleeptime);
+	if (verbose) 
+		printf("Processor Clock Rate ~= %.1f MHz\n", rate);
+	return rate;
 }
 
 /* Version using a default sleeptime */
 double mhz(int verbose)
 {
-  return mhz_full(verbose, 2);
+	return mhz_full(verbose, 2);
 }
 
 /** Special counters that compensate for timer interrupt overhead */

@@ -8,7 +8,7 @@
 #define MINBYTES (1 << 10)  /* Working set size ranges from 1 KB */
 #define MAXBYTES (1 << 27)  /* ... up to 128 MB */
 #define MAXSTRIDE 32        /* Strides range from 1 to 32 */
-#define STRIDESTRIDE 2      /* increment stride by this amount each time */
+#define STRIDESTRIDE 4      /* increment stride by this amount each time */
 #define MAXELEMS MAXBYTES/sizeof(int) 
 
 int data[MAXELEMS];         /* The array we'll be traversing */
@@ -24,6 +24,7 @@ int main()
 	int size;        /* Working set size (in bytes) */
 	int stride;      /* Stride (in array elements) */
 	double Mhz;      /* Clock frequency */
+	int i = 0;
 
 	init_data(data, MAXELEMS); /* Initialize each element in data to 1 */
 	Mhz = mhz(0);              /* Estimate the clock frequency */
@@ -33,8 +34,10 @@ int main()
 	printf("Memory mountain (MB/sec)\n");
 
 	printf("\t");
-	for (stride = 1; stride <= MAXSTRIDE; stride += STRIDESTRIDE)
+	for (stride = 1; stride <= MAXSTRIDE; stride += STRIDESTRIDE) {
 		printf("s%d\t", stride);
+	}
+	i = 0;
 	printf("\n");
 
 	/* $begin mountainmain */
@@ -47,7 +50,7 @@ int main()
 			printf("%dk\t", size / 1024);
 
 		/* $begin mountainmain */
-		for (stride = 1; stride <= MAXSTRIDE; stride += STRIDESTRIDE) {
+		for (stride = 1; stride <= MAXSTRIDE; stride += STRIDESTRIDE, i++) {
 			printf("%.0f\t", run(size, stride, Mhz));
 		}
 		printf("\n");
@@ -59,32 +62,32 @@ int main()
 /* init_data - initializes the array */
 void init_data(int *data, int n)
 {
-    int i;
+	int i;
 
-    for (i = 0; i < n; i++)
-	data[i] = 1;
+	for (i = 0; i < n; i++)
+		data[i] = 1;
 }
 
 /* $begin mountainfuns */
 void test(int elems, int stride) /* The test function */
 {
-    int i, result = 0; 
-    volatile int sink; 
+	int i, result = 0;
+	volatile int sink;
 
-    for (i = 0; i < elems; i += stride)
-	result += data[i];
-    sink = result; /* So compiler doesn't optimize away the loop */
+	for (i = 0; i < elems; i += stride)
+		result += data[i];
+	sink = result; /* So compiler doesn't optimize away the loop */
 }
 
 /* Run test(elems, stride) and return read throughput (MB/s) */
 double run(int size, int stride, double Mhz)
 {
-    double cycles;
-    int elems = size / sizeof(int); 
+	double cycles;
+	int elems = size / sizeof(int); 
 
-    test(elems, stride);                     /* warm up the cache */
-    cycles = fcyc2(test, elems, stride, 0);  /* call test(elems,stride) */
-    return (size / stride) / (cycles / Mhz); /* convert cycles to MB/s */
+	test(elems, stride);                     /* warm up the cache */
+	cycles = fcyc2(test, elems, stride, 0);  /* call test(elems,stride) */
+	return (size / stride) / (cycles / Mhz); /* convert cycles to MB/s */
 }
 /* $end mountainfuns */
 

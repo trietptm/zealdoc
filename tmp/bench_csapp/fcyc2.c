@@ -72,12 +72,12 @@ double err(int k)
 /* Have k minimum measurements converged within epsilon? */
 int has_converged(int k_arg, double epsilon_arg, int maxsamples)
 {
-  if ((samplecount >= k_arg) &&
-      ((1 + epsilon_arg)*values[0] >= values[k_arg-1]))
-    return samplecount;
-  if ((samplecount >= maxsamples))
-    return -1;
-  return 0;
+	if ((samplecount >= k_arg) &&
+			((1 + epsilon_arg)*values[0] >= values[k_arg-1]))
+		return samplecount;
+	if ((samplecount >= maxsamples))
+		return -1;
+	return 0;
 }
 
 /* Code to clear cache */
@@ -90,60 +90,60 @@ static int sink;
 
 static void clear()
 {
-  int x = sink;
-  int i;
-  for (i = 0; i < ASIZE; i += STRIDE)
-    x += stuff[i];
-  sink = x;
+	int x = sink;
+	int i;
+	for (i = 0; i < ASIZE; i += STRIDE)
+		x += stuff[i];
+	sink = x;
 }
 
 double fcyc2_full(test_funct f, int param1, int param2, int clear_cache,
 		 int k, double epsilon, int maxsamples, int compensate) 
 {
-  double result;
-  init_sampler(k, maxsamples);
-  if (compensate) {
-    do {
-      double cyc;
-      if (clear_cache)
-	clear();
-      f(param1, param2);   /* warm cache */
-      start_comp_counter();
-      f(param1, param2);
-      cyc = get_comp_counter();
-      add_sample(cyc, k);
-    } while (!has_converged(k, epsilon, maxsamples) && samplecount < maxsamples);
-  } else {
-    do {
-      double cyc;
-      if (clear_cache)
-	clear();
-      f(param1, param2); /* warm cache */
-      start_counter();
-      f(param1, param2);
-      cyc = get_counter();
-      add_sample(cyc, k);
-    } while (!has_converged(k, epsilon, maxsamples) && samplecount < maxsamples);
-  }
+	double result;
+	init_sampler(k, maxsamples);
+	if (compensate) {
+		do {
+			double cyc;
+			if (clear_cache)
+				clear();
+			f(param1, param2);   /* warm cache */
+			start_comp_counter();
+			f(param1, param2);
+			cyc = get_comp_counter();
+			add_sample(cyc, k);
+		} while (!has_converged(k, epsilon, maxsamples) && samplecount < maxsamples);
+	} else {
+		do {
+			double cyc;
+			if (clear_cache)
+				clear();
+			f(param1, param2); /* warm cache */
+			start_counter();
+			f(param1, param2);
+			cyc = get_counter();
+			add_sample(cyc, k);
+		} while (!has_converged(k, epsilon, maxsamples) && samplecount < maxsamples);
+	}
 #ifdef DEBUG
-  {
-    int i;
-    printf(" %d smallest values: [", k);
-    for (i = 0; i < k; i++)
-      printf("%.0f%s", values[i], i==k-1 ? "]\n" : ", ");
-  }
+	{
+		int i;
+		printf(" %d smallest values: [", k);
+		for (i = 0; i < k; i++)
+			printf("%.0f%s", values[i], i==k-1 ? "]\n" : ", ");
+	}
 #endif
-  result = values[0];
+	result = values[0];
 #if !KEEP_VALS
-  free(values); 
-  values = NULL;
+	free(values); 
+	values = NULL;
 #endif
-  return result;  
+	return result;  
 }
 
 double fcyc2(test_funct f, int param1, int param2, int clear_cache)
 {
-  return fcyc2_full(f, param1, param2, clear_cache, 3, 0.01, 300, 0);
+	return fcyc2_full(f, param1, param2, clear_cache, 3, 0.01, 300, 0);
 }
 
 
@@ -291,9 +291,3 @@ double fcyc2_tod(test_funct f, int param1, int param2, int clear_cache)
 {
   return fcyc2_full_tod(f, param1, param2, clear_cache, 3, 0.01, 20, 0);
 }
-
-
-
-
-
-
