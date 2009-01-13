@@ -33,3 +33,5 @@ pls read ieee802.3 standard.
 - initrd / recompile kernel
 
 - NAPI
+
+- driver - timer or k thread
