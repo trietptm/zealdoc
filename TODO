@@ -43,3 +43,5 @@ pls read ieee802.3 standard.
 - read switch cpu queue
 - AES L1 cache 
   == align / 16k.32k.64k / 
+ 
+param: cache_line, stride, times, duration, align
