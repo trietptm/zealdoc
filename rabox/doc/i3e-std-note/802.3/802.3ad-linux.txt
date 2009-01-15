@@ -1,0 +1,23 @@
+Linux bonding mode(select by module parameter):
+  1.ROUNDROBIN 		– load balancing
+  2.ACTIVEBACKUP 	– fault-tolerance
+  3.XOR 		– load balancing
+  4.BROADCAST 		- fault-tolerance
+  5.8023AD 		– IEEE 802.3ad
+  6.TLB 		– transmit load balancing
+  7.ALB 		– adaptive load balancing
+All of these mode can provide hot standby(fault-tolerance) or load balance services.
+Note that 802.3ad can implement link aggregation function.
+
+Use LACP with linux bonding:
+(C) modprobe -v bonding mode=802.3ad miimon=50
+(C) ifconfig bond0 $(IP) $(NETMASK)
+(C) ifenslave -v bond0 eth0 eth1 ...
+
+Requirementsi (use 802.3ad):
+  Both sides should support 802.3ad(PDU).
+
+Link aggregation provides the following benefits:
+• Logical aggregation of bandwidth
+• Load balancing
+• Fault tolerance
