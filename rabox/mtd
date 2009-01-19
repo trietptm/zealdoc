@@ -8,3 +8,8 @@ MTD User modules
 4. NFTL
 5. Journalling FLash File System v2(JFFS2)
 6. USIFS()
+
+
+bad block
+---------
+nand - bbt(bad block table)
