@@ -7,3 +7,4 @@ MTD User modules
 3. Flash Translation Layer(FTL)
 4. NFTL
 5. Journalling FLash File System v2(JFFS2)
+6. USIFS()
