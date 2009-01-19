@@ -50,3 +50,5 @@ param: cache_line, stride, times, duration, align
 
 - u-boot boot from ram (fs support)
 - implement FTL to manage block
+
+- mtd nor / nand differ
