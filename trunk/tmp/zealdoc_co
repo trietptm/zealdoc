@@ -1,0 +1,5 @@
+# Project members authenticate over HTTPS to allow committing changes.
+#
+# zealcook account:
+# svn checkout https://zealdoc.googlecode.com/svn/trunk/ zealdoc --username zealcook
+# password : Af9um4Tu3KZ3
