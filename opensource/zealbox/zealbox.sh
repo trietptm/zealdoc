@@ -13,8 +13,9 @@ CMD_HELPS="$FXG_HELP $K9_HELP $CSRB_HELP"
 
 function usage()
 {
-	echo "usage: ./$BOXNAME \$command"
-	echo "\$command in {$CMD_LIST}"
+	echo "usage: ./$BOXNAME command"
+	echo "install command that supported"
+	echo "supported command is {$CMD_LIST} now"
 #	echo "$CMD_HELPS"
 	echo "$FXG_HELP"
 	echo "$K9_HELP"
