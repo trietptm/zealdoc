@@ -47,3 +47,5 @@ pls read ieee802.3 standard.
 param: cache_line, stride, times, duration, align
 
 - iptables nat function in rabox
+
+- u-boot boot from ram (fs support)
