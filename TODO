@@ -49,3 +49,4 @@ param: cache_line, stride, times, duration, align
 - iptables nat function in rabox
 
 - u-boot boot from ram (fs support)
+- implement FTL to manage block
