@@ -2,3 +2,6 @@ P15
 
 1. what's token(cryptographic token)
 2. DF(dedicated file) / EF(elementary file)
+3. a card can contain one or more applications - 'meta directory'
+4. relationship of 7816 and 15
+
