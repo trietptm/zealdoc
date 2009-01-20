@@ -97,3 +97,8 @@ if [ $? -ne 0 ]; then
 	echo "command not found"
 	exit
 fi
+
+#
+#
+#find -name '*.java' -type f -exec cat {} ; | wc -l
+
