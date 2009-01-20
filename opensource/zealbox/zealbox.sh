@@ -102,3 +102,4 @@ fi
 #
 #find -name '*.java' -type f -exec cat {} ; | wc -l
 
+# find . -name '*.h' -type f | xargs cat | wc -l
