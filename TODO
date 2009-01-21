@@ -52,3 +52,8 @@ param: cache_line, stride, times, duration, align
 - implement FTL to manage block
 
 - mtd nor / nand differ
+
+- eap-peap.ppt
+- nap-soh.ppt
+
+- usb host side api
