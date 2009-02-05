@@ -54,4 +54,4 @@ make menuconfig
 make dep;make;make modules;make modules_install;make install
 
 然后重起，root登陆以后，depmod -a
-如果整个过程正常，并且depmod -a也没有错误提示，那么应该就没有什么问题。碰到问题你再贴上来看把
+
