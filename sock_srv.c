@@ -4,6 +4,16 @@
 
 int sk = -1;
 
+void print_sname(int sk)
+{
+	struct sockaddr_in tmp_addr;
+
+	memset(&tmp_addr, 0, sizeof (tmp_addr));
+	getsockname(sk, (struct sockaddr *)&tmp_addr, sizeof (tmp_addr));
+	
+	printf("tmp_addr=%s, port=%d\n", inet_ntoa(tmp_addr), ntohs(tmp_addr.sin_port));
+}
+
 /* create socket */
 int sock_open(void)
 {
@@ -24,31 +34,32 @@ int sock_open(void)
 
 	srv_addr.sin_family = AF_INET;
 	srv_addr.sin_port = htons(1234);
-	//srv_addr.sin_port = INADDR_ANY;
-	srv_addr.sin_addr.s_addr = inet_addr("127.0.0.1");
+	srv_addr.sin_addr.s_addr = inet_addr("192.168.100.111");
+//	srv_addr.sin_addr.s_addr = INADDR_ANY;
 
+#if 1
 	ret = bind(sk, (struct sockaddr *)&srv_addr, sizeof (srv_addr));
-
 	if (ret == -1) {
 		printf("bind err");
 		close(sk);
 		return -1;
 	}
-	printf("bind succ\n");
+#endif
+
+	print_sname(sk);
+
 	listen(sk, 5);
 
 	for (;;) {
 		connfd = accept(sk,
 			(struct sockaddr *)&cli_addr, sizeof (cli_addr));
-		printf("connect from=%s, port=%d\n", 
-			inet_ntop(AF_INET,
-			&cli_addr.sin_addr, 
-			buff, sizeof (buff)), ntohs(cli_addr.sin_port));
+		printf("connect from=%s, port=%d\n", inet_ntoa(cli_addr), ntohs(cli_addr.sin_port));
 		write(connfd, "haha", strlen("haha"));
+		print_sname(sk);
 		sleep(2);
 		if (loop-- == 0)
 		break;
-		}
+	}
 
 	return sk;
 }
