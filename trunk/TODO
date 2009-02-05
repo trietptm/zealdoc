@@ -58,3 +58,5 @@ param: cache_line, stride, times, duration, align
 
 - usb host side api
 - dump error
+
+- sock bind issue
