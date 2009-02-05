@@ -57,3 +57,4 @@ param: cache_line, stride, times, duration, align
 - nap-soh.ppt
 
 - usb host side api
+- dump error
