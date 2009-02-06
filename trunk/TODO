@@ -60,3 +60,5 @@ param: cache_line, stride, times, duration, align
 - dump error
 
 - sock bind issue
+- nac arch
+- pppoe timeout device bring up, net_dev_event
