@@ -66,3 +66,4 @@ param: cache_line, stride, times, duration, align
 - HBR: add check ifaddr on interface??
 - win: libusb support uevent
 - udev -> register_proto support
+- hid - ccid_dev
