@@ -63,3 +63,6 @@ param: cache_line, stride, times, duration, align
 - nac arch
 - pppoe timeout device bring up, net_dev_event
 - chap / mschap / eap delete NAC
+- HBR: add check ifaddr on interface??
+- win: libusb support uevent
+- udev -> register_proto support
