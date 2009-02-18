@@ -206,8 +206,8 @@ map <C-F12> :!ctags -R --c-kinds=+p --fields=+iaS --extra=+q .<CR>
 "set tags+=../tags
 "
 " color scheme in /usr/share/vim/vim70/colors/
-colorscheme darkblue
 " colorscheme darkblue
+colorscheme torte
 "
 " textwidth
 set tw=78
