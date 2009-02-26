@@ -67,3 +67,6 @@ param: cache_line, stride, times, duration, align
 - win: libusb support uevent
 - udev -> register_proto support
 - hid - ccid_dev
+- pppoe call exist ext_device_name() to open eth0 in win
+- udev del node()
+- usb state machine
