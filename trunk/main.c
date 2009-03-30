@@ -1,18 +1,32 @@
 #include <usb.h>
 #include <stdio.h>
-#include <errno.h>
-#include "ccid_priv.h"
+
+#include "ccid.h"
 
 /* smartcard reader handle */
 usb_dev_handle *g_dev = NULL; 
 #define EP_IN 	0x84
 #define EP_OUT 	0x05
 
+typedef unsigned char u8;
+char output[64];
+char input[64];
+
+#define ASSERT_TRUE(fun)	\
+	do {			\
+		int rv;		\
+		rv = fun();	\
+		if (!rv) {	\
+			printf("assert fun err\r\n");	\
+			exit(1);			\
+		}					\
+	} while (0)
+
+
 int find_interclass(struct usb_config_descriptor *config, int cla)
 {
 	int j, i;
 	struct usb_interface *intfc;
-
 
 	for (i = 0; i < config->bNumInterfaces; i++)
 		intfc = &config->interface[i];
@@ -22,7 +36,6 @@ int find_interclass(struct usb_config_descriptor *config, int cla)
 	}
 	return 0;
 }
-
 
 int is_needed(struct usb_device *dev)
 {
@@ -34,7 +47,7 @@ int is_needed(struct usb_device *dev)
 }
 
 /* init usb bus and get set g_dev handle */
-int test_usb_init(void) 
+int get_usb_dev(void) 
 {
 	struct usb_bus *bus; 
 	struct usb_device *dev; 
@@ -49,8 +62,6 @@ int test_usb_init(void)
 
 	for (bus = usb_busses; bus; bus = bus->next) { 
 		for (dev = bus->devices; dev; dev = dev->next) { 
-			int ret, i; 
-			char string[256]; 
 			udev = usb_open(dev);
 			if (udev) {
 				if (is_needed(dev)) {
@@ -83,20 +94,26 @@ int test_usb_init(void)
 			}
 		}
 	}
+	/* found */
+	if (g_dev)
+		return 1;
 	return 0;
 }
 
-void print_bin2hex(unsigned char *bin, int len)
+void print_bin2hex(unsigned char *tmp_bin, int len)
 {
 	int i;
-	char buff[3*len];
 
-	memset(buff, 0, sizeof (buff));
+	if (len * 3 > 64) {
+		printf("default output len is samll\r\n");
+		return;
+	}
+	memset(output, 0, sizeof (output));
 
 	printf("recv len=%d\n", len);
 	for (i = 0; i < len; i++)
-		sprintf(buff + 3 * i, "%02x ", bin[i]);
-	printf("%s\n", buff);
+		sprintf(output + 3 * i, "%02x ", tmp_bin[i]);
+	printf("%s\n", output);
 }
 
 int do_PowerOn(int bSlot, int bSeq)
@@ -167,13 +184,45 @@ int do_GetSlotStatus(int bSlot, int bSeq)
 			break;
 		}
 	}
-out:
 	return 0;
 }
 
+int warm_up(void)
+{
+	int i = 10;
+	int ret;
+
+	while (i--) {
+		char cmd[2];
+		cmd[1] = 0x02;
+		cmd[0] = 0x20;
+
+		ret = usb_bulk_write(g_dev, EP_OUT, cmd, sizeof (cmd), 50);
+		if (ret < 0) {
+			printf("GetSlotStatus, err=%s\r\n", strerror(errno));
+			continue;
+		}
+		printf("GetSlotStatus write succ\r\n");
+		ret = usb_bulk_read(g_dev, EP_IN, cmd, sizeof (cmd), 50);
+		if (ret < 0) {
+			printf("read bulk err=%s\r\n", strerror(errno));
+		} else {
+			return 1;
+		}
+	}
+	return 0;
+}
+
+int test_init(void)
+{
+	ASSERT_TRUE(get_usb_dev);
+	ASSERT_TRUE(warm_up);
+
+	return 0;
+}
 int main(void)
 {
-	test_usb_init();
+	test_init();
 	if (g_dev) {
 		do_GetSlotStatus(0, 0);
 		do_PowerOn(0, 0);
