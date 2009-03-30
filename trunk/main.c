@@ -86,10 +86,23 @@ int test_usb_init(void)
 	return 0;
 }
 
+void print_bin2hex(unsigned char *bin, int len)
+{
+	int i;
+	char buff[3*len];
+
+	memset(buff, 0, sizeof (buff));
+
+	printf("recv len=%d\n", len);
+	for (i = 0; i < len; i++)
+		sprintf(buff + 3 * i, "%02x ", bin[i]);
+	printf("%s\n", buff);
+}
+
 int do_PowerOn(int bSlot, int bSeq)
 {
-	unsigned char cmd[10];
-	int ret;
+	unsigned char cmd[10], buff[10];
+	int ret, i = 3;
 
 	cmd[0] = PC_TO_RDR_ICCPOWERON;
 	cmd[1] = 0x00;
@@ -102,41 +115,58 @@ int do_PowerOn(int bSlot, int bSeq)
 	cmd[8] = 0x00;
 	cmd[9] = 0x00;
 
-	ret = usb_bulk_write(g_dev, EP_OUT, cmd, 10, 0);
-	if (ret < 0) {
-		printf("PowerOn err\r\n");
+	while (i--) {
+		ret = usb_bulk_write(g_dev, EP_OUT, cmd, 10, 50);
+		if (ret < 0) {
+			printf("GetSlotStatus, err=%s\r\n", strerror(errno));
+			continue;
+		}
+		printf("GetSlotStatus write succ\r\n");
+		ret = usb_bulk_read(g_dev, EP_IN, buff, 10, 50);
+		if (ret < 0) {
+			printf("read bulk err=%s\r\n", strerror(errno));
+		} else {
+			print_bin2hex(buff, ret);
+			break;
+		}
 	}
 	return 0;
 }
 
 int do_GetSlotStatus(int bSlot, int bSeq)
 {
-	unsigned char cmd[64];
+	unsigned char cmd[10], buff[64];
 	int i, ret;
 
-#if 1
 	cmd[0] = PC_TO_RDR_GETSLOTSTATUS;
 	cmd[1] = 0x00;
 	cmd[2] = 0x00;
 	cmd[3] = 0x00;
 	cmd[4] = 0x00;
 	cmd[5] = bSlot;
-	cmd[6] = bSeq;
+	cmd[6] = 1;
 	cmd[7] = 0x00;
 	cmd[8] = 0x00;
 	cmd[9] = 0x00;
-#endif
 
-	ret = usb_bulk_write(g_dev, EP_OUT, cmd, 10, 50);
-	if (ret < 0) {
-		printf("GetSlotStatus, err=%s\r\n", strerror(errno));
-		goto out;
+	/* warm up */
+	i = 3;
+
+	while (i--) {
+		ret = usb_bulk_write(g_dev, EP_OUT, cmd, 10, 50);
+		if (ret < 0) {
+			printf("GetSlotStatus, err=%s\r\n", strerror(errno));
+			continue;
+		}
+		printf("GetSlotStatus write succ\r\n");
+		ret = usb_bulk_read(g_dev, EP_IN, buff, 10, 50);
+		if (ret < 0) {
+			printf("read bulk err=%s\r\n", strerror(errno));
+		} else {
+			print_bin2hex(buff, ret);
+			break;
+		}
 	}
-	ret = usb_bulk_read(g_dev, EP_IN, cmd, sizeof (cmd), 5000);
-	if (ret < 0) {
-		printf("read bulk err=%s\r\n", strerror(errno));
-	} else
-		printf("read bulk=%d\n", ret);
 out:
 	return 0;
 }
@@ -146,6 +176,7 @@ int main(void)
 	test_usb_init();
 	if (g_dev) {
 		do_GetSlotStatus(0, 0);
+		do_PowerOn(0, 0);
 		usb_release_interface(g_dev, 0);
 		usb_close(g_dev);
 		g_dev = NULL;
