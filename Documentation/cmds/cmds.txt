@@ -32,3 +32,6 @@ uncompress(not work well):
 (C) 7z e xxx.rar
 (C) 7z e xxx.zip
 
+dos2unix
+--------
+(C) find -type f | xargs dos2unix -o
