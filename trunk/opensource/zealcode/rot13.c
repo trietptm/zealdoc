@@ -2,6 +2,8 @@
 #include <ctype.h>
 #include <fcntl.h>
 
+void usage(void);
+
 /* only change alpha */
 
 int rot13_main(int c)
@@ -27,11 +29,22 @@ void main(void)
 	int fd2 = open("g:\\rot13.txt.new", O_RDWR | O_CREAT);
 
 	if (fd1 < 0 || fd2 < 0) {
-		printf("open err\n");
+		usage();
 		return;
 	}
 	rot13_write(fd1, fd2);
 	close(fd1);
 	close(fd2);
+	
+	printf("finish...\r\n");
+	getch();
 }
 
+void usage(void)
+{
+	printf("usage: \r\n");
+	printf("1) put original file into g:\\rot13.txt\r\n");
+	printf("2) run this program\r\n");
+	printf("3) will generate rot13.txt.new\r\n");
+	exit(1);
+}
