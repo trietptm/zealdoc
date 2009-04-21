@@ -70,3 +70,6 @@ param: cache_line, stride, times, duration, align
 - pppoe call exist ext_device_name() to open eth0 in win
 - udev del node()
 - usb state machine
+
+
+34689
