@@ -1,0 +1,19 @@
+1. Logical command-response pair with the limitless size.
+    +--------------------------------+
+    | command(sdata, size)           |
+    | response(rdata, size)          |
+     --------------------------------+
+    For example, a read_binary_from_icc() may start such a cmd-resp pair. And
+    its may contain several sub-cmd-resp pairs which are defined in ISO7816.
+
+
+2. IFD has several exchange level(T=0).
+   +-----------+----------------+   
+   |  LEVEL    |   size         |    
+   +-----------+----------------+    
+   |  CHAR     |  limitless     |    
+   +-----------+----------------+    
+   |  APDU     |     261        |    
+   +-----------+----------------+    
+   |  TPDU     |     260        |    
+   +-----------+----------------+    
