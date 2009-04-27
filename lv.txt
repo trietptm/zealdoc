@@ -7,13 +7,31 @@
     its may contain several sub-cmd-resp pairs which are defined in ISO7816.
 
 
-2. IFD has several exchange level(T=0).
-   +-----------+----------------+   
-   |  LEVEL    |   size         |    
-   +-----------+----------------+    
-   |  CHAR     |  limitless     |    
-   +-----------+----------------+    
-   |  APDU     |     261        |    
-   +-----------+----------------+    
-   |  TPDU     |     260        |    
-   +-----------+----------------+    
+2. First APDU layer.
+   +----------------------------------------+
+   | command: CLA INS P1 P2 Lc D1...Dn Le   |
+   +----------------------------------------+
+   + response: D1...Dn SW1 SW2              |
+   +----------------------------------------+
+   In this layer, it mapped the upper command into a whole apdu and may except
+   a response with some data. At last it will give the response back to upper.
+
+
+3. IFD has several exchange levels.
+   +-----------+------------+   
+   |  LEVEL    |   size     |    
+   +-----------+------------+    
+   |  CHAR     |  limitless |    
+   +-----------+------------+    
+   |  APDU     |   261      |    
+   +-----------+------------+    
+   |  TPDU     |   260      |    
+   +-----------+------------+    
+   In T=0, doesn't care abort APUD-extend case.
+   And there is a IFD limitation that is dwMaxCCIDMessageLength called
+   hard-limit. We cannot send a block of the size larger than 
+   dwMaxCCIDMessageLength - 10.
+
+
+4. Second APDU layer.
+   After limit parse
