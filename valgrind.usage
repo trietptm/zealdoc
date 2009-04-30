@@ -1,0 +1,1 @@
+sudo valgrind --tool=memcheck --leak-check=full --show-reachable=yes --log-file=./1 ./netsvc_unstripped 
