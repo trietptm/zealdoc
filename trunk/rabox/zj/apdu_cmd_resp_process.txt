@@ -41,7 +41,7 @@
 5. Transmit Protocol Layer(T=0)
    This layer mapped APDU to TPDU accords to ISO7816-3.
 
-6. Sending/Receiving by interface device driver(e.g. CCID driver in host side).
+6. Sending/Receiving by interface device driver(e.g. CCID driver at host side).
 
 Above is the framework of the command-response interchange. Depends on the
 interface device exchange level, the host's work is not all same.
@@ -72,5 +72,13 @@ interface device exchange level, the host's work is not all same.
    I: Invalid and never happen.
    T: Transport to host and not handle it.
    H/T: Handle what it can if not Transport to host.
-   H/S: Handle it and set limitation to 1.
+   H/S: Handle it and set limitation to 1(this set thing should only effect T=0 transfer).
    R/W/T: Reset timeout and Wait Timeout.
+
+
+
+NETSVC PCSC LAYER:
+
+	PCSC.handle --> 1/3/4
+	PCSC.ICC    --> 2
+	PCSC.IFD    --> 5/6
