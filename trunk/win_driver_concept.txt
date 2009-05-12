@@ -1,0 +1,55 @@
+VXD,KMD,WDM基本概念
+
+什么是VxD?
+  VxD乃 VIRTUAL X DRIVER.哎,说了也白说.其实就是虚拟设备驱动程序.是系统用于对各种硬件资源识别,管理,维护运作的扩展.VXD和VMM(虚拟机管理器)一起合作,维持着系统的运作.VxD模式从WIN3X时代就开始了.一直到了WIN98还一直在MS的WIN系列操作系统中起主导作用.VxD运作在INTEL 系列CPU保护模式下的RING0.拥有对硬件的最高控制权.
+
+什么是Kernel Mode Driver(KMD)?
+  Kernel Mode Driver是NT下提出的管理,维护硬件运作的驱动程序模式.该DRIVER运行于NT的KERNEL模式下,类似于RING0.但是,一个KMD的运作环境在不同的时候是根本不同的.DRIVER收到设备请求时的运行环境很可能和设备请求实际操作的运行环境根本不同.这也是NT下,DRIVER的运作也受到NT的许多限制,一不小心,DRIVER和NT就同归于尽,来个BSOD(BLUE SCREEN OF DEATH).
+
+什么是WDM?
+  WDM乃WIN32 DRIVER MODEL的简写.随WIN95 OSR2.1推出,和WIN2000兼容.乃MS力推的'全新'的驱动程序模式.目前网上WDM的文章很多,但是成书不多.基本上由于98对WDM的支持有限,而WIN2000又没有正式版推出,WDM的实际应用还不多.但是很快,WDM将成为主流的DRIVER模式.在我看来,WDM只不过是个PNP的KMD而已.
+
+  早期的WIN3X,核心是VMM,当时的VMM已经具备了基本的操作系统核心的一些特征.但是WIN3X的驱动程序模式混乱不堪.硬件由VxD驱动,网络和文件系统由实模式驱动程序驱动,多媒体硬件和打印机有RING3 DLL驱动,系统服务决大部分被转到V86模式下由实模式的DOS完成.
+   到了WIN95很大一部分系统服务被转换到了保护模式下.但是,混乱的驱动模式没有改变.WIN95主攻方向是易用性,而且的确WIN95在用户界面上有些进步.当95开发组努力开发的时候,NT也推出了.这是个号称C2极的OS.当然,我并不相信该系统的强壮性,如果它的源代码公开的话,很可能就不堪一击.当然,NT比95还是有可圈点之处的.它乃是个真正的32位系统.而且,提供了5个应用环境:WIN32,VDM,POSIX.WOW,OS/2.这 5个环境相互独立,并且操作系统仅对WIN32环境提供接口,WIN32提供其他环境接口,其他环境的API调用最终被转换到WIN32,进入OS核心. 换言之:WIN32是屏幕,鼠标,键盘的拥有者,其他环境如要使用,就要向WIN32子系统申请.
+   现在的WIN98乃是一个大杂种.包含了所有95的驱动程序模式,加上了WDM.很难想象.如果有一个硬件需要开放驱动程序.你必须首先看一下,适合什么模式.MINIPORT? NDIS? HID? RING0? RING3? 几乎每个硬件都对应一种模式.
+  ::UNDOCUMENTED HINT
+    NT 隐藏了一个环境.那就是NATIVE环境.这个环境可以说基本上没有在文档里出现过.也没有支持.在DDK里仅仅公开了一小部分NATIVE API.NATIVE环境在系统启动时尤其重要.NT的CHKDSK程序就是个NATIVE应用程序.在运行该程序时,根本就没有WIN32环境,更没有 WOW, POSIX环境.这时候只有NATIVE API可供调用.而MS在很多情况下就是靠NATIVE API来获取更高的应用程序效能.得到不公平的竞争优势.某些NATIVE API甚至可饶过系统的安全检查来完成原先不能完成的任务.
+
+  VXD和KMD的最大区别在于VXD不需要考虑多CPU的问题.而KMD需要调用自旋锁来同步多CPU之间数据访问.当然,如果必要的话,通过VXD来增加对多CPU的支持应该并不困难,因为VMM提供了很开放的环境:VXD可以拦截VMM的调用入口.就类似于在DOS时代拦截INT21来扩展系统服务. 而NT如果要扩展系统的化就很困难了.因为这是未公开的.
+  另外一个重要的区别是VXD可以在CPU处于实模式时就获得系统的控制.而KMD不能.等KMD获得第一个启动时机,CPU已经处于保护模式,甚至你替换调HAL或NTOSKRNL也无济于事.因为CPU的模式切换是有NTLDR进行的
+
+到底如何决定该用VXD还是KMD还是WDM呢?
+当然,首先应该考虑的是应用平台.如果是NT4.X,你没得选了,肯定是KMD了.如果是WIN95,那也只有VXD一种选择.当目标平台是98或WIN2000,可
+供选择的方法多点.但是也受到OS规范的限制.
+98下.如果想开发的是FSD,那么必须用VXD.尽管98有个WDMFS.SYS的东西.但是它并非真正的WDM的文件系统驱动程序.98支持的FSD是以
+IFSMGR.VXD为基础的VXD.
+如果想搞DISK,COMM...等一系列的DRIVER.你也要写VXD.因为98并没有提供该类的WDM支持.那么98下什么可以用WDM呢?HID,网络类,多媒体类
+的硬件支持已经转化到了WDM.你已经可以从DDK里发现这几类驱动程序的样板程序.
+在NT2000下.我还不是很熟.但是很显然.对WDM的支持会更多.老的KMD将逐渐退出舞台.当然,KMD有他不可磨灭的优势.(在NT下,KMD的限制比9X
+下的VXD多.但是它仍有一些活络余地.例如DISK驱动程序可以访问视频硬件,或者其他资源,但随NT的发展,早晚这些活络余地也会被取消.)WDM
+需要将自己注册到相应的类里.有相应的例程必须输出.有些类似于MINIDRIVER.
+最终要考虑的是DRIVER作者的习惯.对哪1种模式更熟悉,写作更方便,那就用哪个.
+我个人开发98/95平台更多些.所以自己更倾向于VXD:安全限制最少.并且,我喜欢汇编.
+
+　NTKERN.VXD的一些东东
+NTKERN.VXD乃是WIN98提供NT类服务的核心驱动程序.它输出了几个VXD服务.尽管有头文件,但是却没有文档.这里告诉大家一个诀窍,很多服务和NT下ZwXXX例程具有相同的参数,乃是VXD版的ZwXXX.
+例如NtKernCreateFile就是ZwCreateFile的翻版.它也具有11个参数.
+下面是NTKERN.VXD的VXD服务列表.
+NTKERN_Service       _NTKERN_Get_Version, LOCAL
+NTKERN_StdCall_Service   _NtKernCreateFile, 11, VxD_CODE
+NTKERN_StdCall_Service   _NtKernClose, 1, VxD_CODE
+NTKERN_StdCall_Service   _NtKernReadFile, 9, VxD_CODE
+NTKERN_StdCall_Service   _NtKernWriteFile, 9, VxD_CODE
+NTKERN_StdCall_Service   _NtKernDeviceIoControl, 10, VxD_CODE
+NTKERN_Service       _NtKernGetWorkerThread, VxD_CODE
+NTKERN_StdCall_Service   _NtKernLoadDriver, 1, VxD_CODE
+NTKERN_StdCall_Service   _NtKernQueueWorkItem, 2, VxD_CODE
+NTKERN_Service       _NtKernPhysicalDeviceObjectToDevNode, VxD_CODE
+NTKERN_StdCall_Service   _NtKernSetPhysicalCacheTypeRange, 4, VxD_CODE
+NTKERN_Service       _NtKernWin9XLoadDriver, VxD_CODE
+NTKERN_StdCall_Service   _NtKernCancelIoFile, 2, VxD_CODE
+NTKERN_Service       _NtKernGetVPICDHandleFromInterruptObj, VXD_CODE
+NTKERN_StdCall_Service   _NtKernInternalDeviceIoControl, 10, VxD_CODE
+上述服务里,部分是未公开的.如果大家参悟透了,NT下也有很多东西可迎刃而解.我想,文件IO应该没什么问题,但是其他东西就难搞了.在这里,我在网络上仅看到了_NtKernLoadDriver的接口.他和ZwLoadDriver具有相同的参数,用来从VXD加载KMD.(ZwLoadDriver 本身又是个未公开的函数)具体接口如下:
+NTSTATUS __stdcall ZwLoadDriver( PUNICODE_STRING ServiceKeyPath ).
+
