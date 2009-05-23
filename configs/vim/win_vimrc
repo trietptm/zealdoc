@@ -35,3 +35,5 @@ set ignorecase smartcase
 syntax on
 set foldmethod=syntax
 set foldlevel=99
+set encoding=cp936 fileencodings=ucs-bom,utf-8,cp936
+
