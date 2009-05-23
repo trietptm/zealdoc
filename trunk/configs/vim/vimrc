@@ -211,3 +211,7 @@ colorscheme torte
 "
 " textwidth
 set tw=78
+" 
+" auto recoginze doc encode and switch
+set encoding=cp936 fileencodings=ucs-bom,utf-8,cp936
+
