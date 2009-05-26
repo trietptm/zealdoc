@@ -1,2 +1,11 @@
 Hello list,
-I'm new to OpenOCD world.
+I'm new to OpenOCD. Now I'm trying to make the config files for our new eval
+board which one the core is ARM926EJS. Many problems come up that I can't solve.
+
+Environment:
+Eval Board and CPU core is ARM926EJS.
+JTAG Adapter is a OpenJTAG compatible one (USB<=>JTAG).
+OpenOCD is the lastest version from svnroot.
+
+First please have a look my config files:
+
