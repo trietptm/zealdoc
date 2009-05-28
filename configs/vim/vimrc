@@ -113,7 +113,7 @@ set cindent
 set noexpandtab
 
 "auto line break per 80 characters
-"set textwidth=80
+set textwidth=80
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Autocommands
