@@ -1,0 +1,25 @@
+Sorry, I must make some mistakes and confused about some basic concepts now.
+
+First list what I know.
+
+My board used vitesse switch chip and the core is ARM926ejs. From the pin table, there are 8 bit for data bus and 24 bit for address bus.
+
+Q: what kind of flash, mode (8/16 bit)?
+
+FLASH is EN29LV640T/B, 64 Megabit (8M x 8-bit / 4M x 16-bit) Flash Memory Boot Sector Flash Memory.
+The mode is 8-bit I think since it connected DQ0~DQ7 as data channel.
+
+Q: bus width of the CPU?
+
+You mean address bus width? If so, it's configurable and the value is 8 or 16 bit. All of the addr pin(24) connect with flash.
+
+I set this bus width to 16 bit through change a register on chip. Now we can start to talk the openocd config.
+
+#### flash bank ####
+# chip_width(addr width) is 16 bit, bus_width(data width) is 8 bit
+flash bank cfi 0x10000000 0x8000000 2 1 0
+
+
+Is it correct? In fact, I am not very sure the meaning of chip_width and bus_width in bank structure from source code.
+
+
