@@ -1,1 +1,24 @@
 http://blog.chinaunix.net/u1/52475/showart_446249.html
+
+u-boot tftp
+-----------
+# show env vars
+> printenv
+
+# set env
+> setenv $(envname) $(value)
+
+# save env
+> saveenv
+
+# download from tftp server
+> tftp $(addr) $(filename)
+
+# run it(uimage format)
+> bootm $(addr)
+
+# run it(normal format)
+> go $(addr)
+
+# run kernel and rootfs at same time
+> bootm $(kernel_addr) $(rootfs_addr)
