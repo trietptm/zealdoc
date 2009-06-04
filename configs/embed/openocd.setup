@@ -1,0 +1,12 @@
+INSTALL
+-------
+   ./bootstrap
+   ./configure --prefix=/PATH --enable-INTERFACE_YOU_WANT
+   ./make
+   ./make install
+
+COMPILE
+-------
+If we use ft2232 interface we should:
+modify the test function that call `ftdi_new()' and make it return 0 for success
+which is in configure file.
