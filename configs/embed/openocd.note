@@ -1,0 +1,37 @@
+PACKAGE
+-------
+Get the lastest version from internet by svn tool or other way.
+
+   $svn://svn.berlios.de/openocd/
+
+INSTALL
+-------
+   $./bootstrap
+   $./configure --prefix=/PATH --enable-INTERFACE_YOU_WANT
+   $./make
+   $./make install
+
+Here we'll enable ft2232_libftdi. So the config line is as follow:
+   $./configure --prefix=/PATH --enable-ft2232_libftdi
+
+NOTE
+----
+If we use ft2232 interface, we may need modify the test function that called
+`ftdi_new()' and make it return 0 for success which file is configure.in.
+
+USAGE
+-----
+After setup succeed. We go into the installation directory which contains
+openocd binary.
+
+We should run it with the following way:
+
+   $sudo openocd -f boadr_cfg_path
+
+Use another terminal, we can use telnet to login the openocd server:
+
+   $telnet localhost 3333
+
+In that we can run some openocd's command to control the board.
+
+   $telnet>help
