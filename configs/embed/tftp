@@ -1,5 +1,3 @@
-http://blog.chinaunix.net/u1/52475/showart_446249.html
-
 u-boot tftp
 -----------
 # show env vars
@@ -22,3 +20,19 @@ u-boot tftp
 
 # run kernel and rootfs at same time
 > bootm $(kernel_addr) $(rootfs_addr)
+
+# set bootargs for kernel image (e.g.)
+> setenv bootargs console="ttyS0,115200"
+
+# autorun 
+> setenv bootcmd tftp 0x1000000 u_kernel;	\
+		 tftp 0x1500000 u_rootfs;	\
+		 bootm 0x1000000 0x1500000
+
+PC tftp(need login first)
+-------------------------
+# upload
+> put $(filename)
+
+# download
+> get $(filename)
