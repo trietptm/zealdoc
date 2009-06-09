@@ -1,0 +1,12 @@
+09.06.08
+- flash and ram full addresses space accessing.
+= Fix vsc7501 datasheet. Flash is 8Mb(u-boot) and DDRram is 64Mb(u-boot & kernel).
+= The addresses are matched also.
+
+- NOR or NAND we used?
+= Nor's data lines and addr lines are separated. And we can access every byte of
+= nor. But can only access page of nand. So we are used a nor flash.
+
+09.06.09
+- flash file system
+= http://www.ibm.com/developerworks/cn/linux/l-flash-filesystems/
