@@ -10,3 +10,7 @@
 09.06.09
 - flash file system
 = http://www.ibm.com/developerworks/cn/linux/l-flash-filesystems/
+
+09.06.10
+- openwrt toochain cleanup
+- know `buildroot' project
