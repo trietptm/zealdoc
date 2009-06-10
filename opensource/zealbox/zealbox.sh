@@ -50,10 +50,16 @@ function k9()
 #
 function fxg()
 {
-	if [ $# -ne 1 ]; then
+	if [ $# -gt 2 ]; then
 		echo 'Usage: fxg $word_you_lookup'
 		exit 1
 	fi
+
+#	if [ $? -eq 2 ]; then
+#		if [ $2 -eq "d" ]; then
+#			echo "dd"
+#		fi
+#	fi
 	find . -name cscope -prune -o -name .svn -prune -o -name .pc -prune -o -name CVS -prune -o -print | xargs grep $1
 	return 0
 }
