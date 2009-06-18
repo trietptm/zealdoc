@@ -1,0 +1,3 @@
+http://packages.debian.org/lenny/python-bcrypt
+http://packages.debian.org/lenny/python-crypto-dbg
+http://packages.debian.org/lenny/python-advas
