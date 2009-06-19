@@ -9,13 +9,37 @@
 #	refress [patch.name]
 #
 
-# $1 is files dir which you want to add to quilt.
-if [ $1x = x ]; then
-	echo "No dir"
-	exit
-fi
-files=`ls $1`
 
-for file in $files ; do
-	quilt add $file
-done
+function add_file_to_quilt()
+{
+	file=$1;
+
+	if [ -f ${file} ] ; then
+		quilt add $file;
+	fi
+}
+
+# add all files into *.patch include subdir
+function add_all_files()
+{
+	d_or_f=`find $1`
+
+	for file in $d_or_f ;
+	do
+		add_file_to_quilt $file;
+	done
+}
+
+# add files into *.patch only include current dir
+function add_files()
+{
+	d_or_f=`find $1 -maxdepth 1`
+
+	for file in $d_or_f ;
+	do
+		add_file_to_quilt $file;
+	done
+}
+
+# $1 is files' dir which you want to add to quilt.
+add_all_files $1;
