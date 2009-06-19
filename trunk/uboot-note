@@ -1,0 +1,24 @@
+
+[start.S]
+1. _TEXT_BASE
+2. _armboot_start
+3. _armboot_alloc_mem_end
+4. _bss_start
+5. _bss_end
+6. IRQ_STACK_START
+7. FIQ_STACK_START
+
+[lds]
+6. _start entry point 1
+7. __bss_start 
+8. _end
+9. CONFIG_STACKSIZE 
+
+
+1. _armboot_alloc_mem_end = ALLOC_MEM_END = 0x00200000
+2. TEXT_BASE = 0x0
+3. CFG_ENV_SIZE = 0x10000
+4. CFG_MALLOC_LEN = CFG_ENV_SIZE + 1024*1024 = 64 + 1024 = 1088 k or byte = 0x00110000
+5. CFG_GBL_DATA_SIZE = 128 byte
+
+malloc area: 1 - 4 = 0xF0000
