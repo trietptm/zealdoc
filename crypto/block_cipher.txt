@@ -1,17 +1,19 @@
 MODES OF OPERATTION
 ===================
 
-supply only confidentiality OR message integrity
-------------------------------------------------
-ECB: Electronic CodeBook
-CBC
-OFB
-CFB
-
-supply both confidentiality AND message integrity
--------------------------------------------------
+ECB: Electronic CodeBook, simplest mode and not require IV.
+CBC: Cipher-Block Chaining, encryption is sequential.
+PCBC: Propagating/Plaintext CBC.
+OFB: Output FeedBack
+CFB: Cipher FeedBack
 IAPM
 CCM
 EAX
 GCM
 OCB
+CTR/CM/SIC/ICM: CounTeR
+
+[Reference]
+1. http://csrc.nist.gov/groups/ST/toolkit/BCM/modes_development.html 
+2. http://en.wikipedia.org/wiki/Block_cipher_modes_of_operation
+
