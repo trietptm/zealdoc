@@ -1,0 +1,17 @@
+MODES OF OPERATTION
+===================
+
+supply only confidentiality OR message integrity
+------------------------------------------------
+ECB: Electronic CodeBook
+CBC
+OFB
+CFB
+
+supply both confidentiality AND message integrity
+-------------------------------------------------
+IAPM
+CCM
+EAX
+GCM
+OCB
