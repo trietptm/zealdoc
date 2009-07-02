@@ -35,3 +35,8 @@ uncompress(not work well):
 dos2unix
 --------
 (C) find -type f | xargs dos2unix -o
+
+grep
+----
+grep $str in the $file and show times.
+(C) grep -c $str $file
