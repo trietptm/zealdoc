@@ -11,3 +11,8 @@ A: guilin
 
 
 - pudn. coco2009 ra..
+
+R:embedlnx.cn
+U: coco
+P: coco1234
+M: zc
