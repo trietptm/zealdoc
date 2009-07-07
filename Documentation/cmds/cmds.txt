@@ -40,3 +40,5 @@ grep
 ----
 grep $str in the $file and show times.
 (C) grep -c $str $file
+grep
+(C) grep -$num $str $file
