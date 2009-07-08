@@ -9,7 +9,7 @@ function cmd_isexist()
 	local cmd=$1
 
 	# only find command in system path
-	if [ `which $cmd`x = ""x ]; then
+	if [ "`which $cmd`" = "" ]; then
 		return 0
 	else
 		return 1
@@ -110,7 +110,7 @@ function file_not_exist_exit()
 
 function is_root()
 {
-	if [ `whoami`x = "root"x ]; then
+	if [ "`whoami`" = "root" ]; then
 		return 1
 	else
 		return 0
