@@ -1,0 +1,44 @@
+Job description:
+Mandatory requirement:
+1. Strong C programming skills
+2. 2+ year working experience on one of below fields in embedded development
+* Chip firmware experience
+* Driver development(Windows/Linux) Network device driver highly desired.
+* BSP development
+* kernel-level development experience(Windows/Linux).
+3. Strong understanding of OS kernel internal concepts.
+
+Optional but plus
+1. Chip firmware experience
+2. Experience/strong understanding of Bluetooth or WIFI
+3. Experience/strong understanding of OS kernel implementation (Linux, Windows, etc)
+4. Familiar with hardware debugging.
+
+Job description的要求说明
+===========
+firmware要直接烧到chip上的，对工程师的开发功力要求比较高，而且我们需要和硬件工程师交互比较多。
+因为很多方案是软件硬件工程师一起讨论决定，并不一定是硬件出来后软件再做工作
+（目前很多公司是买硬件,然后在上面开发软件。而Atheros是软硬件协同设计，她有独立的硬件设计团队,
+和软件设计团队。从芯片设计到firmware烧制到driver都自己做。我们根据实际的要求来决定究竟哪一块
+应该硬件做，那一块软件做更加合理。所以对firmware工程师的要求也相对比较高，需要对操作系统底层
+如何运转比较了解,而且需要一定的相关开发经验。
+
+技术更新得很快，即使在嵌入式领域也逐步的走向协同设计，可配置型CPU, multi-core, SoC都已经成为
+或者即将成为主流。我个人认为没有强烈的好奇心和热情的话，是很难成为一个优秀的技术人员.
+这个不属于job description,不过我想每个公司都会欢迎具有这些的开发人员。
+
+其他相关背景说明：
+==============
+Atheros是全球Wifi芯片的主要提供商之一，具体介绍信息用google查会比较清楚，也可以访问www.atheros.com,
+这里就不多说了。目前上海bluetooth项目/ wifi项目需要招一些比较出色的工程师，大家一起把东西做好。
+公司提供非常有竞争力的待遇，还有Nasdaq的股票期权（目前每股价格20多美元)。
+
+在前一家公司的时候通过linux forum找到了一些非常出色的人才,现在也成为很好的朋友. 现在在atheros,
+几乎天天都在面试猎头推荐来的应聘者,不过,正如以前的经验告诉我,猎头大多都不是技术出身
+(没有冒犯的意思，但是真的很少有猎头能分辨优秀的技术人才), 推荐来的人和我们的要求相差很远。
+但是我们确实需要比较优秀的人才,所以希望能再次在linux forum上找到一些志同道合的开发者.
+
+有意向的应聘者麻烦把简历发到我的邮箱 fwu@atheros.com,
+如果符合我们的条件，我们会电话面谈一次，然后可能邀请你来公司面谈。
+
+谢谢 
