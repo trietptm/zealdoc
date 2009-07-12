@@ -64,6 +64,39 @@ function fxg()
 	return 0
 }
 
+function fxg1()
+{
+	if [ $# -gt 2 ]; then
+		echo 'Usage: fxg $word_you_lookup'
+		exit 1
+	fi
+
+#	if [ $? -eq 2 ]; then
+#		if [ $2 -eq "d" ]; then
+#			echo "dd"
+#		fi
+#	fi
+	find . -maxdepth 1 -name cscope -prune -o -name .svn -prune -o -name .pc -prune -o -name CVS -prune -o -print | xargs grep $1
+	return 0
+}
+
+function fxg2()
+{
+	if [ $# -gt 2 ]; then
+		echo 'Usage: fxg $word_you_lookup'
+		exit 1
+	fi
+
+#	if [ $? -eq 2 ]; then
+#		if [ $2 -eq "d" ]; then
+#			echo "dd"
+#		fi
+#	fi
+	find . -maxdepth 2 -name cscope -prune -o -name .svn -prune -o -name .pc -prune -o -name CVS -prune -o -print | xargs grep $1
+	return 0
+}
+
+
 # cscope -Rb
 function csrb()
 {
