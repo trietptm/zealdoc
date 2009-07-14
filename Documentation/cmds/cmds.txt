@@ -42,3 +42,8 @@ grep $str in the $file and show times.
 (C) grep -c $str $file
 grep
 (C) grep -$num $str $file
+
+extract DEB
+-----------
+(C) ar vx xx.deb
+(C) tar xvf data.tar.gz
