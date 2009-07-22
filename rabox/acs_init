@@ -1,0 +1,16 @@
+; Create DF: 4100, SE file=4103, with SAC and SAE
+00 E0 00 00 43
+[62 41 ...]	FCP TLV
+  [82 01 38]	FDB
+  [83 02 41 00]	FID
+  [84 10 ...]	DF Long Name
+  [8A 01 01]	Life Cycle Stage Interger
+  [8C 07 ...]	Security Attributes Compact
+  [AB 16 ...]	Security Attributes Extended
+    [86 02 22 F2]
+    [97 00]	Never
+    [84 01 22]
+    [A0 0B ...] One or more SC DO follows where at least 1 condition is met
+     [9E 01 01] SC byte the same as SAC
+     [A4 06 ..] allow command if local PIN #1 is submitted.
+  [8D 02 41 03] SE File ID
