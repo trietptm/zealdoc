@@ -54,22 +54,18 @@ param: cache_line, stride, times, duration, align
 - eap-peap.ppt
 - nap-soh.ppt
 
-- usb host side api
-- dump error
-
 - sock bind issue
 - nac arch
 - pppoe timeout device bring up, net_dev_event
 - eap delete NAC
 - HBR: add check ifaddr on interface??
-- win: libusb support uevent
-- udev -> register_proto support
-- hid - ccid_dev
 - pppoe call exist ext_device_name() to open eth0 in win
-- udev del node()
-- usb state machine
 
 
 34689
+
+- crypto basic
+- math
+- jp
 
 
