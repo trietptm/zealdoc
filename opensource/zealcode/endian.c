@@ -118,7 +118,6 @@ void test_endianness(void)
 	} else {
 		endianness = LE;
 		printf( "I'm on a little-endian system\n" );
-
 	}
 }
 
