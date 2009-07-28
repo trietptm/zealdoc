@@ -25,6 +25,7 @@ rast1234
 zealc
 zealrast
 zealcook@g
+http://www.cnblogs.com/zealc/
 
 -taobao
 coff
