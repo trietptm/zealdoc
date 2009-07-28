@@ -25,10 +25,18 @@ void rot13_write(int fd, int new_fd)
 
 void main(void)
 {
-	int fd1 = open("g:\\rot13.txt", O_RDWR);
-	int fd2 = open("g:\\rot13.txt.new", O_RDWR | O_CREAT);
+	int fd1;
+	int fd2;
+	
+	fd1 = open("g:\\rot13.txt", O_RDONLY);
 
-	if (fd1 < 0 || fd2 < 0) {
+	if (fd1 < 0) {
+		usage();
+		return;
+	}
+	fd2 = open("g:\\rot13.txt.new", O_RDWR | O_CREAT);
+
+	if (fd2 < 0) {
 		usage();
 		return;
 	}
