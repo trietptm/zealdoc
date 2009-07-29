@@ -1,4 +1,0 @@
-http://rd-life.blogspot.com/2009/02/libusb-libusb-thread-support-and_15.html
-
-http://www.linuxjournal.com/node/7582/
-http://www.siwawi.arubi.uni-kl.de/avr_projects/arm_projects/openocd_intro/index.html#at91sam7int
