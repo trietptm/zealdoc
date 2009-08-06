@@ -9,9 +9,10 @@ http://www.yktchina.com/bbs/Thread-b3.htm
 daily TODO
 ==========
 ccid doc
-  ccid_t0apdu();
-  ccid_abort();
+x  ccid_t0apdu();
+x  ccid_abort();
   ccid_setdata..();
+  mulitple applications on icc;
 
 
 ---------------------------------------------------------------------------------------------------
