@@ -1,18 +1,27 @@
-å®‰å…¨æ”»å‡»ï¼š
-  è¢«åŠ¨æ”»å‡»
-    æ¶ˆæ¯å†…å®¹æ³„éœ²
-    æµé‡åˆ†æž
-  ä¸»åŠ¨æ”»å‡»
-    å‡å†’
-    é‡æ”¾
-    æ”¹å†™æ¶ˆæ¯
-    æ‹’ç»æœåŠ¡
+°²È«¹¥»÷£º
+  ±»¶¯¹¥»÷
+    ÏûÏ¢ÄÚÈÝÐ¹Â¶
+    Á÷Á¿·ÖÎö
+  Ö÷¶¯¹¥»÷
+    ¼ÙÃ°
+    ÖØ·Å
+    ¸ÄÐ´ÏûÏ¢
+    ¾Ü¾ø·þÎñ
 
 
-å¯¹ç§°åŠ å¯†ï¼š
-  åˆ†ç»„å¯†ç 
-    DES
-    3DES
-    AES
-  æµå¯†ç 
-    RC4
+¶Ô³Æ¼ÓÃÜ£º
+---------
+  ×é³É
+    Ã÷ÎÄ
+    ¼ÓÃÜËã·¨
+      ·Ö×é
+        DES / 3DES / AES
+	Ä£Ê½
+	  ECB(electronic codebook)
+	  CBC(cipher block chaining)
+	  CFB(cipher feedback)
+      ÐòÁÐ(Á÷)
+        RC4
+    ÃØÃÜÃÜÔ¿
+    ÃÜÎÄ
+    ½âÃÜËã·¨
