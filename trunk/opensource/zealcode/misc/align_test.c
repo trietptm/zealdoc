@@ -1,4 +1,3 @@
-#include "crypto/test.h"
 
 #include <assert.h>
 #include <inttypes.h>
@@ -35,7 +34,9 @@ static void test_mask(size_t align)
 	uintptr_t mask = ~(uintptr_t)(align - 1);
 	void *mem = malloc(1024+align-1);
 	void *ptr = (void *)(((uintptr_t)mem+align-1) & mask);
+
 	assert((align & (align - 1)) == 0);
+
 	printf("align: %d\t mask: %0X\n", align, mask);
 	printf("0x%08" PRIXPTR ", 0x%08" PRIXPTR "\n", mem, ptr);
 	memset_16aligned(ptr, 1024);
