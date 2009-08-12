@@ -10,7 +10,7 @@ int gdst = 0;
 void usage(void)
 {
 	fprintf(stderr, "Usage: tea <OPTION> <FILE>\n");
-	fprintf(stderr, "<OPTION> is -e or -d\n");
+	fprintf(stderr, "<OPTION> is en or de\n");
 	fprintf(stderr, "<FILE>   is file you need do action\n");
 
 	exit(0);
