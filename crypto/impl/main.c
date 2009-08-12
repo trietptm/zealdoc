@@ -34,6 +34,9 @@ int tea_openfile(const char *name, int flag)
 		open_flag |= O_RDONLY;
 	else if (flag & OPEN_FLAG_W)
 		open_flag |= O_WRONLY;
+#ifdef WIN32
+	open_flag |= O_BINARY;
+#endif
 
 	if (flag & OPEN_FLAG_C)
 		open_flag |= O_CREAT;
@@ -105,6 +108,7 @@ int do_op(int type)
 			for (i = ret; i < 8; i++)
 				src[i] = '\n';
 		}
+#if 1
 		if (type == TEA_OP_EN) {
 			tea_encrypt(&g_ctx, dst, src);
 			if (-1 == write(gdst, dst, 8))
@@ -114,6 +118,7 @@ int do_op(int type)
 			if (-1 == write(gdst, dst, 8))
 				break;
 		}
+#endif
 	} while (out);
 
 	/* true if fail */
