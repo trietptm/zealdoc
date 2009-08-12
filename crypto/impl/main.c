@@ -1,5 +1,5 @@
 #include "priv.h"
-#include "tea.h"
+#include "ciphers/tea.h"
 
 struct tea_ctx g_ctx;
 u8 gkey[] = "zeal";
