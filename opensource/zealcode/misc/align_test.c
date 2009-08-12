@@ -4,6 +4,9 @@
 #include <stdio.h>
 #include <stdlib.h>
 
+/* x is aligned by a? */
+#define IS_ALIGNED(x, a)	(((x) & ((typeof(x))(a) -1)) == 0)
+
 static void memset_aligned(void *space, size_t nbytes, unsigned char bits)
 {
 	assert((nbytes & bits) == 0);
@@ -35,11 +38,13 @@ static void test_mask(size_t align)
 	void *mem = malloc(1024+align-1);
 	void *ptr = (void *)(((uintptr_t)mem+align-1) & mask);
 
-	assert((align & (align - 1)) == 0);
+	assert(IS_ALIGNED(align, align));
 
 	printf("align: %d\t mask: %0X\n", align, mask);
 	printf("0x%08" PRIXPTR ", 0x%08" PRIXPTR "\n", mem, ptr);
-	memset_16aligned(ptr, 1024);
+
+	if (align > 0)
+		memset_16aligned(ptr, 1024);
 	if (align > 16)
 		memset_32aligned(ptr, 1024);
 	if (align > 32)
