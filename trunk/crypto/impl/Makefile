@@ -1,7 +1,9 @@
 all: build 
 
+src := ciphers/tea.c
+
 build:
-	gcc tea.c main.c
+	gcc main.c $(src)
 
 clean:
 	rm -rf a.out
