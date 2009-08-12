@@ -4,8 +4,8 @@
 struct tea_ctx g_ctx;
 u8 gkey[] = "zeal";
 u8 g_tmpfile[] = "tmpfile";
-int gfd = 0;
-int gtmp = 0;
+int gsrc = 0;
+int gdst = 0;
 
 void usage(void)
 {
@@ -54,13 +54,13 @@ void tea_closefile(int fd)
 
 int tea_init(int argc, char **argv)
 {
-	gfd = tea_openfile(argv[2], OPEN_FLAG_R);
-	if (gfd == 0)
+	gsrc = tea_openfile(argv[2], OPEN_FLAG_R);
+	if (gsrc == 0)
 		return 0;
 
-	gtmp = tea_openfile(g_tmpfile, OPEN_FLAG_C | OPEN_FLAG_W);
-	if (gtmp == 0) {
-		tea_closefile(gfd);
+	gdst = tea_openfile(g_tmpfile, OPEN_FLAG_C | OPEN_FLAG_W);
+	if (gdst == 0) {
+		tea_closefile(gsrc);
 		return 0;
 	}
 
@@ -70,10 +70,10 @@ int tea_init(int argc, char **argv)
 
 void tea_exit(void)
 {
-	if (gfd > 0)
-		tea_closefile(gfd);
-	if (gtmp > 0)
-		tea_closefile(gtmp);
+	if (gsrc > 0)
+		tea_closefile(gsrc);
+	if (gdst > 0)
+		tea_closefile(gdst);
 }
 
 #define TEA_OP_EN	1
@@ -88,7 +88,7 @@ int do_op(int type)
 	do {
 		int ret;
 
-		ret = read(gfd, src, 8);
+		ret = read(gsrc, src, 8);
 
 		printf("ret=%d\n", ret);
 	
@@ -97,6 +97,8 @@ int do_op(int type)
 
 		if (ret < 8 || ret == 0)
 			out = 0;
+		if (ret == 0)
+			break;
 
 		if (ret < 8) {
 			int i;
@@ -105,11 +107,11 @@ int do_op(int type)
 		}
 		if (type == TEA_OP_EN) {
 			tea_encrypt(&g_ctx, dst, src);
-			if (-1 == write(gtmp, dst, 8))
+			if (-1 == write(gdst, dst, 8))
 				break;
 		} else {
 			tea_decrypt(&g_ctx, dst, src);
-			if (-1 == write(gtmp, dst, 8))
+			if (-1 == write(gdst, dst, 8))
 				break;
 		}
 	} while (out);
@@ -125,7 +127,7 @@ int main(int argc, char **argv)
 	if (tea_init(argc, argv) == 0)
 		return 0;
 
-	fprintf(stdout, "start do op, %d/%d\n", gfd, gtmp);
+	fprintf(stdout, "start do op, %d/%d\n", gsrc, gdst);
 
 	if (argv[1][0] == 'e') {
 		if (do_op(TEA_OP_EN)) {
@@ -138,5 +140,4 @@ int main(int argc, char **argv)
 	}
 	tea_exit();
 	return 1;
-
 }
