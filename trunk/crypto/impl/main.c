@@ -1,6 +1,10 @@
 #include "priv.h"
 #include "ciphers/tea.h"
 
+#define OPEN_FLAG_R	1
+#define OPEN_FLAG_C	2
+#define OPEN_FLAG_W	3
+
 struct tea_ctx g_ctx;
 u8 gkey[] = "zeal";
 u8 g_tmpfile[] = "tmpfile";
@@ -15,10 +19,6 @@ void usage(void)
 
 	exit(0);
 }
-
-#define OPEN_FLAG_R	1
-#define OPEN_FLAG_C	2
-#define OPEN_FLAG_W	3
 
 int tea_openfile(const char *name, int flag)
 {

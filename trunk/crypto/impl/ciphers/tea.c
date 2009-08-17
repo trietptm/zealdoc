@@ -10,8 +10,7 @@
 #define XTEA_ROUNDS		32
 #define XTEA_DELTA		0x9e3779b9
 
-int tea_setkey(struct tea_ctx *ctx, const u8 *in_key,
-	       unsigned int key_len)
+int tea_setkey(struct tea_ctx *ctx, const u8 *in_key, unsigned int key_len)
 {
 	const u8 *key = (const u8 *)in_key;
 
