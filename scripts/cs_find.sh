@@ -47,6 +47,7 @@ cd /
 	-path "$LNX/sound*" -prune -o                                         \
 	-path "$LNX/patches*" -prune -o                                       \
 	\( -name .svn -o -name .pc -o -name CVS -o -name .git \) -prune -o    \
+	\( -name .cmd.c \) -prune -o    \
         -name "*.[chxsS]" -print > $LNX/cscope/cscope.files
 
 cd $LNX/cscope 
