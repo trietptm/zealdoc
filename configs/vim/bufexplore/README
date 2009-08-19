@@ -1,0 +1,9 @@
+INSTALL
+-------
+$(CP) buf...vim into ~/.vim/plugin
+
+usage
+-----
+ - \be
+ - \bs
+ - \bv
