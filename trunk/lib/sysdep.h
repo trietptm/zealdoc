@@ -210,8 +210,6 @@ typedef int bool;
 typedef unsigned char		uchar;
 
 #include <dirent.h>
-#include <netdb.h>
-#include <atomic.h>
 #include <linux/types.h>
 #include <linux/netlink.h>
 
