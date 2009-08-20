@@ -1,6 +1,6 @@
 /* This is zealcook lib(zclib) file. */
 
-#include "sysdep.h"
+#include "zc_sysdep.h"
 
 /* open a file.
  * return fd(>0) as success.
