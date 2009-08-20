@@ -194,6 +194,8 @@ typedef int			BOOL;
 #define closesocket(x)	close(x)
 #define INVALID_SOCKET	-1
 
+#define O_BINARY	0
+
 #endif
 
 /* Standard file descriptors.  */
