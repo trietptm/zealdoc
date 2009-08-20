@@ -1,7 +1,7 @@
 #ifndef TEA_H
 #define TEA_H
 
-#include "../priv.h"
+#include <zc_sysdep.h>
 
 struct tea_ctx {
 	u32 KEY[4];
