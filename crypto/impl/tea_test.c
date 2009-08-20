@@ -19,19 +19,17 @@ void usage(void)
 
 int tea_init(int argc, char **argv)
 {
-#if 0
 	gsrc = zc_open(argv[2], O_RDONLY | O_BINARY);
 	if (gsrc == 0)
 		return 0;
 
-	gdst = zc_open(g_tmpfile, O_CREATE | O_RDWR);
+	gdst = zc_open(g_tmpfile, O_CREAT | O_RDWR);
 	if (gdst == 0) {
 		zc_close(gsrc);
 		return 0;
 	}
 
 	tea_setkey(&g_ctx, gkey, 4);
-#endif
 	return 1;
 }
 
