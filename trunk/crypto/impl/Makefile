@@ -1,9 +1,12 @@
 all: tea
 
+# zclib
+LDFLAGS := -lzc
+
 tea_src := ciphers/tea.c
 
 tea:
-	gcc -lzc tea_test.c $(tea_src) -o tea
+	gcc $(LDFLAGS) tea_test.c $(tea_src) -o tea
 
 clean:
-	rm -rf a.out
+	rm -rf tea 
