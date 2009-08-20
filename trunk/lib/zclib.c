@@ -6,7 +6,7 @@
  * return fd(>0) as success.
  * return 0 for failure.
  */
-int zclib_open(const char *name, int flag)
+int zc_open(const char *name, int flag)
 {
 	int fd;
 
@@ -22,7 +22,7 @@ int zclib_open(const char *name, int flag)
 	return fd;
 }
 
-void zclib_close(int fd)
+void zc_close(int fd)
 {
 	if (fd > 0)
 		close(fd);

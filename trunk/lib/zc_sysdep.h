@@ -206,8 +206,14 @@ typedef int			BOOL;
 #define TRUE		!FALSE
 #endif
 
+typedef unsigned char 		u8;
+typedef unsigned long 		u32;
 typedef int bool;
 typedef unsigned char		uchar;
+
+#define le32_to_cpu(x)	(x)
+#define cpu_to_le32(x)	(x)
+#define __le32
 
 #include <dirent.h>
 #include <linux/types.h>

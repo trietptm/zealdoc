@@ -1,0 +1,4 @@
+1. Every test program need my library -- zclib.
+2. Every test program need zc_sysdep header file.
+
+But every thing you need just install zclib in this directory.
