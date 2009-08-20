@@ -1,9 +1,9 @@
-all: build 
+all: tea
 
-src := ciphers/tea.c
+tea_src := ciphers/tea.c
 
-build:
-	gcc main.c $(src)
+tea:
+	gcc tea_test.c $(tea_src) -o tea
 
 clean:
 	rm -rf a.out
