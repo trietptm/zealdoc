@@ -1,9 +1,6 @@
-#include "priv.h"
+#include <zclib.h>
+#include <zc_sysdep.h>
 #include "ciphers/tea.h"
-
-#define OPEN_FLAG_R	1
-#define OPEN_FLAG_C	2
-#define OPEN_FLAG_W	3
 
 struct tea_ctx g_ctx;
 u8 gkey[] = "zeal";
@@ -20,63 +17,30 @@ void usage(void)
 	exit(0);
 }
 
-int tea_openfile(const char *name, int flag)
-{
-	int fd;
-	int open_flag = 0;
-
-	if (!name)
-		return 0;
-
-	if ((flag & OPEN_FLAG_R) && (flag & OPEN_FLAG_W))
-		open_flag |= O_RDWR;
-	else if (flag & OPEN_FLAG_R)
-		open_flag |= O_RDONLY;
-	else if (flag & OPEN_FLAG_W)
-		open_flag |= O_WRONLY;
-#ifdef WIN32
-	open_flag |= O_BINARY;
-#endif
-
-	if (flag & OPEN_FLAG_C)
-		open_flag |= O_CREAT;
-
-	fd = open(name, open_flag, 0666);
-
-	if (fd < 0) {
-		fprintf(stderr, "openfile=%s fail\n", name);
-		return 0;
-	}
-	return fd;
-}
-
-void tea_closefile(int fd)
-{
-	close(fd);
-}
-
 int tea_init(int argc, char **argv)
 {
-	gsrc = zclib_open(argv[2], O_RDONLY | O_BINARY);
+#if 0
+	gsrc = zc_open(argv[2], O_RDONLY | O_BINARY);
 	if (gsrc == 0)
 		return 0;
 
-	gdst = zclib_open(g_tmpfile, O_CREATE | O_RDWR);
+	gdst = zc_open(g_tmpfile, O_CREATE | O_RDWR);
 	if (gdst == 0) {
-		zclib_close(gsrc);
+		zc_close(gsrc);
 		return 0;
 	}
 
 	tea_setkey(&g_ctx, gkey, 4);
+#endif
 	return 1;
 }
 
 void tea_exit(void)
 {
 	if (gsrc > 0)
-		tea_closefile(gsrc);
+		zc_close(gsrc);
 	if (gdst > 0)
-		tea_closefile(gdst);
+		zc_close(gdst);
 }
 
 #define TEA_OP_EN	1
