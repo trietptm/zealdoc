@@ -57,13 +57,13 @@ void tea_closefile(int fd)
 
 int tea_init(int argc, char **argv)
 {
-	gsrc = tea_openfile(argv[2], OPEN_FLAG_R);
+	gsrc = zclib_open(argv[2], O_RDONLY | O_BINARY);
 	if (gsrc == 0)
 		return 0;
 
-	gdst = tea_openfile(g_tmpfile, OPEN_FLAG_C | OPEN_FLAG_W);
+	gdst = zclib_open(g_tmpfile, O_CREATE | O_RDWR);
 	if (gdst == 0) {
-		tea_closefile(gsrc);
+		zclib_close(gsrc);
 		return 0;
 	}
 
