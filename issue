@@ -1,5 +1,6 @@
-1. star_*.h use lots of macro that can be simplified.
+-1. star_pm.h use lots of macro that can be simplified.
 2. reseach kernel_phys and KERNEL_PHYS in grocx bsp. We don't need them.
+   Show the memory layout.
 3. why grocx implement itself loadsp and writeb that not common with
    others.(see debug-macro.S for detail)
 4. get_irqnr_and_base implement puzzled. Lee san maybe fix this.
@@ -11,4 +12,32 @@
 A. delete grocx_info, proc_info and debug info from patch
 B. zreladr/initrd_addr/kernel_addr/... meaning and usage. Necessary
    kernel_addr?
-C. Fixup early_init code in grocx_setup.c. Do we really need it?
+C. Fixup early_init code in grocox_setup.c. Do we really need it?
+
+fusion
+
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+NOTE
+----
+some MACRO in ARM arch
+TASK_SIZE:	maximum size of user space task
+PAGE_OFFSET:	virtual address of kernel image
+
+COMMON LAYOUT
+-------------
+VMALLOC_END   ~ feffffff	Free for platform use
+VMALLOC_START ~ VMALLOC_END - 1 vmalloc / ioremap space
+PAGE_OFFSET   ~	high_memory - 1	Kernel direct-mapped RAM region
+TASK_SIZE     ~	PAGE_OFFSET - 1	Kernel module space	 
+00001000      ~ TASK_SIZE - 1	User space mappings
+
+boot with zImage
+startup in arch/arm/boot/compressed/head.S and head-*.S
+decompress arch/arm/boot/compressed/misc.c
+
+grocx
+-----
+PAGE_OFFSET: 0xC0000000
+VMALLOC_END: PAGE_OFFSET + 0x10000000
