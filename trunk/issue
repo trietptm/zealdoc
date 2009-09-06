@@ -41,3 +41,9 @@ grocx
 -----
 PAGE_OFFSET: 0xC0000000
 VMALLOC_END: PAGE_OFFSET + 0x10000000
+
+ARM register
+------------
+LR: link register(R14)
+ 1. store sub-routine return address. Meaning is when sub-routine finish it jump to LR's addr.
+ 2. for exception, jump to LR's addr.
