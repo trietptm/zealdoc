@@ -1,16 +1,22 @@
 -1. star_pm.h use lots of macro that can be simplified.
-2. reseach kernel_phys and KERNEL_PHYS in grocx bsp. We don't need them.
+   FIXUP:
+2. research kernel_phys and KERNEL_PHYS in grocx bsp. We don't need them.
    Show the memory layout.
--3. why grocx implement itself loadsp and writeb that not common with
-   others.(see debug-macro.S for detail) 
-	refer to pxa -> debug-macro.S
-4. get_irqnr_and_base implement puzzled. Lee san maybe fix this.
-5. __init we need?
-6. HZ and CLK_TICK_RATE
-7. arch_reset modify
-8. whats the intend of vmalloc.c
-9. consistent_dma_size -> does dma zone can be configured?
-A. delete grocx_info, proc_info and debug info from patch
+-3. why grocx implement itself loadsp and writeb.
+   FIXUP: refer to pxa -> debug-macro.S
+4. get_irqnr_and_base implement puzzled. Lee san may fix this.
+-5. __init we need?
+   FIXUP:
+-6. HZ and CLK_TICK_RATE
+   FIXUP: We need them. 
+-7. arch_reset modify
+   FIXUP: Done?
+-8. whats the intend of vmalloc.c
+   FIXUP: define VMALLOC_END that every mach-* need do it.
+-9. consistent_dma_size -> does dma zone can be configured?
+   FIXUP: Maybe not a problem since ARM dam has variable size.
+-A. delete grocx_info, proc_info and debug info from patch
+   FIXUP: Done.
 B. zreladr/initrd_addr/kernel_addr/... meaning and usage. Necessary
    kernel_addr?
 C. Fixup early_init code in grocox_setup.c. Do we really need it?
