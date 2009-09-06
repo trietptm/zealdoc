@@ -1,8 +1,9 @@
 -1. star_pm.h use lots of macro that can be simplified.
 2. reseach kernel_phys and KERNEL_PHYS in grocx bsp. We don't need them.
    Show the memory layout.
-3. why grocx implement itself loadsp and writeb that not common with
-   others.(see debug-macro.S for detail)
+-3. why grocx implement itself loadsp and writeb that not common with
+   others.(see debug-macro.S for detail) 
+	refer to pxa -> debug-macro.S
 4. get_irqnr_and_base implement puzzled. Lee san maybe fix this.
 5. __init we need?
 6. HZ and CLK_TICK_RATE
