@@ -70,5 +70,7 @@ zreladdr:    0x00008000(phys)
 ARM register
 ------------
 LR: link register(R14)
- 1. store sub-routine return address. Meaning is when sub-routine finish it jump to LR's addr.
+ 1. store sub-routine(by bl or blx) return address. Meaning is when sub-routine finish it jump to LR's addr.
  2. for exception, jump to LR's addr.
+
+http://blog.csdn.net/aaronychen/archive/2009/05/22/4208255.aspx
