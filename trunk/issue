@@ -40,14 +40,32 @@ PAGE_OFFSET   ~	high_memory - 1	Kernel direct-mapped RAM region
 TASK_SIZE     ~	PAGE_OFFSET - 1	Kernel module space	 
 00001000      ~ TASK_SIZE - 1	User space mappings
 
-boot with zImage
+~~~~~~~~~~~~~~~~
+Booting Sequence
+~~~~~~~~~~~~~~~~
+
+1). zImage decompression
+------------------------
 startup in arch/arm/boot/compressed/head.S and head-*.S
 decompress arch/arm/boot/compressed/misc.c
 
+line 252
+zreladdr	kernel entry point physical address (R4)
+ZRELADDR	= zreladdr-y
+
+2). ARM-specific kernel code
+----------------------------
+
+3). Processor-independent kernel code
+-------------------------------------
+
 grocx
 -----
-PAGE_OFFSET: 0xC0000000
-VMALLOC_END: PAGE_OFFSET + 0x10000000
+PAGE_OFFSET: 0xC0000000(virt 3G)
+VMALLOC_END: PAGE_OFFSET + 0x10000000(virt)
+
+zreladdr:    0x00008000(phys)
+
 
 ARM register
 ------------
