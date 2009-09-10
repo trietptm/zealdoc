@@ -1,7 +1,8 @@
 -1. star_pm.h use lots of macro that can be simplified.
    FIXUP:
-2. research kernel_phys and KERNEL_PHYS in grocx bsp. We don't need them.
+-2. research kernel_phys and KERNEL_PHYS in grocx bsp. We don't need them.
    Show the memory layout.
+   FIXUP: useless.
 -3. why grocx implement itself loadsp and writeb.
    FIXUP: refer to pxa -> debug-macro.S
 4. get_irqnr_and_base implement puzzled. Lee san may fix this.
@@ -17,9 +18,11 @@
    FIXUP: Maybe not a problem since ARM dam has variable size.
 -A. delete grocx_info, proc_info and debug info from patch
    FIXUP: Done.
-B. zreladr/initrd_addr/kernel_addr/... meaning and usage. Necessary
+-B. zreladr/initrd_addr/kernel_addr/... meaning and usage. Necessary
    kernel_addr?
-C. Fixup early_init code in grocox_setup.c. Do we really need it?
+   FIXUP: No.
+-C. Fixup early_init code in grocox_setup.c. Do we really need it?
+   FIXUP: No.
 
 fusion
 
