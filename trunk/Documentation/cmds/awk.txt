@@ -1,0 +1,5 @@
+# There are several lines in one file and I want to get a special line's
+# content.
+# 
+# CASE 1: We know a unique word at that line, so we'll do like:
+$ awk '/${word}/{ print ${line_we_want} }' ${file_from}
