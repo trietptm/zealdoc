@@ -1,4 +1,4 @@
-checkout the project before that data
-(C) cvs co -D 2008-08-08 project
+checkout the project at that data/time
+(C) cvs co -D "2008-08-08 16:23:00" project
 
 (C) cvs -z9 up -C
