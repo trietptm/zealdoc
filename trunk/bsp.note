@@ -1,0 +1,126 @@
+PORTING NOTE BASED ON 2.6.31-RC7
+
+
+arch/arm/mach-xxx/include
+-------------------------
+
+mach/debug-macro.S
+	(M) adduart
+		to use uart at head.S stage
+	If its 8250-compatible uart, it only need define UART_SHIFT and
+	include <asm/hardware/debug-8250.S>.
+	
+mach/hardware.h
+	(O) FLASH_BASE_ADDR
+		if we need MTD map support
+	(O) PCIBIOS_MIN_IO / PCIBIOS_MIN_MEM
+		for PCI resource assign size
+	(O) pcibios_assign_all_buses()
+		for PCI things
+	(O) other as you like??
+
+mach/io.h
+	(M) IO_SPACE_LIMIT
+	(O) __io
+		to use outb()
+		       outw()
+		       outl()
+			 .
+			 .
+	(O) __mem_pci
+		to use readb()
+		       readw()
+		       readl()
+		         .
+			 .
+
+mach/memory.h
+	(M) PHYS_OFFSET
+	(O) __virt_to_bus(x)
+		(NOT)__virt_to_phys(x)
+	(O) __buf_to_virt(x)
+		(NOT)__phys_to_virt(x)
+	(O) CONSISTENT_DMA_SIZE
+		(NOT) SZ_2M
+	(O) some other memory related definition may also in this file
+
+mach/system.h
+	(O) NET_SKB_PAD	(need here?)
+		(NOT) 32
+	(M) cpu_idle()
+	(M) cpu_reset()
+
+mach/timex.h
+	(M) CLOCK_TICK_RATE
+
+mach/uncompress.h
+	(M) putc()
+	(M) flush()
+	(O) arch_decomp_setup()
+	(O) arch_decomp_wdog()
+
+mach/vmalloc.h
+	(M) VMALLOC_END
+
+
+mach/map.h (optional)
+	(O) Memory layout map
+
+mach/regs-xx.h (optional)
+	(O) Define register for somebody use.
+
+(M) is must define
+(O) is optional
+(NOT) is if not define the following value will be uesd
+
+
+==============================================================
+==============================================================
+==============================================================
+
+
+clkdev support
+--------------
+
+mach-xxx/include/mach/clkdev.c
+  Just define __clk_get() and __clk_put() in it.
+  Everyone based on Russell's common clkdev need follow it.
+
+mach-xxx/clokc.h
+  Here we should define struct clk for using. And How and what interface will
+  provide its depende on requirement. Most common API is clk_get_rate /
+  clk_set_rate / clk_enable / clk_disable. If you've lots of things to do with
+  this clk, you may use a struct ops.
+
+mach-xxx/clock.c
+  Implement of internal clkdev. External one is in common directory.
+ 
+Kconfig need select COMMON_CLKDEV
+
+
+platform device/driver support
+------------------------------
+
+On board we may have several on-chip device such as rtc, usb, uart and so on.
+All of these devices handle by its individual driver. As a driver it's not
+necessary know where the device is. It only need know the how to operate it.
+
+So kernel abstract them:
+on-chip device known as platform device.
+on-chip driver known as platform driver.
+
+Kernel match them by name filed in their struct (more?). The key is that
+device only need register a resource and mathed driver will pick up them for
+operating.
+
+To support this mode there is not very much work to do.
+Device need register itself as a platform device and set the resource filed in
+it.
+Driver need register itself as a platform driver. At probe time it should get
+the resource and detect whether its ok to use(type or else). Do not forget to
+do the ioremap()/ioremap_nocache().
+
+
+hrtimer support
+---------------
+TODO
