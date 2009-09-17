@@ -37,16 +37,16 @@ mach/io.h
 mach/memory.h
 	(M) PHYS_OFFSET
 	(O) __virt_to_bus(x)
-		(NOT)__virt_to_phys(x)
+		(DEF)__virt_to_phys(x)
 	(O) __buf_to_virt(x)
-		(NOT)__phys_to_virt(x)
+		(DEF)__phys_to_virt(x)
 	(O) CONSISTENT_DMA_SIZE
-		(NOT) SZ_2M
+		(DEF) SZ_2M
 	(O) some other memory related definition may also in this file
 
 mach/system.h
 	(O) NET_SKB_PAD	(need here?)
-		(NOT) 32
+		(DEF) 32
 	(M) cpu_idle()
 	(M) cpu_reset()
 
@@ -62,16 +62,19 @@ mach/uncompress.h
 mach/vmalloc.h
 	(M) VMALLOC_END
 
-
 mach/map.h (optional)
 	(O) Memory layout map
+	Move this into hardware.h maybe a good choice as Russell do like that. 
 
 mach/regs-xx.h (optional)
 	(O) Define register for somebody use.
 
-(M) is must define
-(O) is optional
-(NOT) is if not define the following value will be uesd
+mach/irqs.h (optinal)
+	(O) Board irq implement need it.
+
+(M)	is must define
+(O)	is optional
+(DEF)	is default value if not define this macro
 
 
 ==============================================================
