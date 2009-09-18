@@ -90,15 +90,18 @@ mach-xxx/include/mach/clkdev.c
   Everyone based on Russell's common clkdev need follow it.
 
 mach-xxx/clokc.h
-  Here we should define struct clk for using. And How and what interface will
+  Here we should define struct clk for using. And how and what interface will
   provide its depende on requirement. Most common API is clk_get_rate /
-  clk_set_rate / clk_enable / clk_disable. If you've lots of things to do with
-  this clk, you may use a struct ops.
+  clk_set_rate / clk_enable / clk_disable(according to linux/clk.h). If you've
+  lots of things to do with this clk, you may use a struct ops.
 
 mach-xxx/clock.c
   Implement of internal clkdev. External one is in common directory.
  
 Kconfig need select COMMON_CLKDEV
+
+If drivers need use clk, it must include <linux/clk.h> and use the interface in
+that file.
 
 
 platform device/driver support
