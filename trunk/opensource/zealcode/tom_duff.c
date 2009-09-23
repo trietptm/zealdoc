@@ -1,31 +1,44 @@
 #include <stdio.h>
-#include <stdlib.h>
 
 /* http://www.lysator.liu.se/c/duffs-device.html */
 
 #define COPY_COUNT	5
 
-void foo(void)
+void foo(const char *from, char *to, int copy_bytes)
 {
-	int a = 10;
-	int round = ( a + (COPY_COUNT - 1) ) / COPY_COUNT;
+	int round = ( copy_bytes + (COPY_COUNT - 1) ) / COPY_COUNT;
 
-	switch ( a % COPY_COUNT ) {
+	switch ( copy_bytes % COPY_COUNT ) {
 	case 0: do {
-		putchar ( '*' );
-	case 4: putchar ( '*' );
-	case 3: putchar ( '*' );
-	case 2: putchar ( '*' );
-	case 1: putchar ( '*' );
+		*to++ = *from++;
+	case 4: *to++ = *from++;
+	case 3: *to++ = *from++;
+	case 2: *to++ = *from++;
+	case 1: *to++ = *from++;
 		} while ( --round );
-	} 
+	}
 
 	printf ( "\n" );
 }
 
+void foo2(const char *from, char *to, int copy_bytes)
+{
+	int i;
+	for (i = 0; i < copy_bytes; i++)
+		*to++ = *from++;
+}
+
+void foo3(const char *from, char *to, int copy_bytes)
+{
+	do {
+		*to++ = *from++;
+	} while (--copy_bytes);
+}
+
 int main(void)
 {
-	foo();
+	char ba[12], bb[12];
+	foo(ba, bb, 12);
 
 	return 0;
 }
