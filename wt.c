@@ -30,21 +30,17 @@ int bit_cnt(long n)
 
 long do_pow(long n, int pow)
 {
-	long base = 0;
-	int round, residue;
+	int residue = 1;
 
 	if (n <= 1 || pow == 1)
 		return n;
-
-	round = pow >> 1;
-	residue = pow & 0x1;
-	if (residue)
-		base = n;
-	while (round--)
+	while (pow > 1) {
+		if (pow & 0x01)
+			residue *= n;
 		n *= n;
-	if (base)
-		n *= base;
-	return n;
+		pow >>= 1;
+	}
+	return n * residue;
 }
 
 int is_daffodil(long n, int bit)
