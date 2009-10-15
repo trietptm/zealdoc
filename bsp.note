@@ -129,4 +129,22 @@ do the ioremap()/ioremap_nocache().
 
 hrtimer support
 ---------------
-TODO
+
+vsc7501 board not fix the standard hrtimer while the registers are not same.
+But we can also implement hrtimer since the hardward support high reslution
+with PCLK source timer. Do as following:
+
+Clock Source		Timer2 with PCLK as its source
+Clock Event Device	Timer1 with 1KHZ as its source
+
+Timer2 only need provide a read() interface to hrtimer framework. That's the
+currently counter of it.
+
+Timer1 need two main callbacks that're set_mode() and set_next_event().
+set_mode() is used to do appropriate things if necessary.
+set_next_event() is a important one if you want to support ONE-SHOT mode. It's
+used to set current counter of clock event device. So we can dynamic adjust
+the device interrupt time point. This is not same as older timer framework.
+
+NOTE: I think if the source can not provide high precision, we'd better not to
+provide one-shot feature of our hrtimer.
