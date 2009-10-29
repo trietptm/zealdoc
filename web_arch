@@ -3,3 +3,11 @@ Web Service Architecture
   o Service Description(WDSL)
   o Service Invocation
   o Transport (etc. HTTP)
+
+
+http server
+  o ENV QUERY_STRING
+  o form / mime -> stdin
+  o API -> HTTP header
+  o keep alive
+  o file protection (../../)
