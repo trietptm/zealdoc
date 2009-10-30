@@ -1,8 +1,14 @@
+802.1D BACKGROUND
+-----------------
+
+
 LINUX on BRIDGE
 ---------------
   o CONFIG option
-  o kernel parameter
-  o config manage
+  o parameter
+    o kernel parameter
+    o module parameter
+  o configure manage
     o sysfs
     o procfs
     o netlink
@@ -19,5 +25,5 @@ LINUX on BRIDGE
         o register_xxx
 	o ...
 
-802.1D BACKGROUND
------------------
+KS8695 switch IMPLEMENT
+-----------------------
