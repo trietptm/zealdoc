@@ -1,0 +1,23 @@
+LINUX on BRIDGE
+---------------
+  o CONFIG option
+  o kernel parameter
+  o config manage
+    o sysfs
+    o procfs
+    o netlink
+    o sysconfig
+  o communicate between modules
+    o notifier
+      o receive
+      o transmit
+    o API
+      o supply
+        o register_xxx
+	o ...
+      o invoke
+        o register_xxx
+	o ...
+
+802.1D BACKGROUND
+-----------------
