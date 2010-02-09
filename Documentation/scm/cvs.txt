@@ -5,3 +5,6 @@ checkout the project at that data/time
 
 import
 (C) cvs import -m "pro init" pro_name v0 init
+
+diff
+(C) cvs diff -kk -u -r 1.9 -r 1.11 file.c > out.diff
