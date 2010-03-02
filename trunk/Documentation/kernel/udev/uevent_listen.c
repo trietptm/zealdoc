@@ -29,6 +29,7 @@
 #include <string.h>
 #include <fcntl.h>
 #include <time.h>
+#include <errno.h>
 #include <sys/socket.h>
 #include <sys/user.h>
 #include <asm/types.h>
@@ -38,6 +39,38 @@
 #define HOTPLUG_BUFFER_SIZE		1024
 #define HOTPLUG_NUM_ENVP		32
 #define OBJECT_SIZE			512
+
+void foo(void)
+{
+	int sock;
+	struct sockaddr_nl snl;
+	int retval;
+
+	if (getuid() != 0) {
+		printf("need to be root, exit\n");
+		exit(1);
+	}
+
+	memset(&snl, 0x00, sizeof(struct sockaddr_nl));
+	snl.nl_family = AF_NETLINK;
+	snl.nl_pid = getpid();
+	snl.nl_groups = 1;
+
+	sock = socket(PF_NETLINK, SOCK_DGRAM, NETLINK_KOBJECT_UEVENT);
+	if (sock == -1) {
+		printf("error getting socket, exit\n");
+		exit(1);
+	}
+
+	retval = bind(sock, (struct sockaddr *) &snl,
+		      sizeof(struct sockaddr_nl));
+	if (retval < 0) {
+		printf("bind failed, exit %d, %s\n", __LINE__, strerror(errno));
+	}
+
+	close(sock);
+	exit(1);
+}
 
 int main(int argc, char *argv[])
 {
@@ -67,6 +100,17 @@ int main(int argc, char *argv[])
 		printf("bind failed, exit\n");
 		goto exit;
 	}
+
+	retval = bind(sock, (struct sockaddr *) &snl,
+		      sizeof(struct sockaddr_nl));
+	if (retval < 0) {
+		printf("bind failed, exit %d, %s\n", __LINE__, strerror(errno));
+		exit(1);
+	} else {
+		printf("double bind success\n");
+	}
+
+	//foo();
 
 	while (1) {
 		static char buffer[HOTPLUG_BUFFER_SIZE + OBJECT_SIZE];
