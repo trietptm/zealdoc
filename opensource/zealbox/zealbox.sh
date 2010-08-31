@@ -2,30 +2,42 @@
 
 SYS_PATH=/usr/bin
 BOXDIR=`pwd`
-BOXNAME="zealbox.sh"
+BOXNAME=`basename $0`
+#
+# If you want to add a new command, do as following: $xxx
+#
 
-CMD_LIST="fxg k9 csrb"
+#
+# $1: add your command name here.
+#
+CMD_LIST="fxg, k9, csrb"
 
+#
+# $2: add command's usage/description here. 
+#
 FXG_HELP='fxg $1- find ./ | xargs grep $1'
 K9_HELP='k9 $task - kill pid'
 CSRB_HELP='cscope -Rb and mkdir cscope directory'
-CMD_HELPS="$FXG_HELP $K9_HELP $CSRB_HELP"
+
+#
+# $3: add it into list. 
+#
+CMD_HELPS=`printf "\t$FXG_HELP\n\t$K9_HELP\n\t$CSRB_HELP"`
+
+#
+# $4: Right here you will only need one function more which name is your
+# command.
+#
 
 function usage()
 {
-	echo "usage: ./$BOXNAME command"
-	echo "install command that supported"
-	echo "supported command is {$CMD_LIST} now"
-#	echo "$CMD_HELPS"
-	echo "$FXG_HELP"
-	echo "$K9_HELP"
-	echo "$CSRB_HELP"
+	echo ""
+	echo "Usage: ./$BOXNAME \$command"
+	echo ""
+	echo "Currently supported commands are {$CMD_LIST}"
+	echo "$CMD_HELPS"
 }
 
-function cmds_usage()
-{
-	echo ":/"	
-}
 #
 # kill task quickly
 # kill -9 PID
