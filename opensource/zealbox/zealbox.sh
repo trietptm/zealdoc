@@ -2,7 +2,8 @@
 
 SYS_PATH=/usr/bin
 BOXDIR=`pwd`
-BOXNAME=`basename $0`
+# DO NOT CHANGE IT.
+BOXNAME="zealbox.sh"
 #
 # If you want to add a new command, do as following: $xxx
 #
