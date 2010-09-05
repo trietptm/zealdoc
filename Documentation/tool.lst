@@ -1,3 +1,7 @@
+sphinx
+======
+A nice python module to generate beauty doc.
+
 For python project
 => pydoc / epyc
 
