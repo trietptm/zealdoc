@@ -1,9 +1,17 @@
-sphinx
-======
-A nice python module to generate beauty doc.
+TOOLs for !API document
+=======================
+o sphinx
 
-For python project
-=> pydoc / epyc
+sphinx
+------
+A nice tool (python module) to generate beauty doc.
+
+TOOLs for API document
+======================
+o epydoc (for python)
+o pydoc (for python)
+o Doxygen
+
 
 For C (or else) project 
 => Doxygen
