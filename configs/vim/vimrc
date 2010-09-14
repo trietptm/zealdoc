@@ -20,6 +20,7 @@ nmap Tl :tablast<CR>
 "set auto decoder
 set fenc=utf-8
 set fencs=utf-8,usc-bom,euc-jp,gb18030,gbk,gb2312,cp936
+set tenc=utf-8
 
 "use vim's keyboard map, not vi's
 set nocompatible
