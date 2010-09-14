@@ -3,6 +3,15 @@
 " Modified by zealcook for personal use
 "
 "fold settings
+
+if v:version < 700 
+	echoerr 'Version is not suitable'
+	quit
+endif 
+
+" auto-complete's option (ctrl-p)
+set completeopt=menu,longest,preview 
+
 set foldmethod=syntax
 set foldlevel=99
 
@@ -215,11 +224,5 @@ set tw=78
 " 
 " auto recoginze doc encode and switch
 set encoding=cp936 fileencodings=ucs-bom,utf-8,cp936
-set mouse=a
-if v:version >= 700 
-    set completeopt=menu,longest,preview 
-    " 自动补全(ctrl-p)时的一些选项： 
-    " 多于一项时显示菜单，最长选择， 
-    " 显示当前选择的额外信息 
-endif 
 
+set so=7
