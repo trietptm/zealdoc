@@ -1,8 +1,10 @@
 zeal's space
-by [zeal link zealcook@gmail.com]
-%%mtime
 
-= About me =
-%!include: about.t2t
+%%mtime(Last updated: %Y-%m-%d)
+
+%%toc
+
+
 = Blog =
-= Note =
+%!include: notes/nmain.t2t
+%!include: about.t2t
