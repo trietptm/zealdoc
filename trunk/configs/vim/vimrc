@@ -1,4 +1,4 @@
-"Joseph's vim settings
+"oseph's vim settings
 "
 " Modified by zealcook for personal use
 "
@@ -226,3 +226,6 @@ set tw=78
 set encoding=cp936 fileencodings=ucs-bom,utf-8,cp936
 
 set so=7
+
+" t2t
+au BufNewFile,BufRead *.t2t set ft=txt2tags
