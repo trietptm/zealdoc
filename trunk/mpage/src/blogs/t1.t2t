@@ -1,7 +1,7 @@
 T=1 Protocol Note (ISO/IEC 7816-3 2006(E))
-by jie.zeng@soliton.com.cn
-%%Mtime(%Y-%m-%d)
+%%mtime(Last updated: %Y-%m-%d)
 
+%!include: ../header.t2t
 
 + Introduce +
 T=1 protocol is a true transmission protocol compare with T=0 protocol.
@@ -12,7 +12,7 @@ data (ie. APDU).
 - The data unit is block (frame) in which all bytes are placed.
 - Also all information is in the block such as control,  data info and so on.
 - The first block is initiated by the interface device (its so common).
-- Protocol will detect error but HW (ie. no need CREP). 
+- Protocol will detect error but HW (ie. no need CREP).
 
 
 

@@ -1,16 +1,9 @@
+zeal's ...
 
-
+%%mtime(Last updated: %Y-%m-%d)
 
 %!include: header.t2t
 
-= About =
-Welcome here. This is zeal's personal website. I'm a chinese embedded
-engineer.
+= Blog =
 
-'txt2tags' is the tool I'm using for writing these pages (thanks to
-[Aurelio http://txt2tags.sourceforge.net]).
-@@
-It's simple just like my life and I'm trying to keep it stupid. So do you know
-the 'KISS'? You'll love it. That's for sure.
-
-Any comments will be appretiated.
+- [T=1 Note t1.html]
