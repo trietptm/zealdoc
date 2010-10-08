@@ -1,4 +1,8 @@
 
+
+
+%!include: header.t2t
+
 = About =
 Welcome here. This is zeal's personal website. I'm a chinese embedded
 engineer.
