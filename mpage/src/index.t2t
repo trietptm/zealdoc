@@ -1,14 +1,5 @@
-zeal's space
+zeal's ...
 
 %%mtime(Last updated: %Y-%m-%d)
 
-
-%! postproc(html): @@ <BR>
-
-%%toc
-
 %!include: header.t2t
-
-= Blog =
-% %!include: blog/nmain.t2t
-%!include: about.t2t
