@@ -1,2 +1,2 @@
 #!/bin/bash
-txt2tags  -C txt2blog.conf *.t2t
+txt2tags  -C txt2blog.conf src/*.t2t
