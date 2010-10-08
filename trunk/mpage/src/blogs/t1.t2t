@@ -1,0 +1,174 @@
+T=1 Protocol Note (ISO/IEC 7816-3 2006(E))
+by jie.zeng@soliton.com.cn
+%%Mtime(%Y-%m-%d)
+
+
++ Introduce +
+T=1 protocol is a true transmission protocol compare with T=0 protocol.
+It applies the OSI model and it does not know anything about the application
+data (ie. APDU).
+
++ Need to know +
+- The data unit is block (frame) in which all bytes are placed.
+- Also all information is in the block such as control,  data info and so on.
+- The first block is initiated by the interface device (its so common).
+- Protocol will detect error but HW (ie. no need CREP). 
+
+
+
+
++ Block +
+
+++ Format ++
+|| Prologue field (M) | Information field (O) | Epilogue field (M) |
+| NAD(1) |PCB (1) |LEN (1) |  INF (0~254)  |  LRC (1) or CRC (2)  ||
+Block size is  the total length these three fields.
+
+++ Type ++
++ I-block: **I**nformation **block** is used to convey APDU.
++ R-block: **R**eceive ready **block** is used to convey ACK while the information field is absent.
++ S-block: **S**upervisory **block** is used to exchange control information between both sides.
+
+
+++ Prologue field ++
+
++++ Node address byte (NAD) +++
+|| 0 | D A D | 0 | S A D ||
+**NOTE** In the same logic channel, the two address fields will be switched between both sides (ie. A sends (x,y) and B should send (y,x) as response).
+
++++ Protocol control byte (PCB) +++
+PCB defines the block's type.
+
+++++ I-block ++++
+|| 0 | B7 | B6 | 0 | 0 | 0 | 0 | 0 ||
+- B7: denoted N(S), the seq-number of the I-block
+- B6: denoted M-bit, the more-data bit
+- B5~B1: reserved
+
+
+++++ R-block ++++
+|| 1 | 0 | B6 | B5 | B4 | B3 | B2 | B1 ||
+- B6: 0
+- B5: denoted N(R), the seq-number of the expected I-block
+- B4~B1
+ - 0000b: error-free ACK
+ - 0001b: redundancy code error or parity error
+ - 0010b: other errors
+
+
+++++ S-block ++++
+|| 1 | 1 | B6 | B5 | B4 | B3 | B2 | B1 ||
+- B6: Request or response indication bit, set 1 for a response.
+- B5-B1
+ - 00000: RESYNCH
+ - 00001: IFS
+ - 00010: ABORT
+ - 00011: WTX
+
+ **NOTE:** RESYNCH request is transmitted from interface device.  
+           RESYNCH response is transmitted from card.
+
+
++++ Length byte (LEN) +++
+This field indicate how many bytes will present in the information field.
+- 0x00: INF is absent
+- 0x01~0xFE: Length is 1~254. 
+- 0xFF: Reserved.
+
+
+++ Information field (INF) ++
+- R-block: INF shall be absent.
+- I-block: INF conveys application information.
+- S-block: INF conveys non-application information.
+
+
+++ Epilogue field ++
+It conveys the error detection code of the block (LRT or CRC).
+
+
++ Parameters +
+++ Specific interface bytes for T=1 ++
+- The first TA for IFSC
+- The first TB for CWI
+- The first TC for CRC/LRC
+
+
+++ Information field size ++
+- IFSC: The max info field size for the **card**. Default value is 32.
+- IFSD: The max info field size for the **interface device**.
+ Default value is 32.
+
+
+++ Guard and Waiting times ++
+- CGT: The minimum delay between 2 chars in the same block (See CWT).
+- BGT: THe munimum delay between 2 chars in the different block (See BWT).
+- CWT: The maximum delay between 2 chars in the same block (See CGT).
+- BWT: The maximum delay between 2 chars in the different block (See CGT).
+
+**NOTE**:
+- BGT = 22etu (fixed)
+- CWT = 12etu (minimum)
+- BWI = 4 (default)
+- CWI = 13 (default)
+ 
+
++ Operation +
+++ Error-free ++
++++ General +++
+- The first block is transmitted by interface device and it shall be either an I or S block.
+- Each block has been transmitted shall receive an ACK.
+ - I-block's ACK
+  - (non-chain)  Got an I-block with N(S) is different from the last N(S) of the **received** I-block, or
+  - (chain)  Got an R-block with N(S) is different form the last N(S) of the **transmitted** I-block.
+ - S-block's ACK
+  - S(...response) as the S(...request)'s ACK.
+- N(S) in I-block shall be free-running respectively.
+
+
++++ Chaining +++
+How to do at both sides:
+- For transmitter
+ - Set M=1 for all I-blocks except the last one.
+ - Set M=0 for the last last.
+- For receiver
+ - Response a R(N(R)) which N(R) is the expected block's seq-number.
+
+**NOTE:** I-block with LEN='00' may be used within a chain.
+
+
++++ Rules +++
+Ref: 11.6.2.3
+
+
+++ Error handling ++
++++ Error types +++
+- BWT time-out
+- Reception of an invalid block
+  - character parity error
+  - redundancy code error
+  - invalid PCB
+  - invalid LEN
+  - invalid block size
+  - S(...request) and S(...response) are not match.
+
+
++++ If error occurs what to do? +++
+T=1 may be attempted at 3 consecutive levels. If one level is unsuccessful,
+then the next level is tried.
+- For interface device:
+  - retransmission of blocks,
+  - use of S(RESYNCH request),
+  - warm reset or deactivation.
+- For card:
+  - retransmission of blocks,
+  - use of S(RESYNCH response),
+  - without action by the interface device, the card becomes unresponsive.
+
+
++++ Rules +++
+Ref: 11.6.3.2
+
+**NOTE:** R-block in "Error handling" rules' function.
+
++ Still confusing? +
+Just have a look at **Annex A** (Scenarios for T=1).
