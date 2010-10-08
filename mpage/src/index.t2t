@@ -7,7 +7,8 @@ zeal's space
 
 %%toc
 
+%!include: header.t2t
 
 = Blog =
-%!include: notes/nmain.t2t
+%!include: blog/nmain.t2t
 %!include: about.t2t
