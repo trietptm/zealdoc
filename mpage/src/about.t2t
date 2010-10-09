@@ -2,7 +2,7 @@ zeal's ...
 
 %%mtime(Last updated: %Y-%m-%d)
 
-%!include: lib/header.t2t
+%!include: CURRDIR/lib/header.t2t
 
 = About =
 Welcome here. This is zeal's personal website. I'm a chinese embedded
@@ -16,4 +16,4 @@ the 'KISS'? You'll love it. That's for sure.
 
 Any comments will be appretiated.
 
-%!include: lib/bottom.t2t
+%!include: CURRDIR/lib/bottom.t2t

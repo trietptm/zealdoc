@@ -3,7 +3,7 @@
 """ {{/div}}{{div id="footer"}}
 
 --------------------------------------------------------------
-[[SFlogo.png] {URLSF}]
+[sf URLSF]
 [SITEPATH/img/t2tpowered-white.png]
 Last modified on %%mtime(%c)
 ([See sources %%infile],
