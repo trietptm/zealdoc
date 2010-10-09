@@ -1,7 +1,7 @@
 T=1 Protocol Note (ISO/IEC 7816-3 2006(E))
 %%mtime(Last updated: %Y-%m-%d)
 
-%!include: ../header.t2t
+%!include: ../lib/header.t2t
 
 + Introduce +
 T=1 protocol is a true transmission protocol compare with T=0 protocol.
