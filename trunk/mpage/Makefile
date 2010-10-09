@@ -24,6 +24,7 @@ include ${SRC_DIR}/Makefile
 	${TXT2TAGS} -t html $@
 
 all:
+#	echo "%!preproc: CURRDIR `pwd`" >> ${CONF_FILE}
 	${TXT2TAGS} ${CONF_FLAGS} ${OTHER_FLAGS} ${OUTPUT} ${SRC}
 	mkdir -p ${DEST_DIR}
 	mv ${TEMP} ${DEST_DIR}
