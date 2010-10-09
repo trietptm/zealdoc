@@ -2,4 +2,4 @@ zeal's ...
 
 %%mtime(Last updated: %Y-%m-%d)
 
-%!include: header.t2t
+%!include: lib/header.t2t
