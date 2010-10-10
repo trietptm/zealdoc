@@ -3,7 +3,7 @@ Last modified on %%mtime(%c)
 
 
 %!encoding: utf-8 
-%!include: CURRDIR/lib/header.t2t
+%!include: {RPATH}/lib/header.t2t
 
 + 引子 +
 曾经你我互不相识，就像两条平行线。某人天才般的引入了新的坐标平面后，平行线在无穷远处发生了“质变”，我们就神奇的认识了。外面的世界很精彩，然而精彩与危险亦是一对孪生，更何况你我浪迹在天朝。老人家老早就告诫吾辈：“防人之心不可无”。

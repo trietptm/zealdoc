@@ -1,6 +1,6 @@
 
-%!include: CURRDIR/lib/header.t2t
+%!include: {RPATH}/lib/header.t2t
 
 = Software =
 
-%!include: CURRDIR/lib/bottom.t2t
+%!include: {RPATH}/lib/bottom.t2t
