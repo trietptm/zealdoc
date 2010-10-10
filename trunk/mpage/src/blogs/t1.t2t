@@ -2,7 +2,7 @@ T=1 Protocol Note (ISO/IEC 7816-3 2006(E))
 Last modified on %%mtime(%c)
 
 
-%!include: CURRDIR/lib/header.t2t
+%!include: {RPATH}/lib/header.t2t
 
 + Introduce +
 T=1 protocol is a true transmission protocol compare with T=0 protocol.
