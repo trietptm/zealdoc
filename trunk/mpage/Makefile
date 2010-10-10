@@ -12,8 +12,7 @@ include ${SRC_DIR}/Makefile
 # config
 CONF_FILE=txt2blog.conf
 CONF_DIR=conf
-DEST_CONF=${DEST_DIR}/${CONF_FILE}
-CONF_FLAGS=-C ${DEST_CONF}
+CONF_FLAGS=-C ${DEST_DIR}/${CONF_FILE}
 
 # misc flags
 #OTHER_FLAGS=--toc
@@ -27,15 +26,14 @@ CONF_FLAGS=-C ${DEST_CONF}
 	${TXT2TAGS} -t html $@
 
 all:
-	@mkdir -p ${DEST_DIR}
+	$(shell mkdir -p ${DEST_DIR})
 	@echo "Generating config file"
-	$(if $(shell sed -e 's#PWD#${PWD}#g' < ${CONF_DIR}/${CONF_FILE}),	\
-	     $(shell sed -e 's#PWD#${PWD}#g' < ${CONF_DIR}/${CONF_FILE} > ${DEST_CONF}))
+	$(shell sed -e 's#PWD#${PWD}#g' < ${CONF_DIR}/${CONF_FILE} > ${DEST_DIR}/${CONF_FILE})
+	@echo
 	@echo "Compiling......"
 	@${TXT2TAGS} ${CONF_FLAGS} ${OTHER_FLAGS} ${OUTPUT} ${SRC}
 	@echo
 	@echo "Generating output files"
 	@mv ${TEMP} ${DEST_DIR}
 clean:
-	@rm -rf ${DEST_DIR} 
-	@rm -rf ${DEST_CONF}
+	@rm -rf ${DEST_DIR}
