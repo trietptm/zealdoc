@@ -2,7 +2,8 @@ TXT2TAGS=txt2tags
 
 # config
 CONF_FILE=txt2blog.conf
-CONF_FLAGS=-C ${CONF_FILE}
+CONF_DIR=conf
+CONF_FLAGS=-C ${CONF_DIR}/${CONF_FILE}
 
 # misc flags
 #OTHER_FLAGS=--toc
