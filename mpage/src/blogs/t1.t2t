@@ -1,5 +1,6 @@
 T=1 Protocol Note (ISO/IEC 7816-3 2006(E))
-%%mtime(Last updated: %Y-%m-%d)
+Last modified on %%mtime(%c)
+
 
 %!include: CURRDIR/lib/header.t2t
 
@@ -13,8 +14,6 @@ data (ie. APDU).
 - Also all information is in the block such as control,  data info and so on.
 - The first block is initiated by the interface device (its so common).
 - Protocol will detect error but HW (ie. no need CREP).
-
-
 
 
 + Block +
@@ -65,14 +64,14 @@ PCB defines the block's type.
  - 00010: ABORT
  - 00011: WTX
 
- **NOTE:** RESYNCH request is transmitted from interface device.  
+ **NOTE:** RESYNCH request is transmitted from interface device.
            RESYNCH response is transmitted from card.
 
 
 +++ Length byte (LEN) +++
 This field indicate how many bytes will present in the information field.
 - 0x00: INF is absent
-- 0x01~0xFE: Length is 1~254. 
+- 0x01~0xFE: Length is 1~254.
 - 0xFF: Reserved.
 
 
@@ -110,7 +109,7 @@ It conveys the error detection code of the block (LRT or CRC).
 - CWT = 12etu (minimum)
 - BWI = 4 (default)
 - CWI = 13 (default)
- 
+
 
 + Operation +
 ++ Error-free ++
