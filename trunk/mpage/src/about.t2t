@@ -1,11 +1,10 @@
-zeal's ...
-
-%%mtime(Last updated: %Y-%m-%d)
 
 %!include: CURRDIR/lib/header.t2t
 
+
 = About =
-Welcome here. This is zeal's personal website. I'm a chinese embedded
+
+Welcome here. This is **zeal's home page**. I'm a chinese embedded
 engineer.
 
 'txt2tags' is the tool I'm using for writing these pages (thanks to
