@@ -4,6 +4,7 @@ TXT2TAGS=txt2tags
 # each sub-dir should add 'SRC' and 'TEMP' variables (see src/Makefile)
 #
 SRC_DIR=src
+IMG_DIR=img
 SRC=${SRC_DIR}/*.t2t
 DEST_DIR=output
 TEMP=${SRC_DIR}/*.html
@@ -35,5 +36,6 @@ all:
 	@echo
 	@echo "Generating output files"
 	@mv ${TEMP} ${DEST_DIR}
+	@cp -rf ${IMG_DIR} ${DEST_DIR}/
 clean:
 	@rm -rf ${DEST_DIR}
