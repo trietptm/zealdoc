@@ -11,19 +11,18 @@ BOXNAME="zealbox.sh"
 #
 # $1: add your command name here.
 #
-CMD_LIST="fxg, k9, csrb"
+CMD_LIST="fxg, k9"
 
 #
 # $2: add command's usage/description here. 
 #
 FXG_HELP='fxg $1- find ./ | xargs grep $1'
 K9_HELP='k9 $task - kill pid'
-CSRB_HELP='cscope -Rb and mkdir cscope directory'
 
 #
 # $3: add it into list. 
 #
-CMD_HELPS=`printf "\t$FXG_HELP\n\t$K9_HELP\n\t$CSRB_HELP"`
+CMD_HELPS=`printf "\t$FXG_HELP\n\t$K9_HELP\n\t"`
 
 #
 # $4: Right here you will only need one function more which name is your
@@ -109,16 +108,6 @@ function fxg2()
 	return 0
 }
 
-
-# cscope -Rb
-function csrb()
-{
-	echo "cscoping..."
-	cscope -Rb
-	mkdir -p cscope
-	mv cscope.out cscope/
-	echo "finish"
-}
 
 #####################
 function do_install()
