@@ -2,9 +2,8 @@
 #!/bin/sh
 
 # This shell script will add `csrb`
-#COMMAND = "alias csrb='echo "cscoping ..."; cscope -Rb; mkdir -p cscope;
-#	    mv cscope.out cscope; echo "cscoping finish..."'"
-
+#
+#'cscope -Rb and mkdir cscope directory'
 
 TARGET=~/.bashrc
 CMD_START="csrb start"
