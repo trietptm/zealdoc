@@ -144,3 +144,7 @@ fi
 #find -name '*.java' -type f -exec cat {} ; | wc -l
 
 # find . -name '*.h' -type f | xargs cat | wc -l
+
+# LOC: code of line (.c && .h)
+# find . -type f -iname *.c -o -iname *.h -exec cat {} \; | wc -l
+#
