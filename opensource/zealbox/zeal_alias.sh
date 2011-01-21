@@ -27,4 +27,9 @@ echo "# This is alias for fxg" >> ${TARGET}
 echo $FXG_CMD >> ${TARGET}
 echo "" >> ${TARGET}
 
+echo "# some more XXX alias: " >> ${TARGET}
+echo alias rm='rm -i' >> ${TARGET}
+echo alias mv='mv -i' >> ${TARGET}
+echo "" >> ${TARGET}
+
 . ${TARGET}
