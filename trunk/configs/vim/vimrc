@@ -229,3 +229,18 @@ set so=7
 
 " t2t
 au BufNewFile,BufRead *.t2t set ft=txt2tags
+
+" TODO: switch the different style between linux and Atheros
+"
+" Begin -> for Atheros coding style
+" autocmd FileType c set expandtab | set ts=8 | set sw=4
+" autocmd FileType cpp set expandtab | set ts=8 | set sw=4
+" autocmd FileType h set expandtab | set ts=8 | set sw=4
+" syntax on
+" set cindent
+" set cinoptions=:0(0
+" let c_comment_strings=1
+" let c_space_errors=1
+" let c_no_tab_space_error=1
+" set smarttab
+" End -> for Atheros coding style
