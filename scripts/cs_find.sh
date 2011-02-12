@@ -14,24 +14,32 @@
 
 usage()
 {
-	echo "usage:"
-	echo "2 parameters needed:"
-	echo '$1 - kernel source direcotry(need absolute path).'
-	echo '$2 - kernel arch which you want to search.'
-	echo "Example: ./cs_find.sh /kernel/source/dir/ x86"
+	echo "Usage: ***Need 2 or more parameters***"
+	echo '$1 (M) - kernel source direcotry(need absolute path).'
+	echo '$2 (M) - kernel arch which you want to search.'
+	echo '$3 (O) - directory you want to ignore. Now only support one dir.'
+	echo "Example: ./cs_find.sh /kernel/source/dir/ x86 drivers"
 }
 
 # we need know source and ARCH(dir name in srctree/arch/)
-if [ $# -ne 2 ]; then
+if [ $# -lt 2 ]; then
 	usage
 	exit 1;
 fi
+
+rm -rf $LNX/cscope 
 
 DIR=`dirname $1`
 BASE=`basename $1`
 
 LNX=$DIR/$BASE
 ARCH=$2
+# now only support one dir.
+if [ x$3 != x'' ]; then
+	IGN="-path \"$LNX/$3\" -prune -o"
+else
+	IGN=""
+fi
 
 mkdir -p $LNX/cscope
 
@@ -46,6 +54,7 @@ cd /
 	-path "$LNX/scripts*" -prune -o                                       \
 	-path "$LNX/sound*" -prune -o                                         \
 	-path "$LNX/patches*" -prune -o                                       \
+	-path "$LNX/$3" -prune -o                                             \
 	\( -name .svn -o -name .pc -o -name CVS -o -name .git \) -prune -o    \
 	\( -name .cmd.c \) -prune -o    \
         -name "*.[chxsS]" -print > $LNX/cscope/cscope.files
