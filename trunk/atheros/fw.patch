@@ -1,0 +1,139 @@
+==== //depot/esw/projects/azure/dev/firmware/core/syscfg/radiocfg.c#59 - /home/jie/Perforce/jzeng_p4/depot/esw/projects/azure/dev/firmware/core/syscfg/radiocfg.c ====
+835a836
+>     uint16 i;
+845a847
+> #if 0
+854a857,871
+> #else
+>     //add the initial code before while(1) loop in the LC_main function.
+>     A_SOC_REG_WRITE(PLL_OSC_CONTROL_ADDRESS,0x6);  //diasble local pll control
+>     A_SOC_REG_WRITE(FPGA_BT_CFG_ADDRESS,0x103);      //gate and release clk for radio 
+>     for(i=0;i<1000;i++);
+>     A_SOC_REG_WRITE(FPGA_BT_CFG_ADDRESS,0x100);
+>     for(i=0;i<1000;i++);
+> 
+>     A_SOC_REG_WRITE(CLK_CLK2_ADDRESS,0x20762760);  //longshift config to be 96MHz
+>     A_SOC_REG_WRITE(CLK_CLK1_ADDRESS,0xc0027);       
+>     A_SOC_REG_WRITE(FPGA_BT_CFG_ADDRESS,0x103);      //gate and release clk for radio 
+>     for(i=0;i<1000;i++);
+>     A_SOC_REG_WRITE(FPGA_BT_CFG_ADDRESS,0x100);
+>     for(i=0;i<1000;i++);
+> #endif
+899a917
+> //    uint16 i;
+900a919,926
+>     
+> #if 0
+>     //jzeng
+>     A_SOC_REG_WRITE(FPGA_BT_CFG_ADDRESS,0x103);      //gate and release clk for radio 
+>     for(i=0;i<1000;i++);
+>     A_SOC_REG_WRITE(FPGA_BT_CFG_ADDRESS,0x100);
+>     for(i=0;i<1000;i++);
+> #endif
+==== //depot/esw/projects/azure/dev/firmware/core/syscfg/syscfg.c#167 - /home/jie/Perforce/jzeng_p4/depot/esw/projects/azure/dev/firmware/core/syscfg/syscfg.c ====
+2645a2646
+> #if 0
+2651a2653
+> #endif
+==== //depot/esw/projects/azure/dev/firmware/platform/Transport/mbox_dma.c#26 - /home/jie/Perforce/jzeng_p4/depot/esw/projects/azure/dev/firmware/platform/Transport/mbox_dma.c ====
+38a39,45
+> #if defined(EGRET_RADIO)
+> #define MBOX_DMA_PHY(addr)     ((uint32)(addr) & 0x3FFFFF)
+> #define MBOX_DMA_VIR(addr)     ((uint32)(addr) | 0x500000)
+> #else
+> #define MBOX_DMA_PHY(addr)     ((addr))
+> #define MBOX_DMA_VIR(addr)     ((addr))
+> #endif
+111c118
+<     desc->dma_next = mbox_dma_desc_free_list;
+---
+>     desc->dma_next = (struct MBOX_DMA_desc_s *)MBOX_DMA_VIR(mbox_dma_desc_free_list);
+334c341
+<                         (uint32)DMA_queue[DMA_RX_FROM_AIR][mbox].Q_first_desc);
+---
+>                        MBOX_DMA_PHY((uint32)DMA_queue[DMA_RX_FROM_AIR][mbox].Q_first_desc));
+339c346
+<                         (uint32)DMA_queue[DMA_TX_TO_AIR][mbox].Q_first_desc);
+---
+>                        MBOX_DMA_PHY((uint32)DMA_queue[DMA_TX_TO_AIR][mbox].Q_first_desc));
+391c398
+<     sentinal_desc = MBOX_CURR_SENTINAL(DMA_TX_TO_AIR, MboxChannel);
+---
+>     sentinal_desc = (tMBOX_Desc *)MBOX_DMA_VIR(MBOX_CURR_SENTINAL(DMA_TX_TO_AIR, MboxChannel));
+406,407c413,414
+<     sentinal_desc->dma_next = new_desc;
+<     sentinal_desc->dma_data = BtBufData;
+---
+>     sentinal_desc->dma_next = (struct MBOX_DMA_desc_s *)MBOX_DMA_PHY(new_desc);
+>     sentinal_desc->dma_data = (uint8 *)MBOX_DMA_PHY(BtBufData);
+413c420
+<     MBOX_CURR_SENTINAL(DMA_TX_TO_AIR, MboxChannel) = new_desc;
+---
+>     MBOX_CURR_SENTINAL(DMA_TX_TO_AIR, MboxChannel) = (tMBOX_Desc *)MBOX_DMA_VIR(new_desc);
+447c454
+<     sentinal_desc = MBOX_CURR_SENTINAL(DMA_RX_FROM_AIR, MboxChannel);
+---
+>     sentinal_desc = (tMBOX_Desc *)MBOX_DMA_VIR(MBOX_CURR_SENTINAL(DMA_RX_FROM_AIR, MboxChannel));
+463,464c470,471
+<     sentinal_desc->dma_next = new_desc;
+<     sentinal_desc->dma_data = BtBufData;
+---
+>     sentinal_desc->dma_next = (struct MBOX_DMA_desc_s *)MBOX_DMA_PHY(new_desc);
+>     sentinal_desc->dma_data = (uint8 *)MBOX_DMA_PHY(BtBufData);
+470c477
+<     MBOX_CURR_SENTINAL(DMA_RX_FROM_AIR, MboxChannel) = new_desc;
+---
+>     MBOX_CURR_SENTINAL(DMA_RX_FROM_AIR, MboxChannel) = (tMBOX_Desc *)MBOX_DMA_VIR(new_desc);
+540c547,548
+<             for (curr_desc=MBOX_FIRST_DESC(DMA_TX_TO_AIR, mbox);curr_desc!=MBOX_CURR_SENTINAL(DMA_TX_TO_AIR, mbox);)
+---
+>             for (curr_desc = (tMBOX_Desc *)MBOX_DMA_VIR(MBOX_FIRST_DESC(DMA_TX_TO_AIR, mbox));
+>                  curr_desc!= (tMBOX_Desc *)MBOX_DMA_VIR(MBOX_CURR_SENTINAL(DMA_TX_TO_AIR, mbox));)
+547c555,556
+<                 caller_txcomplete_fn[mbox](mbox, (uint16)MBOX_DMA_DESC_LENGTH(curr_desc),curr_desc->dma_data);
+---
+>                 caller_txcomplete_fn[mbox](mbox, (uint16)MBOX_DMA_DESC_LENGTH(curr_desc),
+>                                            (uint8 *)MBOX_DMA_VIR(curr_desc->dma_data));
+550c559
+<                 MBOX_FIRST_DESC(DMA_TX_TO_AIR, mbox) = curr_desc->dma_next;
+---
+>                 MBOX_FIRST_DESC(DMA_TX_TO_AIR, mbox) = (tMBOX_Desc *)MBOX_DMA_VIR(curr_desc->dma_next);
+557c566
+<                 curr_desc=MBOX_FIRST_DESC(DMA_TX_TO_AIR, mbox);
+---
+>                 curr_desc = (tMBOX_Desc *)MBOX_DMA_VIR(MBOX_FIRST_DESC(DMA_TX_TO_AIR, mbox));
+595,596c604,605
+<             for(curr_desc=MBOX_FIRST_DESC(DMA_RX_FROM_AIR, mbox);
+<                 curr_desc!=MBOX_CURR_SENTINAL(DMA_RX_FROM_AIR, mbox);)
+---
+>             for(curr_desc = (tMBOX_Desc *)MBOX_DMA_VIR(MBOX_FIRST_DESC(DMA_RX_FROM_AIR, mbox));
+>                 curr_desc != (tMBOX_Desc *)MBOX_DMA_VIR(MBOX_CURR_SENTINAL(DMA_RX_FROM_AIR, mbox));)
+604c613
+<                 caller_rxcomplete_fn[mbox](curr_desc->dma_data);//perform call-back
+---
+>                 caller_rxcomplete_fn[mbox]((uint8 *)MBOX_DMA_VIR(curr_desc->dma_data));//perform call-back
+607c616
+<                 MBOX_FIRST_DESC(DMA_RX_FROM_AIR, mbox) = curr_desc->dma_next;
+---
+>                 MBOX_FIRST_DESC(DMA_RX_FROM_AIR, mbox) = (tMBOX_Desc *)MBOX_DMA_VIR(curr_desc->dma_next);
+==== //depot/esw/projects/azure/dev/firmware/target/Egret/Makefile4Linux#16 - /home/jie/Perforce/jzeng_p4/depot/esw/projects/azure/dev/firmware/target/Egret/Makefile4Linux ====
+6c6,7
+< Radio      :=  PAX
+---
+> #Radio      :=  PAX
+> Radio	    := EGRET_RADIO
+==== //depot/esw/projects/azure/dev/firmware/target/Egret/buildproperties#31 - /home/jie/Perforce/jzeng_p4/depot/esw/projects/azure/dev/firmware/target/Egret/buildproperties ====
+3,4c3,4
+< #Radio     := EGRET_RADIO
+< Radio      := PAX
+---
+> Radio     := EGRET_RADIO
+> #Radio      := PAX
+6c6
+< HIDPreboot := 1
+---
+> HIDPreboot := 0
+8c8
+< TestMode   := 0
+---
+> TestMode   := 1

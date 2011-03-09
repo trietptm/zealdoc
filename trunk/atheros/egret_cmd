@@ -1,0 +1,5 @@
+target remote 10.21.25.23:20000
+restore bin/image.srec
+symbol-file bin/image
+reset
+reset
