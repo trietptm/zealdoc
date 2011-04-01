@@ -25,6 +25,13 @@ delete the first column
 -----------------------
 ctrl+v(visual block mode) then select
 
-switch to include file
+switch between files
 ----------------------
-gf
+gf (include file)
+gt (tab)
+
+search the selection text
+-------------------------
+yank the text with 'y'
+type '/'
+type 'ctrl+r 0'
