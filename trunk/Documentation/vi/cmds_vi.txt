@@ -32,6 +32,10 @@ gt (tab)
 
 search the selection text
 -------------------------
-yank the text with 'y'
-type '/'
-type 'ctrl+r 0'
+1.
+ yank the text with 'y'
+ type '/'
+ type 'ctrl+r 0'
+2.
+ type 'q/'
+ there are the history text that you can select
