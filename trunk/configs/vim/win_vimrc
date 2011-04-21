@@ -30,6 +30,7 @@ endfunction
 
 colorscheme darkblue
 
+set cursorline
 set nobackup
 set ignorecase smartcase
 syntax on
