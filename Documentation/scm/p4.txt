@@ -1,0 +1,4 @@
+o create a branch from old branch
+ - p4 branch 
+ - p4 integrate 'source_branch' 'dest_branch'
+ - p4 submit -d 'descriptor'
