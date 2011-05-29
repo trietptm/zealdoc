@@ -2,3 +2,10 @@ o create a branch from old branch
  - p4 branch 
  - p4 integrate 'source_branch' 'dest_branch'
  - p4 submit -d 'descriptor'
+
+o check out changes
+ - p4 changes -m1 //dir/...#have
+
+o check out some lines's onwer
+ - p4 annotate -a -du "THE_FILE"
+ - p4 filelog -l "THE_FILE"
