@@ -9,3 +9,6 @@ o check out changes
 o check out some lines's onwer
  - p4 annotate -a -du "THE_FILE"
  - p4 filelog -l "THE_FILE"
+
+o diff revision on server
+ - p4 diff2 -du usb.c#1 usb.c#2
