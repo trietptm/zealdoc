@@ -38,4 +38,5 @@ all:
 	@mv ${TEMP} ${DEST_DIR}
 	@cp -rf ${IMG_DIR} ${DEST_DIR}/
 clean:
+	@echo "Cleaning up......"
 	@rm -rf ${DEST_DIR}
