@@ -39,3 +39,8 @@ search the selection text
 2.
  type 'q/'
  there are the history text that you can select
+
+find more than one string
+-------------------------
+/str1\|str2\|str3
+
