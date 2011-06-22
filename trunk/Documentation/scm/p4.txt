@@ -12,3 +12,12 @@ o check out some lines's onwer
 
 o diff revision on server
  - p4 diff2 -du usb.c#1 usb.c#2
+
+o submit
+ - a file
+  = p4 submit $file
+ - files
+  = p4 submit
+  = p4 opened -c #CL
+  = p4 submit -c #CL
+
