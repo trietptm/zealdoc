@@ -3,7 +3,7 @@ o create a branch from old branch
  - p4 integrate 'source_branch' 'dest_branch'
  - p4 submit -d 'descriptor'
 
-o check out changes
+o look up changes
  - p4 changes -m1 //dir/...#have
 
 o check out some lines's onwer
@@ -20,4 +20,3 @@ o submit
   = p4 submit
   = p4 opened -c #CL
   = p4 submit -c #CL
-
