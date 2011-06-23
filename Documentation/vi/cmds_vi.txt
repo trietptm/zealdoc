@@ -44,3 +44,6 @@ find more than one string
 -------------------------
 /str1\|str2\|str3
 
+calculate word in file
+----------------------
+:%s/WORD//gn
