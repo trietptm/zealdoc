@@ -4,7 +4,7 @@ o create a branch from old branch
  - p4 submit -d 'descriptor'
 
 o look up changes
- - p4 changes -m1 //dir/...#have
+ - p4 changes -m1 //$p4_client/...#have
 
 o check out some lines's onwer
  - p4 annotate -a -du "THE_FILE"
