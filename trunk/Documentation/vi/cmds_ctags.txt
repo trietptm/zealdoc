@@ -1,8 +1,13 @@
 Index
 -----
+ - Help
  - Generate tags (simplest way)
  - The Jump
 
+Help
+----
+This is what I have known or may be forgotten tips in vim&ctags. So I record
+it as an evidence that make you believe in me. I'm not a liar.
 
 Generate tags (simplest way)
 ----------------------------
@@ -11,5 +16,5 @@ o ctags -R
 
 The Jump
 --------
-o ctags -t `symbol name'
- - ex, $ ctags -t main
+o vim -t `symbol name'
+ - ex, $ vim -t main
