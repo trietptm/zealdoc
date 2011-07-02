@@ -1,0 +1,15 @@
+Index
+-----
+ - Generate tags (simplest way)
+ - The Jump
+
+
+Generate tags (simplest way)
+----------------------------
+o ctags -R
+ - This will generate a file named `tags' in current directory.
+
+The Jump
+--------
+o ctags -t `symbol name'
+ - ex, $ ctags -t main
