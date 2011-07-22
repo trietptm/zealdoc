@@ -25,3 +25,7 @@ o integrate from a changelist (branch1 to branch2)
  - p4 integ //depot/.../branch_1/...@xxx,@xxx //depot/.../branch_2/...
  - p4 resolve -am
  - p4 submit
+
+o show affect files in changelist
+ - p4 describe -s CL_NUM	// display description of that CL
+ - p4 describe -S CL_NUM	// display diff with previous vision of that CL
