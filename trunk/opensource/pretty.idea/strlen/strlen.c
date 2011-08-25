@@ -85,21 +85,21 @@ strlen(const char *str)
     /* Skip the first few bytes until we have an aligned p */
     for (p = str; (uintptr_t)p & LONGPTR_MASK; p++)
         if (*p == '\0')
-        return (p - str);
+            return (p - str);
 
     /* Scan the rest of the string using word sized operation */
     for (lp = (const unsigned long *)p; ; lp++)
         if ((*lp - mask01) & mask80) {
-        p = (const char *)(lp);
-        testbyte(0);
-        testbyte(1);
-        testbyte(2);
-        testbyte(3);
+            p = (const char *)(lp);
+            testbyte(0);
+            testbyte(1);
+            testbyte(2);
+            testbyte(3);
 #if (LONG_BIT >= 64)
-        testbyte(4);
-        testbyte(5);
-        testbyte(6);
-        testbyte(7);
+            testbyte(4);
+            testbyte(5);
+            testbyte(6);
+            testbyte(7);
 #endif
         }
 
