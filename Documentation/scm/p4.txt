@@ -29,3 +29,6 @@ o integrate from a changelist (branch1 to branch2)
 o show affect files in changelist
  - p4 describe -s CL_NUM	// display description of that CL
  - p4 describe -S CL_NUM	// display diff with previous vision of that CL
+
+o sync
+ - p4 sync //depot/your_branches/...@CL
