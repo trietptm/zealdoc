@@ -21,3 +21,10 @@ ln -s $CURRDIR/95xinput 95xinput
 echo "restart x window: ctrl+alt+backapace"
 
 exit 0
+
+# add below lines into /usb/bin/firefox
+# for scim
+XMODIFIERS=@im=SCIM
+GTK_IM_MODULE=scim-bridge
+export XMODIFIERS GTK_IM_MODULE
+
