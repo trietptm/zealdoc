@@ -75,6 +75,12 @@ if [ -f /etc/bash_completion ]; then
     . /etc/bash_completion
 fi
 
+# This is alias for cscope
+alias csrb='echo csrb start; cscope -Rb; mkdir -p cscope; mv cscope.out cscope; echo csrb stop'
+
+# This is alias for fxg
+alias fxg='find . -name cscope -prune -o -name .svn -prune -o -name .pc -prune -o -name CVS -prune -o -name doc -prune -o -name Doc -prune -o -print | xargs grep --color=auto'
+
 # close hate beep sound
 setterm -bfreq 20
 export CVSROOT=:pserver:zengjie@192.168.100.1:/home/cvsroot
