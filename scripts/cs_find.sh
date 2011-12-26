@@ -67,5 +67,7 @@ exit
 
 # Add some find command for finding out what you want
 #
-# 1. find . \( -name *.[sch] -o -name *.asm \) > cscope/cscope.files 
-# 2. find | egrep '\.(c|h|asm)$'
+# GOAL: list .c .h .s .asm files
+# 1. find . \( -name *.[sch] -o -name *.asm \)
+# 2. find | egrep '\.(c|s|h|asm)$'
+# 3. find . -name *.[chs] -o -name *.asm
