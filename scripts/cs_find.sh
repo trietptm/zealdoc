@@ -64,3 +64,8 @@ echo "Finding files now, just wait & be patient"
 cscope -b -k -q
 echo "Cscope Find Finish..."
 exit
+
+# Add some find command for finding out what you want
+#
+# 1. find . \( -name *.[sch] -o -name *.asm \) > cscope/cscope.files 
+# 2. find | egrep '\.(c|h|asm)$'
