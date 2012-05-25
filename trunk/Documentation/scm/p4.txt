@@ -32,3 +32,20 @@ o show affect files in changelist
 
 o sync
  - p4 sync //depot/your_branches/...@CL
+ - p4 sync @labelname
+
+o Revision
+ - file#n: revision specifier. The nth revision of the file.
+ - file#none
+ - file#head: latest version of the file.
+ - file#have: the revision on the current client.
+ - file@n: The revision of file immediately after changelist n was submitted.
+ - file@labelname
+ - file@clientname: The revision of file last taken into client workspace.
+ - file@dataspec
+
+o Delete the pending CL
+ - p4 changes -c $workspace -s pending
+ - p4 changelist -d $CL
+ or
+ - p4 -c $workspace -d $CL
