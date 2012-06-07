@@ -47,3 +47,10 @@ find more than one string
 calculate word in file
 ----------------------
 :%s/WORD//gn
+
+Insert $word for several line
+-----------------------------
+1. Ctrl+v select lines need to be changed
+2. 'I'
+3. input $word
+4. Esc
