@@ -49,3 +49,7 @@ o Delete the pending CL
  - p4 changelist -d $CL
  or
  - p4 -c $workspace -d $CL
+
+o Tag / Lable
+ - p4 tag -l @labelname ...
+ - p4 lables -u @username
