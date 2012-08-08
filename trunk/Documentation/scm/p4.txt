@@ -53,3 +53,8 @@ o Delete the pending CL
 o Tag / Lable
  - p4 tag -l @labelname ...
  - p4 lables -u @username
+
+o Create New Branch
+ - p4 branch @bname
+ - p4 integrate -b @bname
+ - p4 submit	// the 1st commit
