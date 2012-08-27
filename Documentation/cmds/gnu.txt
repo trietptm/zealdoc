@@ -1,0 +1,4 @@
+o gdb graphic debug
+ 1. gdb -tui ./a.out
+ 2. gdb ./a.out
+    ctrl+x + A
