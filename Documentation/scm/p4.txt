@@ -58,3 +58,7 @@ o Create New Branch
  - p4 branch @bname
  - p4 integrate -b @bname
  - p4 submit	// the 1st commit
+
+o Modify pending CL's description
+ - p4 change -u @CL
+ - p4 submit -c @CL
