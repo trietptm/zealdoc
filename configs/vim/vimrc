@@ -230,7 +230,13 @@ set so=7
 " t2t
 au BufNewFile,BufRead *.t2t set ft=txt2tags
 
-if filereadable(".atheros")
+" py
+ au BufNewFile,BufRead *.py set ft=python
+ autocmd FileType python set ts=4 | set sw=4
+
+" nowrap 
+set nowrap
+" 
 " TODO: switch the different style between linux and Atheros
 "
 " Begin -> for Atheros coding style
@@ -245,4 +251,14 @@ if filereadable(".atheros")
  let c_no_tab_space_error=1
  set smarttab
 " End -> for Atheros coding style
-endif
+
+augroup Binary
+"  au!
+ " au BufReadPre   *.o,*.exe,*.bin let &bin=1
+ " au BufReadPost  *.o,*.exe,*.bin if &bin | %!xxd
+ " au BufReadPost  *.o,*.exe,*.bin set ft=xxd | endif
+ " au BufWritePre  *.o,*.exe,*.bin if &bin | %!xxd -r
+ " au BufWritePre  *.o,*.exe,*.bin endif
+ " au BufWritePost *.o,*.exe,*.bin if &bin | %!xxd
+ " au BufWritePost *.o,*.exe,*.bin set nomod | endif
+augroup END
