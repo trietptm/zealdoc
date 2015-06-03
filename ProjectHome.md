@@ -1,0 +1,1 @@
+docs, code, config and scripts that all in text.
